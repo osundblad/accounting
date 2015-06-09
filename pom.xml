@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.2.4.RELEASE</version>
+    </parent>
+
+    <artifactId>accounting</artifactId>
+    <groupId>se.eris.accounting</groupId>
+    <packaging>pom</packaging>
+    <version>0.1-SNAPSHOT</version>
+
+    <modules>
+        <module>model</module>
+        <module>core</module>
+        <module>persistence</module>
+        <module>services</module>
+        <module>web</module>
+        <module>app</module>
+    </modules>
+
+    <description>
+        This is the parent module, everything here is inherited by the other modules
+        so put only dependencies that are used globally here. No source code.
+    </description>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>13.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.intellij</groupId>
+                <artifactId>notnull-instrumenter-maven-plugin</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <id>instrument</id>
+                        <goals>
+                            <goal>instrument</goal>
+                            <goal>tests-instrument</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <annotations>
+                        <param>org.jetbrains.annotations.NotNull</param>
+                        <param>javax.validation.constraints.NotNull</param>
+                    </annotations>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
