@@ -45,4 +45,8 @@ public class Book {
         return description;
     }
 
+    @Override
+    public String toString() {
+        return "Book{id=" + id + ", name='" + name + '\'' + ", description='" + description + '\'' + '}';
+    }
 }
