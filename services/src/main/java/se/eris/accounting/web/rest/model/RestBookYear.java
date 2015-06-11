@@ -13,39 +13,34 @@ public class RestBookYear {
 
     @JsonProperty
     @Nullable
-    private Long id;
+    private final Long id;
+    @JsonProperty
+    private final long bookId;
     @JsonProperty
     @NotNull
-    private String startDate;
+    private final String startDate;
     @JsonProperty
     @NotNull
-    private String endDate;
+    private final String endDate;
 
     @JsonCreator
-    public RestBookYear(@JsonProperty("id") @Nullable final Long id, @JsonProperty("startDate") @NotNull final String startDate, @JsonProperty("endDate") @NotNull final String endDate) {
+    public RestBookYear(@JsonProperty("id") @Nullable final Long id, @JsonProperty("bookId") final long bookId, @JsonProperty("startDate") @NotNull final String startDate, @JsonProperty("endDate") @NotNull final String endDate) {
         this.id = id;
+        this.bookId = bookId;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
     public RestBookYear(@NotNull final BookYear bookYear) {
-        this.id = bookYear.getIdRaw();
-        this.startDate = bookYear.getStartDate().format(DateTimeFormatter.ISO_DATE);
-        this.endDate = bookYear.getEndDate().format(DateTimeFormatter.ISO_DATE);
-    }
-
-    @Nullable
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(@Nullable final Long id) {
-        this.id = id;
+        id = bookYear.getIdRaw();
+        bookId = bookYear.getBookId();
+        startDate = bookYear.getStartDate().format(DateTimeFormatter.ISO_DATE);
+        endDate = bookYear.getEndDate().format(DateTimeFormatter.ISO_DATE);
     }
 
     @NotNull
     public BookYear toCore() {
-        return new BookYear(id, LocalDate.parse(startDate), LocalDate.parse(endDate));
+        return new BookYear(id, bookId, LocalDate.parse(startDate), LocalDate.parse(endDate));
     }
 
     @Override

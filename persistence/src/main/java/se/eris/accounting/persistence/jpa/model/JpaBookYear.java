@@ -14,6 +14,9 @@ public class JpaBookYear {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column
+    private long bookId;
+
     @Column(nullable = false)
     private LocalDate start;
 
@@ -27,13 +30,14 @@ public class JpaBookYear {
 
     public JpaBookYear(@NotNull final BookYear bookYear) {
         id = bookYear.getIdRaw();
+        bookId = bookYear.getBookId();
         start = bookYear.getStartDate();
         end = bookYear.getEndDate();
     }
 
     @NotNull
     public BookYear toCore() {
-        return new BookYear(id, start, end);
+        return new BookYear(id, bookId, start, end);
     }
 
 }

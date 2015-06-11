@@ -25,6 +25,11 @@ public class BookYearDataService {
     }
 
     @NotNull
+    public Stream<BookYear> getAllBookYears(final long bookId) {
+        return getAllBookYears().filter(by -> by.getBookId() == bookId);
+    }
+
+    @NotNull
     public BookYear create(@NotNull final BookYear bookYear) {
         if (bookYear.hasId()) {
             throw new AlreadyPersistedException(bookYear + " has already been persisted (use update)." );

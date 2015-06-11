@@ -10,5 +10,6 @@ public enum ErrorCode {
 
     NOT_PERSISTED,
     ALREADY_PERSISTED,
+    NOT_FOUND,
 
 }

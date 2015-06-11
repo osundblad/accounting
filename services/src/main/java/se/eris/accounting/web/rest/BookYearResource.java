@@ -36,10 +36,16 @@ public class BookYearResource {
     }
 
     @NotNull
-    @RequestMapping(method = RequestMethod.GET, value = "/template")
-    public RestBookYear getTemplate() {
+    @RequestMapping(method = RequestMethod.GET, value = "/{bookId}")
+    public List<RestBookYear> get(@PathVariable("bookId") final long bookId) {
+        return restApiService.getAllBookYears(bookId).map(RestBookYear::new).collect(Collectors.toList());
+    }
+
+    @NotNull
+    @RequestMapping(method = RequestMethod.GET, value = "/{bookId}/template")
+    public RestBookYear getTemplate(@PathVariable("bookId") final long bookId) {
         final int year = LocalDate.now().getYear();
-        return new RestBookYear(new BookYear(null, LocalDate.of(year, Month.JANUARY, 1), LocalDate.of(year, Month.DECEMBER, 31)));
+        return new RestBookYear(new BookYear(null, bookId, LocalDate.of(year, Month.JANUARY, 1), LocalDate.of(year, Month.DECEMBER, 31)));
     }
 
     @NotNull
