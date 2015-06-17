@@ -10,12 +10,12 @@ import se.eris.accounting.persistence.jpa.model.JpaBook;
 import java.util.stream.Stream;
 
 @Service
-public class BookDataService {
+public class BookDao {
 
     private final JpaBookRepository bookRepository;
 
     @Autowired
-    public BookDataService(@NotNull final JpaBookRepository bookRepository) {
+    public BookDao(@NotNull final JpaBookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 

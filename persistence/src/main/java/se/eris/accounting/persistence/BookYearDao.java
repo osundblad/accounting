@@ -10,12 +10,12 @@ import se.eris.accounting.persistence.jpa.model.JpaBookYear;
 import java.util.stream.Stream;
 
 @Service
-public class BookYearDataService {
+public class BookYearDao {
 
     private final JpaBookYearRepository bookYearRepository;
 
     @Autowired
-    public BookYearDataService(@NotNull final JpaBookYearRepository bookYearRepository) {
+    public BookYearDao(@NotNull final JpaBookYearRepository bookYearRepository) {
         this.bookYearRepository = bookYearRepository;
     }
 
