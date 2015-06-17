@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 public class BookYearResourceTest {
 
     @Test
-    public void testThatCanConvertUpdateModel() {
+    public void conversionOfRestBookYear() {
         final MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
 
         assertTrue(converter.canRead(RestBookYear.class, MediaType.APPLICATION_JSON));

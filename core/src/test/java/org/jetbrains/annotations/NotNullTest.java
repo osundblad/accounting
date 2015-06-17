@@ -8,7 +8,7 @@ import org.junit.rules.ExpectedException;
 public class NotNullTest {
 
     @Rule
-    public ExpectedException exception = ExpectedException.none();
+    public final ExpectedException exception = ExpectedException.none();
 
     @Test
     public void notNullArgument_shouldInsertNullCheck() {
@@ -17,6 +17,7 @@ public class NotNullTest {
         notNullArgument(null);
     }
 
+    @SuppressWarnings("EmptyMethod")
     private void notNullArgument(@NotNull final String s) {
     }
 
@@ -27,6 +28,7 @@ public class NotNullTest {
         notNullReturnValue();
     }
 
+    @SuppressWarnings({"UnusedReturnValue", "SameReturnValue"})
     @NotNull
     private String notNullReturnValue() {
         return null;
