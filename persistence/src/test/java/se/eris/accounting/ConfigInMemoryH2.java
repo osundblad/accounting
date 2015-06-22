@@ -84,7 +84,7 @@ public class ConfigInMemoryH2 {
     public SpringLiquibase liquibase() {
         final SpringLiquibase liquibase = new SpringLiquibase();
         liquibase.setDataSource(dataSource());
-        liquibase.setChangeLog("classpath:db/accounting.changelog_master.xml");
+        liquibase.setChangeLog("classpath:db/db.changelog-master.yaml");
         liquibase.setContexts("production");
         return liquibase;
     }

@@ -5,12 +5,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
-@Import(value = {ConfigInMemoryH2.class})
+//@Import(value = {ConfigInMemoryH2.class})
 public class Application {
 
     public static void main(@NotNull final String[] args) throws Exception {
