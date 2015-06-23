@@ -2,8 +2,12 @@ package se.eris.accounting.persistence.jpa.model;
 
 import se.eris.accounting.model.Book;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @Entity
 @Table(name = "book")
@@ -11,8 +15,8 @@ public class JpaBook {
 
     @NotNull
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Column(nullable = false, length = 36)
+    private String id;
 
     @NotNull
     @Column(nullable = false, length = 200)
@@ -28,14 +32,14 @@ public class JpaBook {
     }
 
     public JpaBook(@NotNull final Book book) {
-        id = book.getIdRaw();
+        id = book.hasId() ? book.getId().toString() : UUID.randomUUID().toString();
         name = book.getName();
         description = book.getDescription();
     }
 
     @NotNull
     public Book toCore() {
-        return new Book(id, name, description);
+        return new Book(UUID.fromString(id), name, description);
     }
 
     @SuppressWarnings("SimplifiableIfStatement")

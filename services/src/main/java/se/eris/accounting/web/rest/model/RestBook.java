@@ -6,11 +6,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import se.eris.accounting.model.Book;
 
+import java.util.UUID;
+
 public class RestBook {
 
     @JsonProperty
     @Nullable
-    private final Long id;
+    private final String id;
     @JsonProperty
     @NotNull
     private final String name;
@@ -19,20 +21,21 @@ public class RestBook {
     private final String description;
 
     @JsonCreator
-    public RestBook(@JsonProperty("id") @Nullable final Long id, @JsonProperty("name") @NotNull final String name, @JsonProperty("description") @NotNull final String description) {
+    public RestBook(@JsonProperty("id") @Nullable final String id, @JsonProperty("name") @NotNull final String name, @JsonProperty("description") @NotNull final String description) {
         this.id = id;
         this.name = name;
         this.description = description;
     }
 
     public RestBook(@NotNull final Book book) {
-        id = book.getIdRaw();
+        id = book.hasId() ? book.getId().toString() : null;
         name = book.getName();
         description = book.getDescription();
     }
 
     @NotNull
     public Book toCore() {
+        UUID id = this.id != null ? UUID.fromString(this.id) : null;
         return new Book(id, name, description);
     }
 
