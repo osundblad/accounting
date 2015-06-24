@@ -27,11 +27,7 @@ angular.module('hello', ['ngRoute'])
             } : {};
 
             $http.get('user', {headers: headers}).success(function (data) {
-                if (data.name) {
-                    $rootScope.authenticated = true;
-                } else {
-                    $rootScope.authenticated = false;
-                }
+                $rootScope.authenticated = !!data.name;
                 callback && callback();
             }).error(function () {
                 $rootScope.authenticated = false;

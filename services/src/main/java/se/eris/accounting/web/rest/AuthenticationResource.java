@@ -11,7 +11,7 @@ import java.security.Principal;
 public class AuthenticationResource {
 
     @RequestMapping("")
-    public Principal user(Principal user) {
+    public Principal user(final Principal user) {
         return user;
     }
 

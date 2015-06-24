@@ -30,9 +30,10 @@ public class BookResource {
         this.restApiService = restApiService;
     }
 
+    @NotNull
     @RequestMapping("/hello")
     public Map<String, Object> home() {
-        Map<String, Object> model = new HashMap<>();
+        final Map<String, Object> model = new HashMap<>();
         model.put("id", UUID.randomUUID().toString());
         model.put("content", "Hello World");
         return model;
@@ -59,14 +60,14 @@ public class BookResource {
 
     @NotNull
     @RequestMapping(method = RequestMethod.GET, value = "/create")
-    public RestBook createRandom(@RequestParam("name") String name, @RequestParam("description") String description) {
+    public RestBook createRandom(@RequestParam("name") final String name, @RequestParam("description") final String description) {
         return new RestBook(restApiService.create(new Book(null, name, description)));
     }
 
     @NotNull
+    @ResponseBody
     @RequestMapping(method = RequestMethod.POST)
     public
-    @ResponseBody
     RestBook create(@RequestBody @NotNull final RestBook restBook) {
         final Book saved = restApiService.create(restBook.toCore());
         logger.debug("created book: " + saved);

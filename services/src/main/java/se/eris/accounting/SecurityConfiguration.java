@@ -1,5 +1,6 @@
 package se.eris.accounting;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -12,8 +13,9 @@ import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 @Configuration
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(final HttpSecurity http) throws Exception {
         http.httpBasic()
                 .and()
                   .authorizeRequests()
@@ -24,8 +26,9 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                   .csrf().csrfTokenRepository(csrfTokenRepository());
     }
 
+    @NotNull
     private CsrfTokenRepository csrfTokenRepository() {
-      HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+      final HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
       repository.setHeaderName("X-XSRF-TOKEN");
       return repository;
     }}

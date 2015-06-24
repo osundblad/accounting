@@ -35,10 +35,11 @@ public class RestBook {
 
     @NotNull
     public Book toCore() {
-        UUID id = this.id != null ? UUID.fromString(this.id) : null;
+        final UUID id = this.id != null ? UUID.fromString(this.id) : null;
         return new Book(id, name, description);
     }
 
+    @NotNull
     @Override
     public String toString() {
         return "RestBook{" +
