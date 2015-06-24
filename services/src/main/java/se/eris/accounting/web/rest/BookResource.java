@@ -10,7 +10,9 @@ import se.eris.accounting.model.Book;
 import se.eris.accounting.services.RestApiService;
 import se.eris.accounting.web.rest.model.RestBook;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -26,6 +28,14 @@ public class BookResource {
     @Autowired
     public BookResource(@NotNull final RestApiService restApiService) {
         this.restApiService = restApiService;
+    }
+
+    @RequestMapping("/hello")
+    public Map<String, Object> home() {
+        Map<String, Object> model = new HashMap<>();
+        model.put("id", UUID.randomUUID().toString());
+        model.put("content", "Hello World");
+        return model;
     }
 
     @NotNull
@@ -55,7 +65,8 @@ public class BookResource {
 
     @NotNull
     @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody
+    public
+    @ResponseBody
     RestBook create(@RequestBody @NotNull final RestBook restBook) {
         final Book saved = restApiService.create(restBook.toCore());
         logger.debug("created book: " + saved);
