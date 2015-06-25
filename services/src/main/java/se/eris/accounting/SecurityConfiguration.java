@@ -15,7 +15,7 @@ import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
-    protected void configure(final HttpSecurity http) throws Exception {
+    protected void configure(@NotNull final HttpSecurity http) throws Exception {
         http.httpBasic()
                 .and()
                   .authorizeRequests()

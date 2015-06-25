@@ -2,10 +2,13 @@ angular.module('hello', ['ngRoute'])
     .config(function ($routeProvider, $httpProvider) {
 
         $routeProvider.when('/', {
-            templateUrl: 'home.html',
+            templateUrl: 'partials/home.html',
             controller: 'home'
+        }).when('/book/:bookId', {
+            templateUrl: 'partials/book-details.html',
+            controller: 'book'
         }).when('/login', {
-            templateUrl: 'login.html',
+            templateUrl: 'partials/login.html',
             controller: 'navigation'
         }).otherwise('/');
 
@@ -13,18 +16,24 @@ angular.module('hello', ['ngRoute'])
 
     })
     .controller('home', function ($scope, $http) {
-        $http.get('/book/hello').success(function (data) {
-            $scope.greeting = data;
-        })
+        $http.get('/book').success(function (data) {
+            $scope.books = data;
+        });
+    })
+    .controller('book', function ($scope, $routeParams, $http) {
+        $scope.bookId = $routeParams.bookId;
+        $http.get('/book/' + $scope.bookId).success(function (data) {
+            $scope.book = data;
+        });
+        $http.get('/year/' + $scope.bookId).success(function (data) {
+            $scope.bookYears = data;
+        });
     })
     .controller('navigation', function ($rootScope, $scope, $http, $location) {
 
         var authenticate = function (credentials, callback) {
 
-            var headers = credentials ? {
-                authorization: "Basic "
-                + btoa(credentials.username + ":" + credentials.password)
-            } : {};
+            var headers = credentials ? {authorization: "Basic " + btoa(credentials.username + ":" + credentials.password) } : {};
 
             $http.get('user', {headers: headers}).success(function (data) {
                 $rootScope.authenticated = !!data.name;
@@ -37,6 +46,7 @@ angular.module('hello', ['ngRoute'])
         };
 
         authenticate();
+
         $scope.credentials = {};
         $scope.login = function () {
             authenticate($scope.credentials, function () {
@@ -56,5 +66,5 @@ angular.module('hello', ['ngRoute'])
             }).error(function (data) {
                 $rootScope.authenticated = false;
             });
-        }
+        };
     });
