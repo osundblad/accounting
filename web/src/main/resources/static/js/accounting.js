@@ -1,9 +1,9 @@
-angular.module('hello', ['ngRoute'])
+angular.module('accounting', ['ngRoute'])
     .config(function ($routeProvider, $httpProvider) {
 
         $routeProvider.when('/', {
-            templateUrl: 'partials/home.html',
-            controller: 'home'
+            templateUrl: 'partials/books.html',
+            controller: 'books'
         }).when('/book/:bookId', {
             templateUrl: 'partials/book-details.html',
             controller: 'book'
@@ -13,9 +13,8 @@ angular.module('hello', ['ngRoute'])
         }).otherwise('/');
 
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-
     })
-    .controller('home', function ($scope, $http) {
+    .controller('books', function ($scope, $http) {
         $http.get('/book').success(function (data) {
             $scope.books = data;
         });
@@ -32,9 +31,7 @@ angular.module('hello', ['ngRoute'])
     .controller('navigation', function ($rootScope, $scope, $http, $location) {
 
         var authenticate = function (credentials, callback) {
-
             var headers = credentials ? {authorization: "Basic " + btoa(credentials.username + ":" + credentials.password) } : {};
-
             $http.get('user', {headers: headers}).success(function (data) {
                 $rootScope.authenticated = !!data.name;
                 callback && callback();
@@ -42,12 +39,12 @@ angular.module('hello', ['ngRoute'])
                 $rootScope.authenticated = false;
                 callback && callback();
             });
-
         };
 
         authenticate();
 
         $scope.credentials = {};
+
         $scope.login = function () {
             authenticate($scope.credentials, function () {
                 if ($rootScope.authenticated) {
@@ -59,6 +56,7 @@ angular.module('hello', ['ngRoute'])
                 }
             });
         };
+
         $scope.logout = function () {
             $http.post('logout', {}).success(function () {
                 $rootScope.authenticated = false;
@@ -67,4 +65,5 @@ angular.module('hello', ['ngRoute'])
                 $rootScope.authenticated = false;
             });
         };
-    });
+    })
+;

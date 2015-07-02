@@ -19,7 +19,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.httpBasic()
                 .and()
                   .authorizeRequests()
-                  .antMatchers("/index.html", "/home.html", "/login.html", "/").permitAll().anyRequest()
+                  .antMatchers("/index.html", "/partials/login.html", "/").permitAll().anyRequest()
                   .authenticated()
                 .and()
                   .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
@@ -31,4 +31,6 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       final HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
       repository.setHeaderName("X-XSRF-TOKEN");
       return repository;
-    }}
+    }
+
+}

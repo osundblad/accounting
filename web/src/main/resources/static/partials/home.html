@@ -1,9 +1,0 @@
-<div ng-show="authenticated">
-	<h2>Books</h2>
-    <table>
-		<tr ng-repeat="book in books"><td><a href="#/book/{{book.id}}">{{book.name}}</a></td><td>book.description</td></tr>
-	</table>
-</div>
-<div ng-show="!authenticated">
-	<p>Please login to use the application.</p>
-</div>
