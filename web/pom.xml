@@ -20,6 +20,19 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>ro.isdc.wro4j</groupId>
+            <artifactId>wro4j-core</artifactId>
+            <version>${wro4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ro.isdc.wro4j</groupId>
+            <artifactId>wro4j-extensions</artifactId>
+            <version>${wro4j.version}</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <resources>
             <resource>
@@ -56,7 +69,7 @@
             <plugin>
                 <groupId>ro.isdc.wro4j</groupId>
                 <artifactId>wro4j-maven-plugin</artifactId>
-                <version>1.7.8</version>
+                <version>${wro4j.version}</version>
                 <executions>
                     <execution>
                         <phase>generate-resources</phase>
