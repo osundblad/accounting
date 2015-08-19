@@ -22,3 +22,33 @@ databaseChangeLog:
                   type: varchar(2000)
                   constraints:
                     nullable: false
+  - changeSet:
+      id: 2
+      author: olle
+      changes:
+        - createTable:
+            tableName: bookyear
+            columns:
+              - column:
+                  name: id
+                  type: char(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: book
+                  type: char(36)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_bookyear_book
+                    references: book(id)
+              - column:
+                  name: fromDate
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: toDate
+                  type: date
+                  constraints:
+                    nullable: false
