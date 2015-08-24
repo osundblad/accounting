@@ -7,6 +7,7 @@ import se.eris.accounting.model.BookYear;
 import se.eris.accounting.persistence.jpa.JpaBookYearRepository;
 import se.eris.accounting.persistence.jpa.model.JpaBookYear;
 
+import java.util.UUID;
 import java.util.stream.Stream;
 
 @Service
@@ -25,8 +26,8 @@ public class BookYearDao {
     }
 
     @NotNull
-    public Stream<BookYear> getAllBookYears(final long bookId) {
-        return getAllBookYears().filter(by -> by.getBookId() == bookId);
+    public Stream<BookYear> getAllBookYears(@NotNull final UUID bookId) {
+        return getAllBookYears().filter(year -> bookId.equals(year.getBookId()));
     }
 
     @NotNull

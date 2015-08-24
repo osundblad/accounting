@@ -8,14 +8,15 @@ import se.eris.accounting.model.BookYear;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 public class RestBookYear {
 
     @JsonProperty
     @Nullable
-    private final Long id;
+    private final String id;
     @JsonProperty
-    private final long bookId;
+    private final String bookId;
     @JsonProperty
     @NotNull
     private final String startDate;
@@ -24,7 +25,7 @@ public class RestBookYear {
     private final String endDate;
 
     @JsonCreator
-    public RestBookYear(@JsonProperty("id") @Nullable final Long id, @JsonProperty("bookId") final long bookId, @JsonProperty("startDate") @NotNull final String startDate, @JsonProperty("endDate") @NotNull final String endDate) {
+    public RestBookYear(@JsonProperty("id") @Nullable final String id, @JsonProperty("bookId") @NotNull final String bookId, @JsonProperty("startDate") @NotNull final String startDate, @JsonProperty("endDate") @NotNull final String endDate) {
         this.id = id;
         this.bookId = bookId;
         this.startDate = startDate;
@@ -32,15 +33,16 @@ public class RestBookYear {
     }
 
     public RestBookYear(@NotNull final BookYear bookYear) {
-        id = bookYear.getIdRaw();
-        bookId = bookYear.getBookId();
+        id = bookYear.hasId() ? bookYear.getIdRaw().toString() : null;
+        bookId = bookYear.getBookId().toString();
         startDate = bookYear.getStartDate().format(DateTimeFormatter.ISO_DATE);
         endDate = bookYear.getEndDate().format(DateTimeFormatter.ISO_DATE);
     }
 
     @NotNull
     public BookYear toCore() {
-        return new BookYear(id, bookId, LocalDate.parse(startDate), LocalDate.parse(endDate));
+        UUID id = this.id == null ? null : UUID.fromString(this.id);
+        return new BookYear(id, UUID.fromString(bookId), LocalDate.parse(startDate), LocalDate.parse(endDate));
     }
 
     @Override

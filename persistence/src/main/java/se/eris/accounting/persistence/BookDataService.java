@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import se.eris.accounting.model.Book;
 import se.eris.accounting.model.BookYear;
 
+import java.util.UUID;
 import java.util.stream.Stream;
 
 @Service
@@ -37,7 +38,7 @@ public class BookDataService {
     }
 
     @NotNull
-    public Stream<BookYear> getAllBookYears(final long bookId) {
+    public Stream<BookYear> getAllBookYears(@NotNull final UUID bookId) {
         return bookYearDao.getAllBookYears(bookId);
     }
 

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import se.eris.accounting.model.Book;
-import se.eris.accounting.services.RestApiService;
+import se.eris.accounting.services.BookRestFacade;
 import se.eris.accounting.web.rest.model.RestBook;
 
 import java.util.List;
@@ -21,23 +21,23 @@ public class BookResource {
     private static final Logger logger = LoggerFactory.getLogger(BookResource.class);
 
     @NotNull
-    private final RestApiService restApiService;
+    private final BookRestFacade bookRestFacade;
 
     @Autowired
-    public BookResource(@NotNull final RestApiService restApiService) {
-        this.restApiService = restApiService;
+    public BookResource(@NotNull final BookRestFacade bookRestFacade) {
+        this.bookRestFacade = bookRestFacade;
     }
 
     @NotNull
     @RequestMapping(method = RequestMethod.GET)
     public List<RestBook> getAll() {
-        return restApiService.getAllBooks().map(RestBook::new).collect(Collectors.toList());
+        return bookRestFacade.getAllBooks().map(RestBook::new).collect(Collectors.toList());
     }
 
     @NotNull
     @RequestMapping(method = RequestMethod.GET, value = "/{bookId}")
     public RestBook get(@PathVariable("bookId") final UUID bookId) {
-        final Book book = restApiService.getAllBooks().filter(b -> b.getId().equals(bookId)).findFirst().orElseThrow(() -> new NotFoundException("no " + Book.class.getSimpleName() + " with id " + bookId + " found."));
+        final Book book = bookRestFacade.getAllBooks().filter(b -> b.getId().equals(bookId)).findFirst().orElseThrow(() -> new NotFoundException("no " + Book.class.getSimpleName() + " with id " + bookId + " found."));
         return new RestBook(book);
     }
 
@@ -50,7 +50,7 @@ public class BookResource {
     @NotNull
     @RequestMapping(method = RequestMethod.GET, value = "/create")
     public RestBook createRandom(@RequestParam("name") final String name, @RequestParam("description") final String description) {
-        return new RestBook(restApiService.create(new Book(null, name, description)));
+        return new RestBook(bookRestFacade.create(new Book(null, name, description)));
     }
 
     @NotNull
@@ -58,7 +58,7 @@ public class BookResource {
     @RequestMapping(method = RequestMethod.POST)
     public
     RestBook create(@RequestBody @NotNull final RestBook restBook) {
-        final Book saved = restApiService.create(restBook.toCore());
+        final Book saved = bookRestFacade.create(restBook.toCore());
         logger.debug("created book: " + saved);
         return new RestBook(saved);
     }

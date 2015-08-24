@@ -7,12 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import se.eris.accounting.model.BookYear;
-import se.eris.accounting.services.RestApiService;
+import se.eris.accounting.services.BookRestFacade;
 import se.eris.accounting.web.rest.model.RestBookYear;
 
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -22,28 +23,28 @@ public class BookYearResource {
     private static final Logger logger = LoggerFactory.getLogger(BookYearResource.class);
 
     @NotNull
-    private final RestApiService restApiService;
+    private final BookRestFacade bookRestFacade;
 
     @Autowired
-    public BookYearResource(@NotNull final RestApiService restApiService) {
-        this.restApiService = restApiService;
+    public BookYearResource(@NotNull final BookRestFacade bookRestFacade) {
+        this.bookRestFacade = bookRestFacade;
     }
 
     @NotNull
     @RequestMapping(method = RequestMethod.GET)
     public List<RestBookYear> getAll() {
-        return restApiService.getAllBookYears().map(RestBookYear::new).collect(Collectors.toList());
+        return bookRestFacade.getAllBookYears().map(RestBookYear::new).collect(Collectors.toList());
     }
 
     @NotNull
     @RequestMapping(method = RequestMethod.GET, value = "/{bookId}")
-    public List<RestBookYear> get(@PathVariable("bookId") final long bookId) {
-        return restApiService.getAllBookYears(bookId).map(RestBookYear::new).collect(Collectors.toList());
+    public List<RestBookYear> get(@PathVariable("bookId") @NotNull final UUID bookId) {
+        return bookRestFacade.getAllBookYears(bookId).map(RestBookYear::new).collect(Collectors.toList());
     }
 
     @NotNull
     @RequestMapping(method = RequestMethod.GET, value = "/{bookId}/template")
-    public RestBookYear getTemplate(@PathVariable("bookId") final long bookId) {
+    public RestBookYear getTemplate(@PathVariable("bookId") @NotNull final UUID bookId) {
         final int year = LocalDate.now().getYear();
         return new RestBookYear(new BookYear(null, bookId, LocalDate.of(year, Month.JANUARY, 1), LocalDate.of(year, Month.DECEMBER, 31)));
     }
@@ -52,7 +53,7 @@ public class BookYearResource {
     @RequestMapping(method = RequestMethod.POST)
     public @ResponseBody
     RestBookYear create(@RequestBody @NotNull final RestBookYear restBookYear) {
-        final BookYear saved = restApiService.create(restBookYear.toCore());
+        final BookYear saved = bookRestFacade.create(restBookYear.toCore());
         logger.debug("created book year: " + saved);
         return new RestBookYear(saved);
     }

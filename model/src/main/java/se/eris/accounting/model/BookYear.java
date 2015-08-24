@@ -4,19 +4,20 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class BookYear {
 
     @Nullable
-    private final Long id;
+    private final UUID id;
 
-    private final long bookId;
+    private final UUID bookId;
     @NotNull
     private final LocalDate startDate;
     @NotNull
     private final LocalDate endDate;
 
-    public BookYear(@Nullable final Long id, @NotNull final Long bookId, @NotNull final LocalDate startDate, @NotNull final LocalDate endDate) {
+    public BookYear(@Nullable final UUID id, @NotNull final UUID bookId, @NotNull final LocalDate startDate, @NotNull final LocalDate endDate) {
         this.id = id;
         this.bookId = bookId;
         this.startDate = startDate;
@@ -27,7 +28,8 @@ public class BookYear {
         return id != null;
     }
 
-    public long getId() {
+    @NotNull
+    public UUID getId() {
         if (id == null) {
             throw new NotPersistedException(this);
         }
@@ -35,11 +37,12 @@ public class BookYear {
     }
 
     @Nullable
-    public Long getIdRaw() {
+    public UUID getIdRaw() {
         return id;
     }
 
-    public long getBookId() {
+    @NotNull
+    public UUID getBookId() {
         return bookId;
     }
 

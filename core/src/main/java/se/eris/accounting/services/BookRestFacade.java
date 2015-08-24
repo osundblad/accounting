@@ -7,15 +7,16 @@ import se.eris.accounting.model.Book;
 import se.eris.accounting.model.BookYear;
 import se.eris.accounting.persistence.BookDataService;
 
+import java.util.UUID;
 import java.util.stream.Stream;
 
 @Service
-public class RestApiService {
+public class BookRestFacade {
 
     private final BookDataService bookDataService;
 
     @Autowired
-    public RestApiService(@NotNull final BookDataService bookDataService) {
+    public BookRestFacade(@NotNull final BookDataService bookDataService) {
         this.bookDataService = bookDataService;
     }
 
@@ -40,7 +41,7 @@ public class RestApiService {
     }
 
     @NotNull
-    public Stream<BookYear> getAllBookYears(final long bookId) {
+    public Stream<BookYear> getAllBookYears(@NotNull final UUID bookId) {
         return bookDataService.getAllBookYears(bookId);
     }
 

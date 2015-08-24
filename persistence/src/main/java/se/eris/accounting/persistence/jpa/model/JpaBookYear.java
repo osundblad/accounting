@@ -5,6 +5,7 @@ import se.eris.accounting.model.BookYear;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "bookYear")
@@ -12,12 +13,12 @@ public class JpaBookYear {
 
     @NotNull
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Column(nullable = false, length = 36)
+    private String id;
 
     @NotNull
-    @Column
-    private long bookId;
+    @Column(nullable = false, length = 36)
+    private String bookId;
 
     @NotNull
     @Column(nullable = false)
@@ -33,37 +34,39 @@ public class JpaBookYear {
     }
 
     public JpaBookYear(@NotNull final BookYear bookYear) {
-        id = bookYear.getIdRaw();
-        bookId = bookYear.getBookId();
+        id = bookYear.hasId() ? bookYear.getId().toString() : UUID.randomUUID().toString();
+        bookId = bookYear.getBookId().toString();
         start = bookYear.getStartDate();
         end = bookYear.getEndDate();
     }
 
     @NotNull
     public BookYear toCore() {
-        return new BookYear(id, bookId, start, end);
+        return new BookYear(UUID.fromString(id), UUID.fromString(bookId), start, end);
     }
 
-    @SuppressWarnings("SimplifiableIfStatement")
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        final JpaBookYear that = (JpaBookYear) o;
+        JpaBookYear that = (JpaBookYear) o;
 
-        if (bookId != that.bookId) return false;
-        if (!id.equals(that.id)) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (!bookId.equals(that.bookId)) return false;
         if (!start.equals(that.start)) return false;
-        return end.equals(that.end);
+        if (!end.equals(that.end)) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + (int) (bookId ^ (bookId >>> 32));
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + bookId.hashCode();
         result = 31 * result + start.hashCode();
         result = 31 * result + end.hashCode();
         return result;
     }
+
 }
