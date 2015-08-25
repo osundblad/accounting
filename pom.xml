@@ -21,7 +21,7 @@
         <module>persistence</module>
         <module>services</module>
         <module>web</module>
-        <module>app</module>
+        <module>dist</module>
     </modules>
 
     <description>
