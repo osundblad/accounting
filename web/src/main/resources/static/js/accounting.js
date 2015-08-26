@@ -24,7 +24,7 @@ angular.module('accounting', ['ngRoute'])
         $http.get('/book/' + $scope.bookId).success(function (data) {
             $scope.book = data;
         });
-        $http.get('/year/' + $scope.bookId).success(function (data) {
+        $http.get('/bookyear/' + $scope.bookId).success(function (data) {
             $scope.bookYears = data;
         });
     })

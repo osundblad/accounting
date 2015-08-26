@@ -17,7 +17,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(value = "/year", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/bookyear", produces = MediaType.APPLICATION_JSON_VALUE)
 public class BookYearResource {
 
     private static final Logger logger = LoggerFactory.getLogger(BookYearResource.class);
