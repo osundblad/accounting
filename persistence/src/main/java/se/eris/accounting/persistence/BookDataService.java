@@ -34,12 +34,12 @@ public class BookDataService {
 
     @NotNull
     public Stream<BookYear> getAllBookYears() {
-        return bookYearDao.getAllBookYears();
+        return bookYearDao.findAllBookYears();
     }
 
     @NotNull
     public Stream<BookYear> getAllBookYears(@NotNull final UUID bookId) {
-        return bookYearDao.getAllBookYears(bookId);
+        return bookYearDao.findAllBookYears(bookId);
     }
 
     @NotNull

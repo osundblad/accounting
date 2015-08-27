@@ -27,7 +27,7 @@ databaseChangeLog:
       author: olle
       changes:
         - createTable:
-            tableName: bookyear
+            tableName: book_year
             columns:
               - column:
                   name: id
@@ -36,19 +36,19 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: book
+                  name: book_id
                   type: char(36)
                   constraints:
                     nullable: false
                     foreignKeyName: fk_bookyear_book
                     references: book(id)
               - column:
-                  name: fromDate
+                  name: from_date
                   type: date
                   constraints:
                     nullable: false
               - column:
-                  name: toDate
+                  name: to_date
                   type: date
                   constraints:
                     nullable: false

@@ -17,16 +17,16 @@ public class JpaBookYear {
     private String id;
 
     @NotNull
-    @Column(nullable = false, length = 36)
+    @Column(name = "bookId", nullable = false, length = 36)
     private String bookId;
 
     @NotNull
-    @Column(nullable = false)
-    private LocalDate start;
+    @Column(name = "fromDate", nullable = false)
+    private LocalDate fromDate;
 
     @NotNull
-    @Column(nullable = false)
-    private LocalDate end;
+    @Column(name = "toDate", nullable = false)
+    private LocalDate toDate;
 
 
     @SuppressWarnings("UnusedDeclaration") // needed by Jpa framework
@@ -36,13 +36,13 @@ public class JpaBookYear {
     public JpaBookYear(@NotNull final BookYear bookYear) {
         id = bookYear.hasId() ? bookYear.getId().toString() : UUID.randomUUID().toString();
         bookId = bookYear.getBookId().toString();
-        start = bookYear.getStartDate();
-        end = bookYear.getEndDate();
+        fromDate = bookYear.getStartDate();
+        toDate = bookYear.getEndDate();
     }
 
     @NotNull
     public BookYear toCore() {
-        return new BookYear(UUID.fromString(id), UUID.fromString(bookId), start, end);
+        return new BookYear(UUID.fromString(id), UUID.fromString(bookId), fromDate, toDate);
     }
 
     @Override
@@ -54,8 +54,8 @@ public class JpaBookYear {
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (!bookId.equals(that.bookId)) return false;
-        if (!start.equals(that.start)) return false;
-        if (!end.equals(that.end)) return false;
+        if (!fromDate.equals(that.fromDate)) return false;
+        if (!toDate.equals(that.toDate)) return false;
 
         return true;
     }
@@ -64,8 +64,8 @@ public class JpaBookYear {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + bookId.hashCode();
-        result = 31 * result + start.hashCode();
-        result = 31 * result + end.hashCode();
+        result = 31 * result + fromDate.hashCode();
+        result = 31 * result + toDate.hashCode();
         return result;
     }
 

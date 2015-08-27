@@ -21,13 +21,13 @@ public class BookYearDao {
     }
 
     @NotNull
-    public Stream<BookYear> getAllBookYears() {
+    public Stream<BookYear> findAllBookYears() {
         return bookYearRepository.findAll().stream().map(JpaBookYear::toCore);
     }
 
     @NotNull
-    public Stream<BookYear> getAllBookYears(@NotNull final UUID bookId) {
-        return getAllBookYears().filter(year -> bookId.equals(year.getBookId()));
+    public Stream<BookYear> findAllBookYears(@NotNull final UUID bookId) {
+        return bookYearRepository.findByBookId(bookId.toString()).stream().map(JpaBookYear::toCore);
     }
 
     @NotNull

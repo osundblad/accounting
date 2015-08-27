@@ -1,4 +1,4 @@
-angular.module('accounting', ['ngRoute'])
+var app = angular.module('accounting', ['ngRoute'])
     .config(function ($routeProvider, $httpProvider) {
 
         $routeProvider.when('/', {
@@ -13,21 +13,9 @@ angular.module('accounting', ['ngRoute'])
         }).otherwise('/');
 
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-    })
-    .controller('books', function ($scope, $http) {
-        $http.get('/book').success(function (data) {
-            $scope.books = data;
-        });
-    })
-    .controller('book', function ($scope, $routeParams, $http) {
-        $scope.bookId = $routeParams.bookId;
-        $http.get('/book/' + $scope.bookId).success(function (data) {
-            $scope.book = data;
-        });
-        $http.get('/bookyear/' + $scope.bookId).success(function (data) {
-            $scope.bookYears = data;
-        });
-    })
+    });
+
+app
     .controller('navigation', function ($rootScope, $scope, $http, $location) {
 
         var authenticate = function (credentials, callback) {
@@ -65,5 +53,21 @@ angular.module('accounting', ['ngRoute'])
                 $rootScope.authenticated = false;
             });
         };
+    })
+
+    .controller('books', function ($scope, $http) {
+        $http.get('/book').success(function (data) {
+            $scope.books = data;
+        });
+    })
+
+    .controller('book', function ($scope, $routeParams, $http) {
+        $scope.bookId = $routeParams.bookId;
+        $http.get('/book/' + $scope.bookId).success(function (data) {
+            $scope.book = data;
+        });
+        $http.get('/bookyear/' + $scope.bookId).success(function (data) {
+            $scope.bookYears = data;
+        });
     })
 ;
