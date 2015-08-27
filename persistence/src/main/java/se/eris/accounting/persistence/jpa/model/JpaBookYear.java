@@ -33,6 +33,7 @@ public class JpaBookYear {
     public JpaBookYear() {
     }
 
+    @SuppressWarnings("FeatureEnvy")
     public JpaBookYear(@NotNull final BookYear bookYear) {
         id = bookYear.hasId() ? bookYear.getId().toString() : UUID.randomUUID().toString();
         bookId = bookYear.getBookId().toString();
@@ -45,6 +46,7 @@ public class JpaBookYear {
         return new BookYear(UUID.fromString(id), UUID.fromString(bookId), fromDate, toDate);
     }
 
+    @SuppressWarnings("RedundantIfStatement")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,10 +65,20 @@ public class JpaBookYear {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + bookId.hashCode();
-        result = 31 * result + fromDate.hashCode();
-        result = 31 * result + toDate.hashCode();
+        result = 37 * result + bookId.hashCode();
+        result = 37 * result + fromDate.hashCode();
+        result = 37 * result + toDate.hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "JpaBookYear{" +
+                "id='" + id + '\'' +
+                ", bookId='" + bookId + '\'' +
+                ", fromDate=" + fromDate +
+                ", toDate=" + toDate +
+                '}';
     }
 
 }

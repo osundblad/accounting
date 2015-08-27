@@ -11,6 +11,7 @@ public class BookYear {
     @Nullable
     private final UUID id;
 
+    @NotNull
     private final UUID bookId;
     @NotNull
     private final LocalDate startDate;
@@ -54,6 +55,29 @@ public class BookYear {
     @NotNull
     public LocalDate getEndDate() {
         return endDate;
+    }
+
+    @SuppressWarnings("SimplifiableIfStatement")
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BookYear bookYear = (BookYear) o;
+
+        if (id != null ? !id.equals(bookYear.id) : bookYear.id != null) return false;
+        if (!bookId.equals(bookYear.bookId)) return false;
+        if (!startDate.equals(bookYear.startDate)) return false;
+        return endDate.equals(bookYear.endDate);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + bookId.hashCode();
+        result = 31 * result + startDate.hashCode();
+        result = 31 * result + endDate.hashCode();
+        return result;
     }
 
     @Override
