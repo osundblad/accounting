@@ -3,10 +3,6 @@
 :::::::::::::::::::::::::::::::::::::::::
 @echo off
 CLS
-ECHO.
-ECHO =============================
-ECHO Running Admin shell
-ECHO =============================
 
 :checkPrivileges
 NET FILE 1>NUL 2>NUL
@@ -14,10 +10,6 @@ if '%errorlevel%' == '0' ( goto gotPrivileges ) else ( goto getPrivileges )
 
 :getPrivileges
 if '%1'=='ELEV' (shift & goto gotPrivileges)
-ECHO.
-ECHO **************************************
-ECHO Invoking UAC for Privilege Escalation
-ECHO **************************************
 
 setlocal DisableDelayedExpansion
 set "batchPath=%~0"
@@ -33,6 +25,14 @@ exit /B
 ::::::::::::::::::::::::::::
 setlocal & pushd .
 
-REM Run shell as admin (example) - put here code as you like
-::cmd /k
-net stop MariaDB
+for /F "tokens=3 delims=: " %%H in ('sc query "MariaDB" ^| findstr "        STATE"') do (
+   if /I "%%H" NEQ "STOPPED" (
+      net stop MariaDB
+   )
+)
+
+for /F "tokens=3 delims=: " %%H in ('sc query "MariaDB" ^| findstr "        STATE"') do (
+   ECHO "MariaDB is %%H"
+)
+
+timeout 2 >nul
