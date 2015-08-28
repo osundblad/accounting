@@ -13,17 +13,20 @@ import java.util.UUID;
 @Table(name = "book")
 public class JpaBook {
 
+    public static final int NAME_MAX_LENGTH = 200;
+    public static final int DESCRIPTION_MAX_LENGTH = 2000;
+
     @NotNull
     @Id
     @Column(nullable = false, length = 36)
     private String id;
 
     @NotNull
-    @Column(nullable = false, length = 200)
+    @Column(nullable = false, length = NAME_MAX_LENGTH)
     private String name;
 
     @NotNull
-    @Column(nullable = false, length = 2000)
+    @Column(nullable = false, length = DESCRIPTION_MAX_LENGTH)
     private String description;
 
 
