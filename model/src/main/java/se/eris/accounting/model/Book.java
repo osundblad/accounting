@@ -44,7 +44,30 @@ public class Book {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Book book = (Book) o;
+
+        if (id != null ? !id.equals(book.id) : book.id != null) return false;
+        if (!name.equals(book.name)) return false;
+        if (!description.equals(book.description)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + name.hashCode();
+        result = 31 * result + description.hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "Book{id=" + id + ", name='" + name + '\'' + ", description='" + description + '\'' + '}';
     }
+
 }
