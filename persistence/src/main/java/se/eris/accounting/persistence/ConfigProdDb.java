@@ -7,6 +7,5 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableJpaRepositories
 @EnableTransactionManagement
-public class ConfigInProdDb {
-
+public class ConfigProdDb {
 }

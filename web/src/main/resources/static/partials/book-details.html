@@ -1,17 +1,24 @@
 <div ng-show="authenticated">
-	<h2>{{book.name}}</h2>
-	<p>{{book.description}}</p>
+    <h2>{{book.name}}</h2>
+
+    <p>{{book.description}}</p>
 
     <h3>years</h3>
     <table class="table table-striped">
-		<tr ng-repeat="year in bookYears">
-			<td>{{year.start}}</td><td>-</td><td>{{year.end}}</td>
-		</tr>
-	</table>
+        <tr ng-repeat="year in bookYears">
+            <td>{{year.start}}</td>
+            <td>-</td>
+            <td>{{year.end}}</td>
+        </tr>
+    </table>
 
     <!-- todo "add year" button that opens the "add year popover" -->
-    <input type="button"/>
+    <button ng-click="count = count + 1" ng-init="count=0" class="button">Add year</button>
+    <span>
+          count: {{count}}
+    </span>
+
 </div>
 <div ng-show="!authenticated">
-	<p>Please login to use the application.</p>
+    <p>Please login to use the application.</p>
 </div>

@@ -59,13 +59,6 @@
             <version>13.0</version>
         </dependency>
 
-        <dependency>
-            <!-- Needed by application.properties -->
-            <groupId>org.mariadb.jdbc</groupId>
-            <artifactId>mariadb-java-client</artifactId>
-            <version>1.2.0</version>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 
     <build>
