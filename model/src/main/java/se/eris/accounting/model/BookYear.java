@@ -4,9 +4,17 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.UUID;
 
 public class BookYear {
+
+    public static final Comparator<? super BookYear> NEW_TO_OLD = new Comparator<BookYear>() {
+        @Override
+        public int compare(BookYear o1, BookYear o2) {
+            return o1.endDate.compareTo(o2.endDate);
+        }
+    };
 
     @Nullable
     private final UUID id;

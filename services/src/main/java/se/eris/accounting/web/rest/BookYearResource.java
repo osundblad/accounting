@@ -13,6 +13,7 @@ import se.eris.accounting.web.rest.model.RestBookYear;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -47,6 +48,21 @@ public class BookYearResource {
     public RestBookYear getTemplate(@PathVariable("bookId") @NotNull final UUID bookId) {
         final int year = LocalDate.now().getYear();
         return new RestBookYear(new BookYear(null, bookId, LocalDate.of(year, Month.JANUARY, 1), LocalDate.of(year, Month.DECEMBER, 31)));
+    }
+
+    @NotNull
+    @RequestMapping(method = RequestMethod.GET, value = "/{bookId}/next")
+    public RestBookYear getNext(@PathVariable("bookId") @NotNull final UUID bookId) {
+        final Optional<BookYear> bookYear = bookRestFacade.getAllBookYears(bookId).sorted(BookYear.NEW_TO_OLD).findFirst();
+        final RestBookYear nextBookYear;
+        if (bookYear.isPresent()) {
+            final LocalDate previousEndDate = bookYear.get().getEndDate();
+            nextBookYear = new RestBookYear(new BookYear(null, bookId, previousEndDate.plusDays(1), previousEndDate.plusYears(1)));
+        } else {
+            final int currentYear = LocalDate.now().getYear();
+            nextBookYear = new RestBookYear(new BookYear(null, bookId, LocalDate.of(currentYear, Month.JANUARY, 1), LocalDate.of(currentYear, Month.DECEMBER, 31)));
+        }
+        return nextBookYear;
     }
 
     @NotNull

@@ -69,5 +69,13 @@ app
         $http.get('/bookyear/' + $scope.bookId).success(function (data) {
             $scope.bookYears = data;
         });
+
+        $scope.addBookYear = function($scope, $http) {
+            console.log('button pressed');
+            $http.get('/bookyear/' + $scope.bookId + '/next').
+                success(function (data) {
+                    $scope.bookYears.push(data);
+            });
+        }
     })
 ;
