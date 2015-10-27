@@ -47,4 +47,5 @@ public class TransactionLine {
         result = (31 * result) + amount.hashCode();
         return result;
     }
+
 }

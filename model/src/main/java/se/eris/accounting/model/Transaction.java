@@ -4,58 +4,52 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.UUID;
 
 public class Transaction {
 
-    @Nullable
-    private final UUID id;
-
+    @NotNull
+    private final Optional<UUID> id;
     @NotNull
     private final UUID bookYearId;
     @NotNull
     private final LocalDate date;
     @NotNull
-    private final Collection<TransactionLine> collection;
+    private final Collection<TransactionLine> transactionLines;
 
-    public Transaction(@Nullable final UUID id, @NotNull final UUID bookYearId, @NotNull final LocalDate date, @NotNull final Collection<TransactionLine> collection) {
-        this.id = id;
+    public Transaction(@Nullable final UUID id, @NotNull final UUID bookYearId, @NotNull final LocalDate date, @NotNull final Collection<TransactionLine> transactionLines) {
+        this.id = Optional.ofNullable(id);
         this.bookYearId = bookYearId;
         this.date = date;
-        this.collection = collection;
+        this.transactionLines = new ArrayList<>(transactionLines);
         validate();
     }
 
     private void validate() {
-        if (!sumOfLineAmounts().isZero()) {
+        validateSumIsZero();
+    }
+
+    private void validateSumIsZero() {
+        if (!sumOfTransactionLines().isZero()) {
             throw new NonZeroSumTransactionException(this);
         }
     }
 
     @NotNull
-    private Amount sumOfLineAmounts() {
-        Amount sum = Amount.ZERO;
-        for (final TransactionLine transactionLine : collection) {
-            sum = sum.add(transactionLine.getAmount());
-        }
-        return sum;
-    }
-
-    public boolean hasId() {
-        return id != null;
+    private Amount sumOfTransactionLines() {
+        return transactionLines.stream().map(TransactionLine::getAmount).reduce(Amount.ZERO, Amount::add);
     }
 
     @NotNull
     public UUID getId() {
-        if (id == null) {
-            throw new NotPersistedException(this);
-        }
-        return id;
+        return id.orElseThrow(() -> new NotPersistedException(this));
     }
 
-    @Nullable
-    public UUID getIdRaw() {
+    @NotNull
+    public Optional<UUID> getIdRaw() {
         return id;
     }
 
