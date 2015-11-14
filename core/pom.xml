@@ -10,24 +10,5 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>core</artifactId>
-
-    <description>
-        Business layer of the application. This should contain only business logic the actual
-        business objects should be in the model module. It is important that no Jpa, Soap
-        stuff, etc, leak up to this module.
-    </description>
-
-    <dependencies>
-        <dependency>
-            <groupId>se.eris.accounting</groupId>
-            <artifactId>model</artifactId>
-            <version>0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>se.eris.accounting</groupId>
-            <artifactId>persistence</artifactId>
-            <version>0.1-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
-
+    
 </project>

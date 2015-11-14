@@ -3,8 +3,6 @@ package se.eris.accounting.model;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.UUID;
 
 public class BookYearAccount {
