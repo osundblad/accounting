@@ -1,0 +1,87 @@
+<!doctype html>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="bootstrap-dist/js/bootstrap.min.js"></script>
+<script src="mithril/mithril.min.js"></script>
+<script>
+    //this application only has one component: book
+    var book = {};
+
+    //for simplicity, we use this component to namespace the model classes
+
+    //the Book class has two properties
+    book.Book = function (data) {
+        this.name = m.prop(data.name);
+        this.description = m.prop(data.description);
+        this.done = m.prop(false);
+    };
+
+    //the BookList class is a list of Book's
+    book.BookList = Array;
+
+    //the view-model tracks a running list of Books,
+    //stores a name and description for new Books before they are created
+    //and takes care of the logic surrounding when adding is permitted
+    //and clearing the input after adding a Book to the list
+    book.vm = (function () {
+        var vm = {};
+        vm.init = function () {
+            //a running list of books
+            vm.list = new book.BookList();
+
+            //a slot to store the name of a new Book before it is created
+            vm.name = m.prop("");
+            vm.description = m.prop("");
+
+            //adds a Book to the list, and clears the description field for user convenience
+            vm.add = function () {
+                if (vm.name()) {
+                    vm.list.push(new book.Book({name: vm.name(), description: vm.description()}));
+                    vm.name("");
+                    vm.description("");
+                }
+            };
+        };
+        return vm
+    }());
+
+    //the controller defines what part of the model is relevant for the current page
+    //in our case, there's only one view-model that handles everything
+    book.controller = function () {
+        book.vm.init()
+    };
+
+    //here's the view
+    book.view = function () {
+        return m("html", [
+            m("head", [
+                m("link[href='bootstrap-dist/css/bootstrap.min.css'][rel=stylesheet]")
+            ]),
+            m("body", [
+                m("h2", "Some Books"),
+                m("input", {onchange: m.withAttr("value", book.vm.name), value: book.vm.name()}),
+                m("input", {onchange: m.withAttr("value", book.vm.description), value: book.vm.description()}),
+                m('button.btn.btn-default', {onclick: book.vm.add}, "Add"),
+                m("table", [
+                    book.vm.list.map(function (task, index) {
+                        return m("tr", [
+                            m("td", {style: "none"}, task.name()),
+                            m("td", [
+                                m("input[type=checkbox]", {
+                                    onclick: m.withAttr("checked", task.done),
+                                    checked: task.done()
+                                })
+                            ]),
+                            m("td", {style: {textDecoration: task.done() ? "line-through" : "none"}}, task.description())
+                        ])
+                    })
+                ])
+            ])
+        ]);
+    };
+
+    //initialize the application
+    m.mount(document, {controller: book.controller, view: book.view});
+</script>
