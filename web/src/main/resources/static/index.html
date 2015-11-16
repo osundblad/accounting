@@ -1,29 +1,107 @@
 <!doctype html>
-<html>
-<head>
-    <title>Eris Accounting</title>
-    <!-- 'angular-bootstrap' is wro group name -->
-    <link href="css/angular-bootstrap.css" rel="stylesheet">
-    <style type="text/css">
-        [ng\:cloak], [ng-cloak], .ng-cloak {
-            display: none !important;
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="bootstrap-dist/js/bootstrap.min.js"></script>
+<script src="mithril/mithril.min.js"></script>
+<script>
+    var Book = function(data) {
+        data = data || {id: null, name:"", description:""};
+        this.id = m.prop(data.id);
+        this.name = m.prop(data.name);
+        this.description = m.prop(data.description);
+    };
+    Book.get = function(bookId) {
+        return m.request({method: "GET", url: "/book/" + bookId})
+    };
+    Book.list = function() {
+        return m.request({method: "GET", url: "/book"})
+    };
+    Book.save = function(data) {
+        return m.request({method: "POST", url: "/book", data: data})
+    };
+
+    var BooksWidget = {
+        controller: function update() {
+            this.books = Book.list();
+            this.save = function(book) {
+                Book.save(book).then(update.bind(this))
+            }.bind(this)
+        },
+        view: function(ctrl) {
+            return m("html", [
+                m("head", [
+                    m("link[href='bootstrap-dist/css/bootstrap.min.css'][rel=stylesheet]")
+                ]),
+                m("body", [
+                    m("h2", "Books"),
+                    m.component(BookList, {books: ctrl.books}),
+                    m.component(BookForm, {onsave: ctrl.save})
+                ])
+            ])
         }
-    </style>
-</head>
+    };
 
-<body ng-app="accounting" ng-cloak class="ng-cloak">
-<div ng-controller="navigation" class="container">
-    <ul class="nav nav-pills" role="tablist">
-        <li class="active"><a href="#/">home</a></li>
-        <li ng-show="!authenticated"><a href="#/login">login</a></li>
-        <li ng-show="authenticated"><a href="" ng-click="logout()">logout</a></li>
-    </ul>
-</div>
+    var BookForm = {
+        controller: function(args) {
+            this.book = m.prop(args.book || new Book())
+        },
+        view: function(ctrl, args) {
+            var book = ctrl.book();
 
-<div ng-view class="container"></div>
+            return m("form", [
+                m("label", "Name"),
+                m("input", {oninput: m.withAttr("value", book.name), value: book.name()}),
 
-<!-- 'angular-bootstrap' is wro group name -->
-<script src="js/angular-bootstrap.js" type="text/javascript"></script>
+                m("label", "Description"),
+                m("input", {oninput: m.withAttr("value", book.description), value: book.description()}),
 
-</body>
-</html>
+                m("button[type=button]", {onclick: args.onsave.bind(this, book)}, "Save")
+            ])
+        }
+    };
+
+    var BookList = {
+        view: function(ctrl, args) {
+            return m("table", [
+                args.books().map(function(book) {
+                    return m("tr", [
+                        m("a[href='/book/" + book.id + "']", {config: m.route}, book.name),
+                        m("td", book.description)
+                    ])
+                })
+            ])
+        }
+    };
+
+    var BookWidget = {
+        controller: function update() {
+            this.book = Book.get(m.route.param("bookId"));
+            this.save = function(book) {
+                Book.save(book).then(update.bind(this))
+            }.bind(this)
+        },
+        view: function(ctrl) {
+            return m("html", [
+                m("head", [
+                    m("link[href='bootstrap-dist/css/bootstrap.min.css'][rel=stylesheet]")
+                ]),
+                m("body", [
+                    m("h2", ctrl.book().name),
+                    m("p", ctrl.book().description)
+                ])
+            ])
+        }
+    };
+
+    //setup routes to start w/ the `#` symbol
+    m.route.mode = "hash";
+
+    //define a route
+    m.route(document, "/books", {
+        "/books": BooksWidget,
+        "/book/:bookId": BookWidget
+    });
+
+</script>
