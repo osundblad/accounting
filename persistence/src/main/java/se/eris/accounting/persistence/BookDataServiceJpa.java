@@ -12,7 +12,9 @@ import java.util.stream.Stream;
 @Service
 public class BookDataServiceJpa implements BookDataService {
 
+    @NotNull
     private final BookDao bookDao;
+    @NotNull
     private final BookYearDao bookYearDao;
 
     @Autowired

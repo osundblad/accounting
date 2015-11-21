@@ -5,19 +5,21 @@ import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDate;
 import java.util.Comparator;
+import java.util.Optional;
 import java.util.UUID;
 
 public class BookYear {
 
+    @NotNull
     public static final Comparator<? super BookYear> NEW_TO_OLD = new Comparator<BookYear>() {
         @Override
-        public int compare(BookYear o1, BookYear o2) {
+        public int compare(@NotNull final BookYear o1, @NotNull final BookYear o2) {
             return o1.endDate.compareTo(o2.endDate);
         }
     };
 
-    @Nullable
-    private final UUID id;
+    @NotNull
+    private final Optional<UUID> id;
 
     @NotNull
     private final UUID bookId;
@@ -27,26 +29,18 @@ public class BookYear {
     private final LocalDate endDate;
 
     public BookYear(@Nullable final UUID id, @NotNull final UUID bookId, @NotNull final LocalDate startDate, @NotNull final LocalDate endDate) {
-        this.id = id;
+        this.id = Optional.ofNullable(id);
         this.bookId = bookId;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
     public boolean hasId() {
-        return id != null;
+        return id.isPresent();
     }
 
     @NotNull
-    public UUID getId() {
-        if (id == null) {
-            throw new NotPersistedException(this);
-        }
-        return id;
-    }
-
-    @Nullable
-    public UUID getIdRaw() {
+    public Optional<UUID> getId() {
         return id;
     }
 
@@ -65,15 +59,15 @@ public class BookYear {
         return endDate;
     }
 
-    @SuppressWarnings("SimplifiableIfStatement")
+    @SuppressWarnings({"SimplifiableIfStatement", "ControlFlowStatementWithoutBraces"})
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if ((o == null) || (getClass() != o.getClass())) return false;
 
-        BookYear bookYear = (BookYear) o;
+        final BookYear bookYear = (BookYear) o;
 
-        if (id != null ? !id.equals(bookYear.id) : bookYear.id != null) return false;
+        if (!id.equals(bookYear.id)) return false;
         if (!bookId.equals(bookYear.bookId)) return false;
         if (!startDate.equals(bookYear.startDate)) return false;
         return endDate.equals(bookYear.endDate);
@@ -81,10 +75,10 @@ public class BookYear {
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + bookId.hashCode();
-        result = 31 * result + startDate.hashCode();
-        result = 31 * result + endDate.hashCode();
+        int result = id.hashCode();
+        result = (31 * result) + bookId.hashCode();
+        result = (31 * result) + startDate.hashCode();
+        result = (31 * result) + endDate.hashCode();
         return result;
     }
 

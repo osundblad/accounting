@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 @Service
 public class BookYearDao {
 
+    @NotNull
     private final JpaBookYearRepository bookYearRepository;
 
     @Autowired

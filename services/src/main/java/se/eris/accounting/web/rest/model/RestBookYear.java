@@ -14,9 +14,10 @@ public class RestBookYear {
 
     @JsonProperty
     @Nullable
-    private final String id;
+    private final UUID id;
     @JsonProperty
-    private final String bookId;
+    @NotNull
+    private final UUID bookId;
     @JsonProperty
     @NotNull
     private final String startDate;
@@ -25,24 +26,28 @@ public class RestBookYear {
     private final String endDate;
 
     @JsonCreator
-    public RestBookYear(@JsonProperty("id") @Nullable final String id, @JsonProperty("bookId") @NotNull final String bookId, @JsonProperty("startDate") @NotNull final String startDate, @JsonProperty("endDate") @NotNull final String endDate) {
+    public RestBookYear(
+            @JsonProperty("id") @Nullable final UUID id,
+            @JsonProperty("bookId") @NotNull final UUID bookId,
+            @JsonProperty("startDate") @NotNull final String startDate,
+            @JsonProperty("endDate") @NotNull final String endDate) {
         this.id = id;
         this.bookId = bookId;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
+    @SuppressWarnings("FeatureEnvy")
     public RestBookYear(@NotNull final BookYear bookYear) {
-        id = bookYear.hasId() ? bookYear.getIdRaw().toString() : null;
-        bookId = bookYear.getBookId().toString();
+        id = bookYear.getId().orElse(null);
+        bookId = bookYear.getBookId();
         startDate = bookYear.getStartDate().format(DateTimeFormatter.ISO_DATE);
         endDate = bookYear.getEndDate().format(DateTimeFormatter.ISO_DATE);
     }
 
     @NotNull
     public BookYear toCore() {
-        UUID id = this.id == null ? null : UUID.fromString(this.id);
-        return new BookYear(id, UUID.fromString(bookId), LocalDate.parse(startDate), LocalDate.parse(endDate));
+        return new BookYear(id, bookId, LocalDate.parse(startDate), LocalDate.parse(endDate));
     }
 
     @Override

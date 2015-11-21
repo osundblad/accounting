@@ -2,7 +2,10 @@ package se.eris.accounting.persistence.jpa.model;
 
 import se.eris.accounting.model.BookYear;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -35,7 +38,7 @@ public class JpaBookYear {
 
     @SuppressWarnings("FeatureEnvy")
     public JpaBookYear(@NotNull final BookYear bookYear) {
-        id = bookYear.hasId() ? bookYear.getId().toString() : UUID.randomUUID().toString();
+        id = bookYear.getId().orElse(UUID.randomUUID()).toString();
         bookId = bookYear.getBookId().toString();
         fromDate = bookYear.getStartDate();
         toDate = bookYear.getEndDate();
@@ -46,15 +49,15 @@ public class JpaBookYear {
         return new BookYear(UUID.fromString(id), UUID.fromString(bookId), fromDate, toDate);
     }
 
-    @SuppressWarnings("RedundantIfStatement")
+    @SuppressWarnings({"RedundantIfStatement", "ControlFlowStatementWithoutBraces", "NonFinalFieldReferenceInEquals"})
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if ((o == null) || (getClass() != o.getClass())) return false;
 
-        JpaBookYear that = (JpaBookYear) o;
+        final JpaBookYear that = (JpaBookYear) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if ((id != null) ? !id.equals(that.id) : (that.id != null)) return false;
         if (!bookId.equals(that.bookId)) return false;
         if (!fromDate.equals(that.fromDate)) return false;
         if (!toDate.equals(that.toDate)) return false;
@@ -62,12 +65,13 @@ public class JpaBookYear {
         return true;
     }
 
+    @SuppressWarnings("NonFinalFieldReferencedInHashCode")
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 37 * result + bookId.hashCode();
-        result = 37 * result + fromDate.hashCode();
-        result = 37 * result + toDate.hashCode();
+        int result = (id != null) ? id.hashCode() : 0;
+        result = (37 * result) + bookId.hashCode();
+        result = (37 * result) + fromDate.hashCode();
+        result = (37 * result) + toDate.hashCode();
         return result;
     }
 

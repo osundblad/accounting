@@ -1,35 +1,32 @@
 package se.eris.accounting.model;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public class Book {
 
-    @Nullable
-    private final UUID id;
+    @NotNull
+    private final Optional<UUID> id;
 
     @NotNull
     private final String name;
     @NotNull
     private final String description;
 
-    public Book(@Nullable final UUID id, @NotNull final String name, @NotNull final String description) {
+    public Book(@NotNull final Optional<UUID> id, @NotNull final String name, @NotNull final String description) {
         this.id = id;
         this.name = name;
         this.description = description;
     }
 
     public boolean hasId() {
-        return id != null;
+        return id.isPresent();
     }
 
     @NotNull
-    public UUID getId() {
-        if (id == null) {
-            throw new NotPersistedException(this);
-        }
+    public Optional<UUID> getId() {
         return id;
     }
 
@@ -43,6 +40,7 @@ public class Book {
         return description;
     }
 
+    @SuppressWarnings("ControlFlowStatementWithoutBraces")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -50,18 +48,16 @@ public class Book {
 
         Book book = (Book) o;
 
-        if (id != null ? !id.equals(book.id) : book.id != null) return false;
+        if (!id.equals(book.id)) return false;
         if (!name.equals(book.name)) return false;
-        if (!description.equals(book.description)) return false;
-
-        return true;
+        return description.equals(book.description);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + name.hashCode();
-        result = 31 * result + description.hashCode();
+        int result = id.hashCode();
+        result = (31 * result) + name.hashCode();
+        result = (31 * result) + description.hashCode();
         return result;
     }
 

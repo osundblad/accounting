@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.util.Optional;
 import java.util.UUID;
 
 @Entity
@@ -34,22 +35,23 @@ public class JpaBook {
     public JpaBook() {
     }
 
+    @SuppressWarnings("FeatureEnvy")
     public JpaBook(@NotNull final Book book) {
-        id = book.hasId() ? book.getId().toString() : UUID.randomUUID().toString();
+        id = book.getId().orElse(UUID.randomUUID()).toString();
         name = book.getName();
         description = book.getDescription();
     }
 
     @NotNull
     public Book toCore() {
-        return new Book(UUID.fromString(id), name, description);
+        return new Book(Optional.of(UUID.fromString(id)), name, description);
     }
 
-    @SuppressWarnings("SimplifiableIfStatement")
+    @SuppressWarnings({"SimplifiableIfStatement", "ControlFlowStatementWithoutBraces", "NonFinalFieldReferenceInEquals"})
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if ((o == null) || (getClass() != o.getClass())) return false;
 
         final JpaBook jpaBook = (JpaBook) o;
 
@@ -58,11 +60,12 @@ public class JpaBook {
         return description.equals(jpaBook.description);
     }
 
+    @SuppressWarnings("NonFinalFieldReferencedInHashCode")
     @Override
     public int hashCode() {
         int result = id.hashCode();
-        result = 31 * result + name.hashCode();
-        result = 31 * result + description.hashCode();
+        result = (31 * result) + name.hashCode();
+        result = (31 * result) + description.hashCode();
         return result;
     }
 }
