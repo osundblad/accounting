@@ -12,7 +12,7 @@
     <artifactId>web</artifactId>
 
     <description>
-        Client side web application, ie. AngularJS and static web content. Put html and js
+        Client side web application, ie. MithrilJS and static web content. Put html and js
         files under resources/static.
     </description>
 
