@@ -1,37 +1,28 @@
 package se.eris.accounting.model.book;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.UUID;
 
-public class BookYear {
+public final class BookYear {
 
     @NotNull
-    public static final Comparator<? super BookYear> NEW_TO_OLD = new Comparator<BookYear>() {
-        @Override
-        public int compare(@NotNull final BookYear o1, @NotNull final BookYear o2) {
-            return o1.endDate.compareTo(o2.endDate);
-        }
-    };
+    public static final Comparator<BookYear> NEW_TO_OLD = (o1, o2) -> o1.getStartDate().compareTo(o2.getStartDate());
 
     @NotNull
     private final Optional<UUID> id;
     @NotNull
     private final UUID bookId;
     @NotNull
-    private final LocalDate startDate;
-    @NotNull
-    private final LocalDate endDate;
+    private final DatePeriod datePeriod;
 
-    public BookYear(@Nullable final UUID id, @NotNull final UUID bookId, @NotNull final LocalDate startDate, @NotNull final LocalDate endDate) {
-        this.id = Optional.ofNullable(id);
+    public BookYear(@NotNull final Optional<UUID> id, @NotNull final UUID bookId, @NotNull final DatePeriod datePeriod) {
+        this.id = id;
         this.bookId = bookId;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.datePeriod = datePeriod;
     }
 
     public boolean hasId() {
@@ -50,12 +41,12 @@ public class BookYear {
 
     @NotNull
     public LocalDate getStartDate() {
-        return startDate;
+        return datePeriod.getStartDate();
     }
 
     @NotNull
     public LocalDate getEndDate() {
-        return endDate;
+        return datePeriod.getEndDate();
     }
 
     @SuppressWarnings({"SimplifiableIfStatement", "ControlFlowStatementWithoutBraces"})
@@ -68,16 +59,14 @@ public class BookYear {
 
         if (!id.equals(bookYear.id)) return false;
         if (!bookId.equals(bookYear.bookId)) return false;
-        if (!startDate.equals(bookYear.startDate)) return false;
-        return endDate.equals(bookYear.endDate);
+        return datePeriod.equals(bookYear.datePeriod);
     }
 
     @Override
     public int hashCode() {
         int result = id.hashCode();
         result = (31 * result) + bookId.hashCode();
-        result = (31 * result) + startDate.hashCode();
-        result = (31 * result) + endDate.hashCode();
+        result = (31 * result) + datePeriod.hashCode();
         return result;
     }
 
@@ -86,8 +75,8 @@ public class BookYear {
         return "BookYear{" +
                 "id=" + id +
                 ", bookId=" + bookId +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
+                ", datePeriod=" + datePeriod +
                 '}';
     }
+
 }

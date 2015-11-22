@@ -1,6 +1,7 @@
 package se.eris.accounting.persistence.jpa.model;
 
 import se.eris.accounting.model.book.BookYear;
+import se.eris.accounting.model.book.DatePeriod;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.UUID;
 
 @Entity
@@ -46,7 +48,7 @@ public class JpaBookYear {
 
     @NotNull
     public BookYear toCore() {
-        return new BookYear(UUID.fromString(id), UUID.fromString(bookId), fromDate, toDate);
+        return new BookYear(Optional.ofNullable(UUID.fromString(id)), UUID.fromString(bookId), new DatePeriod(fromDate, toDate));
     }
 
     @SuppressWarnings({"RedundantIfStatement", "ControlFlowStatementWithoutBraces", "NonFinalFieldReferenceInEquals"})

@@ -5,9 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import se.eris.accounting.model.book.BookYear;
+import se.eris.accounting.model.book.DatePeriod;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.UUID;
 
 public class RestBookYear {
@@ -47,7 +49,7 @@ public class RestBookYear {
 
     @NotNull
     public BookYear toCore() {
-        return new BookYear(id, bookId, LocalDate.parse(startDate), LocalDate.parse(endDate));
+        return new BookYear(Optional.ofNullable(id), bookId, new DatePeriod(LocalDate.parse(startDate), LocalDate.parse(endDate)));
     }
 
     @Override

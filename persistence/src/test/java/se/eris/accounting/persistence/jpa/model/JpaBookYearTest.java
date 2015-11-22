@@ -4,8 +4,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Test;
 import se.eris.accounting.model.book.BookYear;
+import se.eris.accounting.model.book.DatePeriod;
 
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.hamcrest.CoreMatchers.not;
@@ -32,7 +34,7 @@ public class JpaBookYearTest {
     @NotNull
     private BookYear createBookYear(@Nullable final UUID id) {
         LocalDate now = LocalDate.now();
-        return new BookYear(id, UUID.randomUUID(), now, now.plusDays(2));
+        return new BookYear(Optional.ofNullable(id), UUID.randomUUID(), new DatePeriod(now, now.plusDays(2)));
     }
 
 }

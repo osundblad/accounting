@@ -9,10 +9,10 @@ import java.util.*;
 
 public class TransactionTest {
 
-    private static final UUID BOOK_YEAR_ID = UUID.randomUUID();
-
     @Rule
     public final ExpectedException exception = ExpectedException.none();
+
+    private static final UUID BOOK_YEAR_ID = UUID.randomUUID();
 
     @Test
     public void new_validateEmpty() {

@@ -1,0 +1,39 @@
+package se.eris.accounting.model.book;
+
+import org.junit.Test;
+
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+public class BookYearTest {
+
+    @Test
+    public void equals() {
+        final LocalDate now = LocalDate.now();
+        final UUID bookId = UUID.randomUUID();
+        final BookYear bookYear1 = new BookYear(Optional.<UUID>empty(), bookId, new DatePeriod(now, now));
+        final BookYear bookYear2 = new BookYear(Optional.<UUID>empty(), bookId, new DatePeriod(now, now));
+
+        assertThat(bookYear1, is(bookYear1));
+        assertThat(bookYear1, is(bookYear2));
+    }
+
+    @Test
+    public void comparator_newToOld() {
+        final LocalDate now = LocalDate.now();
+        final UUID bookId = UUID.randomUUID();
+        final BookYear bookYear1 = new BookYear(Optional.<UUID>empty(), bookId, new DatePeriod(now, now));
+        final BookYear bookYear2 = new BookYear(Optional.<UUID>empty(), bookId, new DatePeriod(now.plusDays(1), now.plusDays(1)));
+        final List<BookYear> bookYears = Arrays.asList(bookYear2, bookYear1);
+        bookYears.sort(BookYear.NEW_TO_OLD);
+
+        assertThat(bookYears, is(Arrays.asList(bookYear1, bookYear2)));
+    }
+
+}

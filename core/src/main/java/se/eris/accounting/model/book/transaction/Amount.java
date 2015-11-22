@@ -12,10 +12,9 @@ public final class Amount {
     public static final Amount ZERO = Amount.of(0, 0);
 
     @NotNull
-    public static Amount of(final int amount, final int decimalPart) {
+    private static Amount part(final int decimalPart) {
         validateDecimalPart(decimalPart);
-        final BigDecimal decimal = new BigDecimal((amount >= 0) ? decimalPart : -decimalPart).divide(DIVISOR, 2, BigDecimal.ROUND_UNNECESSARY);
-        return of(new BigDecimal(amount).add(decimal));
+        return new Amount(new BigDecimal(decimalPart).divide(DIVISOR, 2, BigDecimal.ROUND_UNNECESSARY));
     }
 
     private static void validateDecimalPart(final int decimalPart) {
@@ -25,18 +24,19 @@ public final class Amount {
     }
 
     @NotNull
+    public static Amount of(final int amount, final int decimalPart) {
+        final Amount part = part(decimalPart);
+        return (amount >= 0) ? of(amount).add(part) : of(amount).subtract(part);
+    }
+
+    @NotNull
     public static Amount of(final int amount) {
-        return of(amount, 0);
+        return new Amount(new BigDecimal(amount));
     }
 
     @NotNull
     public static Amount of(@NotNull final String amount) {
-        return of(new BigDecimal(amount));
-    }
-
-    @NotNull
-    private static Amount of(@NotNull final BigDecimal amount) {
-        return new Amount(amount);
+        return new Amount(new BigDecimal(amount));
     }
 
     @NotNull
@@ -48,12 +48,12 @@ public final class Amount {
 
     @NotNull
     public Amount add(@NotNull final Amount amount) {
-        return of(this.amount.add(amount.amount));
+        return new Amount(this.amount.add(amount.amount));
     }
 
     @NotNull
     public Amount subtract(@NotNull final Amount amount) {
-        return of(this.amount.subtract(amount.amount));
+        return new Amount(this.amount.subtract(amount.amount));
     }
 
     public boolean isZero() {
@@ -84,9 +84,7 @@ public final class Amount {
     @Override
     @NotNull
     public String toString() {
-        return "Amount{" +
-                "amount=" + amount +
-                '}';
+        return "Amount{amount=" + amount + '}';
     }
 
 }
