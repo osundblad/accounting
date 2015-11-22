@@ -15,14 +15,14 @@ public class JpaBookTest {
 
     @Test
     public void new_toCore_roundtrip() {
-        Book book = new Book(Optional.ofNullable(UUID.randomUUID()), "name", "description");
+        final Book book = new Book(Optional.of(UUID.randomUUID()), "name", "description");
 
         assertThat(new JpaBook(book).toCore(), is(book));
     }
 
     @Test
     public void new_shouldSetId() {
-        Book book = new Book(Optional.ofNullable(null), "name", "description");
+        final Book book = new Book(Optional.empty(), "name", "description");
 
         assertThat(new JpaBook(book).toCore().getId(), not(nullValue()));
     }

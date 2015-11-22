@@ -48,7 +48,7 @@ public class JpaBookYear {
 
     @NotNull
     public BookYear toCore() {
-        return new BookYear(Optional.ofNullable(UUID.fromString(id)), UUID.fromString(bookId), new DatePeriod(fromDate, toDate));
+        return new BookYear(Optional.of(UUID.fromString(id)), UUID.fromString(bookId), new DatePeriod(fromDate, toDate));
     }
 
     @SuppressWarnings({"RedundantIfStatement", "ControlFlowStatementWithoutBraces", "NonFinalFieldReferenceInEquals"})

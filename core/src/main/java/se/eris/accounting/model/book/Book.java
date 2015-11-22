@@ -40,13 +40,13 @@ public class Book {
         return description;
     }
 
-    @SuppressWarnings("ControlFlowStatementWithoutBraces")
+    @SuppressWarnings({"ControlFlowStatementWithoutBraces", "SimplifiableIfStatement"})
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if ((o == null) || (getClass() != o.getClass())) return false;
 
-        Book book = (Book) o;
+        final Book book = (Book) o;
 
         if (!id.equals(book.id)) return false;
         if (!name.equals(book.name)) return false;

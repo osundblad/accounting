@@ -46,7 +46,7 @@ public class ConfigInMemoryH2 {
     @NotNull
     private String getDbMode() {
         final String property = env.getProperty("db.mode");
-        return property != null ? property : "MySQL";
+        return (property != null) ? property : "MySQL";
     }
 
     @Bean(name = "transactionManager")

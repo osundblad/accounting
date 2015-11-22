@@ -48,7 +48,7 @@ public class BookYearResource {
     @RequestMapping(method = RequestMethod.GET, value = "/{bookId}/template")
     public RestBookYear getTemplate(@PathVariable("bookId") @NotNull final UUID bookId) {
         final int year = LocalDate.now().getYear();
-        return new RestBookYear(new BookYear(Optional.ofNullable(null), bookId, new DatePeriod(LocalDate.of(year, Month.JANUARY, 1), LocalDate.of(year, Month.DECEMBER, 31))));
+        return new RestBookYear(new BookYear(Optional.empty(), bookId, new DatePeriod(LocalDate.of(year, Month.JANUARY, 1), LocalDate.of(year, Month.DECEMBER, Month.DECEMBER.maxLength()))));
     }
 
     @NotNull
@@ -58,10 +58,10 @@ public class BookYearResource {
         final RestBookYear nextBookYear;
         if (bookYear.isPresent()) {
             final LocalDate previousEndDate = bookYear.get().getEndDate();
-            nextBookYear = new RestBookYear(new BookYear(Optional.ofNullable(null), bookId, new DatePeriod(previousEndDate.plusDays(1), previousEndDate.plusYears(1))));
+            nextBookYear = new RestBookYear(new BookYear(Optional.empty(), bookId, new DatePeriod(previousEndDate.plusDays(1), previousEndDate.plusYears(1))));
         } else {
             final int currentYear = LocalDate.now().getYear();
-            nextBookYear = new RestBookYear(new BookYear(Optional.ofNullable(null), bookId, new DatePeriod(LocalDate.of(currentYear, Month.JANUARY, 1), LocalDate.of(currentYear, Month.DECEMBER, 31))));
+            nextBookYear = new RestBookYear(new BookYear(Optional.empty(), bookId, new DatePeriod(LocalDate.of(currentYear, Month.JANUARY, 1), LocalDate.of(currentYear, Month.DECEMBER, 31))));
         }
         return nextBookYear;
     }

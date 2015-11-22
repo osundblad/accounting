@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 @Service
 public class BookRestFacade {
 
+    @NotNull
     private final BookDataService bookDataService;
 
     @Autowired
