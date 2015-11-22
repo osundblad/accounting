@@ -13,9 +13,15 @@ public final class Amount {
 
     @NotNull
     public static Amount of(final int amount, final int decimalPart) {
-        assert (decimalPart >= 0) && (decimalPart < 100);
+        validateDecimalPart(decimalPart);
         final BigDecimal decimal = new BigDecimal((amount >= 0) ? decimalPart : -decimalPart).divide(DIVISOR, 2, BigDecimal.ROUND_UNNECESSARY);
         return of(new BigDecimal(amount).add(decimal));
+    }
+
+    private static void validateDecimalPart(final int decimalPart) {
+        if ((decimalPart < 0) || (decimalPart >= 100)) {
+            throw new IllegalArgumentException("Invalid decimal part " + decimalPart);
+        }
     }
 
     @NotNull
@@ -24,13 +30,13 @@ public final class Amount {
     }
 
     @NotNull
-    public static Amount of(@NotNull final BigDecimal amount) {
-        return new Amount(amount);
+    public static Amount of(@NotNull final String amount) {
+        return of(new BigDecimal(amount));
     }
 
     @NotNull
-    public static Amount of(@NotNull final String amount) {
-        return of(new BigDecimal(amount));
+    private static Amount of(@NotNull final BigDecimal amount) {
+        return new Amount(amount);
     }
 
     @NotNull
@@ -45,13 +51,18 @@ public final class Amount {
         return of(this.amount.add(amount.amount));
     }
 
+    @NotNull
+    public Amount subtract(@NotNull final Amount amount) {
+        return of(this.amount.subtract(amount.amount));
+    }
+
     public boolean isZero() {
         return amount.compareTo(BigDecimal.ZERO) == 0;
     }
 
     @NotNull
-    public BigDecimal asBigDecimal() {
-        return amount;
+    public String asString() {
+        return amount.toString();
     }
 
     @SuppressWarnings("ControlFlowStatementWithoutBraces")
@@ -68,6 +79,14 @@ public final class Amount {
     @Override
     public int hashCode() {
         return amount.intValue();
+    }
+
+    @Override
+    @NotNull
+    public String toString() {
+        return "Amount{" +
+                "amount=" + amount +
+                '}';
     }
 
 }
