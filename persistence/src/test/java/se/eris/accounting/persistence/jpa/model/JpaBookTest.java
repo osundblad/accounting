@@ -1,7 +1,7 @@
 package se.eris.accounting.persistence.jpa.model;
 
 import org.junit.Test;
-import se.eris.accounting.model.Book;
+import se.eris.accounting.model.book.Book;
 
 import java.util.Optional;
 import java.util.UUID;

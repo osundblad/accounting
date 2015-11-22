@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import se.eris.accounting.model.BookYear;
+import se.eris.accounting.model.book.BookYear;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

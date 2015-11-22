@@ -11,7 +11,7 @@ public class AccountingException extends RuntimeException {
         this.errorCode = errorCode;
     }
 
-    public AccountingException(@NotNull final String message, @NotNull final ErrorCode errorCode, @NotNull final Throwable cause) {
+    public AccountingException(@NotNull final String message, @NotNull final ErrorCode errorCode, @NotNull final Exception cause) {
         super(message, cause);
         this.errorCode = errorCode;
     }

@@ -1,4 +1,4 @@
-package se.eris.accounting.model;
+package se.eris.accounting.model.book.transaction;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -6,10 +6,7 @@ import org.junit.rules.ExpectedException;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.UUID;
+import java.util.*;
 
 public class TransactionTest {
 
@@ -18,7 +15,7 @@ public class TransactionTest {
 
     @Test
     public void new_validateEmpty() {
-        new Transaction(null, UUID.randomUUID(), LocalDate.now(), Collections.<TransactionLine>emptySet());
+        new Transaction(Optional.empty(), UUID.randomUUID(), LocalDate.now(), Collections.<TransactionLine>emptySet());
     }
 
     @Test
@@ -27,7 +24,7 @@ public class TransactionTest {
         final TransactionLine line2 = new TransactionLine(null, UUID.randomUUID(), new BigDecimal(-20));
         final TransactionLine line3 = new TransactionLine(null, UUID.randomUUID(), new BigDecimal(-100));
         final Collection<TransactionLine> lines = Arrays.asList(line1, line2, line3);
-        new Transaction(null, UUID.randomUUID(), LocalDate.now(), lines);
+        new Transaction(Optional.empty(), UUID.randomUUID(), LocalDate.now(), lines);
     }
 
     @Test
@@ -38,7 +35,7 @@ public class TransactionTest {
         final Collection<TransactionLine> lines = Arrays.asList(line1, line2, line3);
 
         exception.expect(NonZeroSumTransactionException.class);
-        new Transaction(null, UUID.randomUUID(), LocalDate.now(), lines);
+        new Transaction(Optional.empty(), UUID.randomUUID(), LocalDate.now(), lines);
     }
 
 }

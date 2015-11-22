@@ -1,4 +1,4 @@
-package se.eris.accounting.model;
+package se.eris.accounting.model.book;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -20,7 +20,6 @@ public class BookYear {
 
     @NotNull
     private final Optional<UUID> id;
-
     @NotNull
     private final UUID bookId;
     @NotNull

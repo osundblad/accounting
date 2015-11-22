@@ -1,6 +1,6 @@
 package se.eris.accounting.persistence.jpa.model;
 
-import se.eris.accounting.model.BookYear;
+import se.eris.accounting.model.book.BookYear;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

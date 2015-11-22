@@ -3,8 +3,8 @@ package se.eris.accounting.persistence;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import se.eris.accounting.model.Book;
-import se.eris.accounting.model.BookYear;
+import se.eris.accounting.model.book.Book;
+import se.eris.accounting.model.book.BookYear;
 
 import java.util.UUID;
 import java.util.stream.Stream;

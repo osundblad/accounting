@@ -1,7 +1,6 @@
-package se.eris.accounting.model;
+package se.eris.accounting.model.book.transaction;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,8 +19,8 @@ public class Transaction {
     @NotNull
     private final Collection<TransactionLine> transactionLines;
 
-    public Transaction(@Nullable final UUID id, @NotNull final UUID bookYearId, @NotNull final LocalDate date, @NotNull final Collection<TransactionLine> transactionLines) {
-        this.id = Optional.ofNullable(id);
+    public Transaction(@NotNull final Optional<UUID> id, @NotNull final UUID bookYearId, @NotNull final LocalDate date, @NotNull final Collection<TransactionLine> transactionLines) {
+        this.id = id;
         this.bookYearId = bookYearId;
         this.date = date;
         this.transactionLines = new ArrayList<>(transactionLines);
@@ -29,10 +28,10 @@ public class Transaction {
     }
 
     private void validate() {
-        validateSumIsZero();
+        validateSumOfLinesIsZero();
     }
 
-    private void validateSumIsZero() {
+    private void validateSumOfLinesIsZero() {
         if (!sumOfTransactionLines().isZero()) {
             throw new NonZeroSumTransactionException(this);
         }
@@ -44,23 +43,18 @@ public class Transaction {
     }
 
     @NotNull
-    public UUID getId() {
-        return id.orElseThrow(() -> new NotPersistedException(this));
-    }
-
-    @NotNull
-    public Optional<UUID> getIdRaw() {
+    public Optional<UUID> getId() {
         return id;
-    }
-
-    @NotNull
-    public LocalDate getDate() {
-        return date;
     }
 
     @NotNull
     public UUID getBookYearId() {
         return bookYearId;
+    }
+
+    @NotNull
+    public LocalDate getDate() {
+        return date;
     }
 
 }

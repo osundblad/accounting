@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import se.eris.accounting.model.BookYear;
+import se.eris.accounting.model.book.BookYear;
 import se.eris.accounting.services.BookRestFacade;
 import se.eris.accounting.web.rest.model.RestBookYear;
 
@@ -65,9 +65,10 @@ public class BookYearResource {
         return nextBookYear;
     }
 
-    @NotNull
+    @ResponseBody
     @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody
+    @NotNull
+    public
     RestBookYear create(@RequestBody @NotNull final RestBookYear restBookYear) {
         final BookYear saved = bookRestFacade.create(restBookYear.toCore());
         logger.debug("created book year: " + saved);

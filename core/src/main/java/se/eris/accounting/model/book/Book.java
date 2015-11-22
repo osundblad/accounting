@@ -1,4 +1,4 @@
-package se.eris.accounting.model;
+package se.eris.accounting.model.book;
 
 import org.jetbrains.annotations.NotNull;
 

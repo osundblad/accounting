@@ -3,7 +3,7 @@ package se.eris.accounting.persistence.jpa.model;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Test;
-import se.eris.accounting.model.BookYear;
+import se.eris.accounting.model.book.BookYear;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -11,7 +11,7 @@ import java.util.UUID;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class JpaBookYearTest {
 

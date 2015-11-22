@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import se.eris.accounting.model.Book;
+import se.eris.accounting.model.book.Book;
 
 import java.util.Optional;
 import java.util.UUID;
