@@ -10,6 +10,7 @@ import se.eris.accounting.model.book.BookYear;
 import se.eris.accounting.model.book.DatePeriod;
 import se.eris.accounting.services.BookRestFacade;
 import se.eris.accounting.web.rest.model.RestBookYear;
+import se.eris.accounting.web.rest.model.RestBookYearAccount;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -19,7 +20,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(value = "/bookyear", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/bookyear", produces = MediaType.APPLICATION_JSON_VALUE)
 public class BookYearResource {
 
     private static final Logger logger = LoggerFactory.getLogger(BookYearResource.class);
@@ -69,11 +70,16 @@ public class BookYearResource {
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST)
     @NotNull
-    public
-    RestBookYear create(@RequestBody @NotNull final RestBookYear restBookYear) {
+    public RestBookYear create(@RequestBody @NotNull final RestBookYear restBookYear) {
         final BookYear saved = bookRestFacade.create(restBookYear.toCore());
         logger.debug("created book year: " + saved);
         return new RestBookYear(saved);
+    }
+
+    @NotNull
+    @RequestMapping(method = RequestMethod.GET, value = "/{bookYear}/accounts")
+    public List<RestBookYearAccount> getAccounts(@PathVariable("bookYear") @NotNull final UUID bookYear) {
+        return bookRestFacade.getBookYearAccounts(bookYear).map(RestBookYearAccount::new).collect(Collectors.toList());
     }
 
 }

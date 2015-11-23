@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.eris.accounting.model.book.Book;
 import se.eris.accounting.model.book.BookYear;
+import se.eris.accounting.model.book.account.BookYearAccount;
 import se.eris.accounting.persistence.BookDataService;
 
 import java.util.UUID;
@@ -46,4 +47,8 @@ public class BookRestFacade {
         return bookDataService.getAllBookYears(bookId);
     }
 
+    @NotNull
+    public Stream<BookYearAccount> getBookYearAccounts(@NotNull final UUID bookYearId) {
+        return bookDataService.getBookYearAccounts(bookYearId);
+    }
 }

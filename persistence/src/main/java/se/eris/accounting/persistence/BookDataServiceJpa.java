@@ -5,7 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.eris.accounting.model.book.Book;
 import se.eris.accounting.model.book.BookYear;
+import se.eris.accounting.model.book.account.AccountInfo;
+import se.eris.accounting.model.book.account.BookYearAccount;
 
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -52,6 +55,15 @@ public class BookDataServiceJpa implements BookDataService {
     @NotNull
     public BookYear create(@NotNull final BookYear bookYear) {
         return bookYearDao.create(bookYear);
+    }
+
+    @NotNull
+    @Override
+    public Stream<BookYearAccount> getBookYearAccounts(@NotNull final UUID bookYearId) {
+        // todo
+        final BookYearAccount account1 = new BookYearAccount(Optional.<UUID>empty(), bookYearId, new AccountInfo("1437", "Avanza Sparkonto", "Bas kontot hos Avanza Bank"));
+        final BookYearAccount account2 = new BookYearAccount(Optional.<UUID>empty(), bookYearId, new AccountInfo("1438", "Avanza Depå", "Depå kontot hos Avanza Bank"));
+        return Stream.of(account1, account2);
     }
 
 }

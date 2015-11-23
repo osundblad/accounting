@@ -13,13 +13,13 @@
         this.description = m.prop(data.description);
     };
     Book.get = function(bookId) {
-        return m.request({method: "GET", url: "/book/" + bookId})
+        return m.request({method: "GET", url: "/api/book/" + bookId})
     };
     Book.list = function() {
-        return m.request({method: "GET", url: "/book"})
+        return m.request({method: "GET", url: "/api/book"})
     };
     Book.save = function(data) {
-        return m.request({method: "POST", url: "/book", data: data})
+        return m.request({method: "POST", url: "/api/book", data: data})
     };
 
     var BooksWidget = {
