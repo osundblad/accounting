@@ -12,9 +12,7 @@
     <artifactId>services</artifactId>
 
     <description>
-        This model contains all services that this project exposes. Both REST and SOAP services.
-        It is important to differ between SOA services and other services since SOA services
-        always should be versioned.
+        This model contains all rest services that this project exposes to the ui.
     </description>
 
     <dependencies>
