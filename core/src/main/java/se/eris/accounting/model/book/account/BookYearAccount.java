@@ -22,10 +22,6 @@ public class BookYearAccount {
         this.accountInfo = accountInfo;
     }
 
-    public boolean hasId() {
-        return id.isPresent();
-    }
-
     @NotNull
     public Optional<UUID> getId() {
         return id;

@@ -18,7 +18,7 @@ public class RestAccountInfo {
     public RestAccountInfo(
             @JsonProperty("code") @NotNull final String code,
             @JsonProperty("name") @NotNull final String name,
-            @JsonProperty("descriptionInfo") @NotNull final String description) {
+            @JsonProperty("description") @NotNull final String description) {
         this.code = code;
         this.name = name;
         this.description = description;
@@ -26,9 +26,9 @@ public class RestAccountInfo {
 
     @SuppressWarnings("FeatureEnvy")
     public RestAccountInfo(@NotNull final AccountInfo accountInfo) {
-        code = accountInfo.getCode();
-        name = accountInfo.getName();
-        description = accountInfo.getDescription();
+        code = accountInfo.getCode().asString();
+        name = accountInfo.getName().asString();
+        description = accountInfo.getDescription().asString();
     }
 
     @NotNull

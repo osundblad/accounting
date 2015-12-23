@@ -34,7 +34,7 @@ public class JpaBookYearTest {
     @NotNull
     private BookYear createBookYear(@Nullable final UUID id) {
         LocalDate now = LocalDate.now();
-        return new BookYear(Optional.ofNullable(id), UUID.randomUUID(), new DatePeriod(now, now.plusDays(2)));
+        return new BookYear(Optional.ofNullable(id), UUID.randomUUID(), DatePeriod.between(now, now.plusDays(2)));
     }
 
 }

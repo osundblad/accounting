@@ -7,11 +7,16 @@ import java.time.LocalDate;
 public class DatePeriod {
 
     @NotNull
+    public static DatePeriod between(@NotNull final LocalDate startDate, @NotNull final LocalDate endDate) {
+        return new DatePeriod(startDate, endDate);
+    }
+    @NotNull
     private final LocalDate startDate;
+
     @NotNull
     private final LocalDate endDate;
 
-    public DatePeriod(@NotNull final LocalDate startDate, @NotNull final LocalDate endDate) {
+    private DatePeriod(@NotNull final LocalDate startDate, @NotNull final LocalDate endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
         validate();

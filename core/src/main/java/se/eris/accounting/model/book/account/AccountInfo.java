@@ -4,30 +4,30 @@ import org.jetbrains.annotations.NotNull;
 
 public class AccountInfo {
     @NotNull
-    private final String code;
+    private final AccountCode code;
     @NotNull
-    private final String name;
+    private final AccountName name;
     @NotNull
-    private final String description;
+    private final AccountDescription description;
 
     public AccountInfo(@NotNull final String code, @NotNull final String name, @NotNull final String description) {
-        this.code = code;
-        this.name = name;
-        this.description = description;
+        this.code = AccountCode.of(code);
+        this.name = AccountName.of(name);
+        this.description = AccountDescription.of(description);
     }
 
     @NotNull
-    public String getCode() {
+    public AccountCode getCode() {
         return code;
     }
 
     @NotNull
-    public String getName() {
+    public AccountName getName() {
         return name;
     }
 
     @NotNull
-    public String getDescription() {
+    public AccountDescription getDescription() {
         return description;
     }
 

@@ -33,7 +33,7 @@ public class BookYearDao {
 
     @NotNull
     public BookYear create(@NotNull final BookYear bookYear) {
-        if (bookYear.hasId()) {
+        if (bookYear.getId().isPresent()) {
             throw new AlreadyPersistedException(bookYear + " has already been persisted (use update)." );
         }
         return bookYearRepository.save(new JpaBookYear(bookYear)).toCore();

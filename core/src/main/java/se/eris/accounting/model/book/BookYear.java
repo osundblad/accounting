@@ -25,10 +25,6 @@ public final class BookYear {
         this.datePeriod = datePeriod;
     }
 
-    public boolean hasId() {
-        return id.isPresent();
-    }
-
     @NotNull
     public Optional<UUID> getId() {
         return id;

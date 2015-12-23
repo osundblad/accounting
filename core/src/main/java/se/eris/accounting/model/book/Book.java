@@ -21,10 +21,6 @@ public class Book {
         this.description = description;
     }
 
-    public boolean hasId() {
-        return id.isPresent();
-    }
-
     @NotNull
     public Optional<UUID> getId() {
         return id;

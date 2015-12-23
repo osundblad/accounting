@@ -49,7 +49,7 @@ public class RestBookYear {
 
     @NotNull
     public BookYear toCore() {
-        return new BookYear(Optional.ofNullable(id), bookId, new DatePeriod(LocalDate.parse(startDate), LocalDate.parse(endDate)));
+        return new BookYear(Optional.ofNullable(id), bookId, DatePeriod.between(LocalDate.parse(startDate), LocalDate.parse(endDate)));
     }
 
     @Override

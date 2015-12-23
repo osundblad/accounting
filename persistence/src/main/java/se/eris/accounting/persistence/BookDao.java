@@ -27,7 +27,7 @@ public class BookDao {
 
     @NotNull
     public Book create(@NotNull final Book book) {
-        if (book.hasId()) {
+        if (book.getId().isPresent()) {
             throw new AlreadyPersistedException(book + " has already been persisted (use update)." );
         }
         return bookRepository.save(new JpaBook(book)).toCore();
