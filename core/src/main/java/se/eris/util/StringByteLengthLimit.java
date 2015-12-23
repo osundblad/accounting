@@ -2,22 +2,22 @@ package se.eris.util;
 
 import org.jetbrains.annotations.NotNull;
 
-public class StringLengthLimit implements StringLimit {
+public class StringByteLengthLimit implements StringLimit {
 
     private final int min;
     private final int max;
 
     @NotNull
-    public static StringLengthLimit max(final int max) {
+    public static StringByteLengthLimit max(final int max) {
         return of(0, max);
     }
 
     @NotNull
-    public static StringLengthLimit of(final int min, final int max) {
-        return new StringLengthLimit(min, max);
+    public static StringByteLengthLimit of(final int min, final int max) {
+        return new StringByteLengthLimit(min, max);
     }
 
-    private StringLengthLimit(final int min, final int max) {
+    private StringByteLengthLimit(final int min, final int max) {
         if (min < 0) {
             throw new IllegalArgumentException("Min " + min + " less than zero");
         }
@@ -30,12 +30,12 @@ public class StringLengthLimit implements StringLimit {
 
     @Override
     public void validate(@NotNull final String s) {
-        final int length = s.length();
+        final int length = s.getBytes().length;
         if (length < min) {
-            throw new IllegalArgumentException("Length of " + s + " is less than min " + min);
+            throw new IllegalArgumentException("Byte length of " + s + " is less than min " + min);
         }
         if (length > max) {
-            throw new IllegalArgumentException("Length of " + s + " is greater than max " + max);
+            throw new IllegalArgumentException("Byte length of " + s + " is greater than max " + max);
         }
     }
 

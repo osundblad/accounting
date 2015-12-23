@@ -10,6 +10,7 @@ public class DatePeriod {
     public static DatePeriod between(@NotNull final LocalDate startDate, @NotNull final LocalDate endDate) {
         return new DatePeriod(startDate, endDate);
     }
+
     @NotNull
     private final LocalDate startDate;
 
@@ -24,7 +25,7 @@ public class DatePeriod {
 
     private void validate() {
         if (endDate.isBefore(startDate)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(endDate + " is before " + startDate);
         }
     }
 
@@ -51,9 +52,7 @@ public class DatePeriod {
 
     @Override
     public int hashCode() {
-        int result = startDate.hashCode();
-        result = (31 * result) + endDate.hashCode();
-        return result;
+        return startDate.hashCode() + (31 * endDate.hashCode());
     }
 
     @Override
