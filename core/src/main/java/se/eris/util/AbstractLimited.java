@@ -35,7 +35,7 @@ public class AbstractLimited<T> {
 
         @NotNull
         public AbstractLimited<T> build() {
-            return new AbstractLimited<T>(limits);
+            return new AbstractLimited<>(limits);
         }
 
     }
