@@ -4,6 +4,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.nio.charset.StandardCharsets;
+
 public class StringByteLengthLimitTest {
 
     @Rule
@@ -26,7 +28,13 @@ public class StringByteLengthLimitTest {
     @Test
     public void validate_toLong() {
         exception.expect(IllegalArgumentException.class);
-        StringByteLengthLimit.max(4).validate("aåä");
+        StringByteLengthLimit.max((1+2+2) - 1).validate("aåä");
+    }
+
+    @Test
+    public void validate_utf16_toLong() {
+        exception.expect(IllegalArgumentException.class);
+        StringByteLengthLimit.of(0, (4+2+2) - 1, StandardCharsets.UTF_16).validate("abc");
     }
 
 }

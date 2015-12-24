@@ -19,12 +19,12 @@ public class StringByteLengthLimit implements StringLimit {
 
     @NotNull
     public static StringByteLengthLimit of(final int min, final int max) {
-        return of(min, max, Optional.empty());
+        return new StringByteLengthLimit(min, max, Optional.empty());
     }
 
     @NotNull
-    public static StringByteLengthLimit of(final int min, final int max, @NotNull final Optional<Charset> charset) {
-        return new StringByteLengthLimit(min, max, charset);
+    public static StringByteLengthLimit of(final int min, final int max, @NotNull final Charset charset) {
+        return new StringByteLengthLimit(min, max, Optional.of(charset));
     }
 
     private StringByteLengthLimit(final int min, final int max, @NotNull final Optional<Charset> charset) {
