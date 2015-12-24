@@ -2,10 +2,15 @@ package se.eris.util;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Optional;
+
 public class StringByteLengthLimit implements StringLimit {
 
     private final int min;
     private final int max;
+    private final Charset charset;
 
     @NotNull
     public static StringByteLengthLimit max(final int max) {
@@ -14,10 +19,16 @@ public class StringByteLengthLimit implements StringLimit {
 
     @NotNull
     public static StringByteLengthLimit of(final int min, final int max) {
-        return new StringByteLengthLimit(min, max);
+        return of(min, max, Optional.empty());
     }
 
-    private StringByteLengthLimit(final int min, final int max) {
+    @NotNull
+    public static StringByteLengthLimit of(final int min, final int max, @NotNull final Optional<Charset> charset) {
+        return new StringByteLengthLimit(min, max, charset);
+    }
+
+    private StringByteLengthLimit(final int min, final int max, @NotNull final Optional<Charset> charset) {
+        this.charset = charset.orElse(StandardCharsets.UTF_8);
         if (min < 0) {
             throw new IllegalArgumentException("Min " + min + " less than zero");
         }
@@ -30,13 +41,17 @@ public class StringByteLengthLimit implements StringLimit {
 
     @Override
     public void validate(@NotNull final String s) {
-        final int length = s.getBytes().length;
+        final int length = getLength(s);
         if (length < min) {
             throw new IllegalArgumentException("Byte length of " + s + " is less than min " + min);
         }
         if (length > max) {
             throw new IllegalArgumentException("Byte length of " + s + " is greater than max " + max);
         }
+    }
+
+    private int getLength(@NotNull final String s) {
+        return s.getBytes(charset).length;
     }
 
 }

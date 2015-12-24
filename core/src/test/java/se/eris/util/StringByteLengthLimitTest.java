@@ -12,7 +12,8 @@ public class StringByteLengthLimitTest {
     @Test
     public void validate_inRange() {
         StringByteLengthLimit.of(2, 4).validate("12");
-        StringByteLengthLimit.of(2, 4).validate("ö");
+        StringByteLengthLimit.of(2, 4).validate("1234");
+        StringByteLengthLimit.of(2, 2).validate("ö");
         StringByteLengthLimit.max(4).validate("öö");
     }
 
