@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import se.eris.accounting.model.book.BookId;
 import se.eris.accounting.model.book.BookYear;
 import se.eris.accounting.model.book.DatePeriod;
 import se.eris.accounting.services.BookRestFacade;
@@ -49,22 +50,22 @@ public class BookYearResource {
     @RequestMapping(method = RequestMethod.GET, value = "/{bookId}/template")
     public RestBookYear getTemplate(@PathVariable("bookId") @NotNull final UUID bookId) {
         final int year = LocalDate.now().getYear();
-        return new RestBookYear(new BookYear(Optional.empty(), bookId, DatePeriod.between(LocalDate.of(year, Month.JANUARY, 1), LocalDate.of(year, Month.DECEMBER, Month.DECEMBER.maxLength()))));
+        return new RestBookYear(new BookYear(Optional.empty(), BookId.from(bookId), DatePeriod.between(LocalDate.of(year, Month.JANUARY, 1), LocalDate.of(year, Month.DECEMBER, Month.DECEMBER.maxLength()))));
     }
 
     @NotNull
     @RequestMapping(method = RequestMethod.GET, value = "/{bookId}/next")
     public RestBookYear getNext(@PathVariable("bookId") @NotNull final UUID bookId) {
         final Optional<BookYear> bookYear = bookRestFacade.getAllBookYears(bookId).sorted(BookYear.NEW_TO_OLD).findFirst();
-        final RestBookYear nextBookYear;
+        final DatePeriod datePeriod;
         if (bookYear.isPresent()) {
             final LocalDate previousEndDate = bookYear.get().getEndDate();
-            nextBookYear = new RestBookYear(new BookYear(Optional.empty(), bookId, DatePeriod.between(previousEndDate.plusDays(1), previousEndDate.plusYears(1))));
+            datePeriod = DatePeriod.between(previousEndDate.plusDays(1), previousEndDate.plusYears(1));
         } else {
             final int currentYear = LocalDate.now().getYear();
-            nextBookYear = new RestBookYear(new BookYear(Optional.empty(), bookId, DatePeriod.between(LocalDate.of(currentYear, Month.JANUARY, 1), LocalDate.of(currentYear, Month.DECEMBER, 31))));
+            datePeriod = DatePeriod.between(LocalDate.of(currentYear, Month.JANUARY, 1), LocalDate.of(currentYear, Month.DECEMBER, 31));
         }
-        return nextBookYear;
+        return new RestBookYear(new BookYear(Optional.empty(), BookId.from(bookId), datePeriod));
     }
 
     @NotNull

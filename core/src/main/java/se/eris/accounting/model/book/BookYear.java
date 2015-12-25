@@ -15,11 +15,11 @@ public final class BookYear {
     @NotNull
     private final Optional<UUID> id;
     @NotNull
-    private final UUID bookId;
+    private final BookId bookId;
     @NotNull
     private final DatePeriod datePeriod;
 
-    public BookYear(@NotNull final Optional<UUID> id, @NotNull final UUID bookId, @NotNull final DatePeriod datePeriod) {
+    public BookYear(@NotNull final Optional<UUID> id, @NotNull final BookId bookId, @NotNull final DatePeriod datePeriod) {
         this.id = id;
         this.bookId = bookId;
         this.datePeriod = datePeriod;
@@ -31,7 +31,7 @@ public final class BookYear {
     }
 
     @NotNull
-    public UUID getBookId() {
+    public BookId getBookId() {
         return bookId;
     }
 

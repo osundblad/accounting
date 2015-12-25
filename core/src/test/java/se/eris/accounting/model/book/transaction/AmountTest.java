@@ -1,11 +1,28 @@
 package se.eris.accounting.model.book.transaction;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 public class AmountTest {
+
+    @Rule
+    public final ExpectedException exception = ExpectedException.none();
+
+    @Test
+    public void of_partLessThan0_shouldFail() {
+        exception.expect(IllegalArgumentException.class);
+        Amount.of(1, -1);
+    }
+
+    @Test
+    public void of_partGreaterThan99_shouldFail() {
+        exception.expect(IllegalArgumentException.class);
+        Amount.of(1, 100);
+    }
 
     @Test
     public void isZero() {
@@ -16,14 +33,6 @@ public class AmountTest {
 
         assertFalse(Amount.of("0.00000000000000000000000000000000000001").isZero());
         assertFalse(Amount.of("-0.00000000000000000000000000000000000001").isZero());
-    }
-
-    @SuppressWarnings("MagicNumber")
-    @Test
-    public void testHashCode() {
-        assertThat(Amount.of(10, 1).hashCode(), is(Amount.of(10, 0).hashCode()));
-        assertThat(Amount.of(-10, 1).hashCode(), is(Amount.of(-10, 0).hashCode()));
-        assertThat(Amount.of(-5).hashCode(), is(Amount.of("-5.4").hashCode()));
     }
 
     @SuppressWarnings("MagicNumber")

@@ -1,5 +1,6 @@
 package se.eris.accounting.persistence.jpa.model;
 
+import se.eris.accounting.model.book.BookId;
 import se.eris.accounting.model.book.BookYear;
 import se.eris.accounting.model.book.DatePeriod;
 
@@ -41,14 +42,14 @@ public class JpaBookYear {
     @SuppressWarnings("FeatureEnvy")
     public JpaBookYear(@NotNull final BookYear bookYear) {
         id = bookYear.getId().orElse(UUID.randomUUID()).toString();
-        bookId = bookYear.getBookId().toString();
+        bookId = bookYear.getBookId().asString();
         fromDate = bookYear.getStartDate();
         toDate = bookYear.getEndDate();
     }
 
     @NotNull
     public BookYear toCore() {
-        return new BookYear(Optional.of(UUID.fromString(id)), UUID.fromString(bookId), DatePeriod.between(fromDate, toDate));
+        return new BookYear(Optional.of(UUID.fromString(id)), BookId.from(bookId), DatePeriod.between(fromDate, toDate));
     }
 
     @SuppressWarnings({"RedundantIfStatement", "ControlFlowStatementWithoutBraces", "NonFinalFieldReferenceInEquals"})

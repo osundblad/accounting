@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import se.eris.accounting.model.book.BookId;
 import se.eris.accounting.model.book.BookYear;
 import se.eris.accounting.model.book.DatePeriod;
 
@@ -42,14 +43,14 @@ public class RestBookYear {
     @SuppressWarnings("FeatureEnvy")
     public RestBookYear(@NotNull final BookYear bookYear) {
         id = bookYear.getId().orElse(null);
-        bookId = bookYear.getBookId();
+        bookId = bookYear.getBookId().asUUID();
         startDate = bookYear.getStartDate().format(DateTimeFormatter.ISO_DATE);
         endDate = bookYear.getEndDate().format(DateTimeFormatter.ISO_DATE);
     }
 
     @NotNull
     public BookYear toCore() {
-        return new BookYear(Optional.ofNullable(id), bookId, DatePeriod.between(LocalDate.parse(startDate), LocalDate.parse(endDate)));
+        return new BookYear(Optional.ofNullable(id), BookId.from(bookId), DatePeriod.between(LocalDate.parse(startDate), LocalDate.parse(endDate)));
     }
 
     @Override

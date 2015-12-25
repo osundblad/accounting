@@ -16,7 +16,7 @@ public class BookYearTest {
     @Test
     public void equals() {
         final LocalDate now = LocalDate.now();
-        final UUID bookId = UUID.randomUUID();
+        final BookId bookId = BookId.random();
         final BookYear bookYear1 = new BookYear(Optional.<UUID>empty(), bookId, DatePeriod.between(now, now));
         final BookYear bookYear2 = new BookYear(Optional.<UUID>empty(), bookId, DatePeriod.between(now, now));
 
@@ -27,7 +27,7 @@ public class BookYearTest {
     @Test
     public void comparator_newToOld() {
         final LocalDate now = LocalDate.now();
-        final UUID bookId = UUID.randomUUID();
+        final BookId bookId = BookId.random();
         final BookYear bookYear1 = new BookYear(Optional.<UUID>empty(), bookId, DatePeriod.between(now, now));
         final BookYear bookYear2 = new BookYear(Optional.<UUID>empty(), bookId, DatePeriod.between(now.plusDays(1), now.plusDays(1)));
         final List<BookYear> bookYears = Arrays.asList(bookYear2, bookYear1);
