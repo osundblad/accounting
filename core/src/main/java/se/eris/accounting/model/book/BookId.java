@@ -25,4 +25,5 @@ public class BookId extends UUIDWrapper {
     private BookId(@NotNull final UUID uuid) {
         super(uuid);
     }
+
 }

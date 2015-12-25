@@ -12,12 +12,10 @@ public abstract class UUIDWrapper extends TypeWrapper<UUID> {
 
     @NotNull
     public UUID asUUID() {
-        return raw();
+        return super.raw();
     }
 
     @NotNull
-    public String asString() {
-        return raw().toString();
-    }
+    public String asString() { return this.asUUID().toString(); }
 
 }

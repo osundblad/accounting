@@ -3,6 +3,7 @@ package se.eris.accounting.model.book.transaction;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import se.eris.accounting.model.book.BookYearId;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -12,7 +13,7 @@ public class TransactionTest {
     @Rule
     public final ExpectedException exception = ExpectedException.none();
 
-    private static final UUID BOOK_YEAR_ID = UUID.randomUUID();
+    private static final BookYearId BOOK_YEAR_ID = BookYearId.random();
 
     @Test
     public void new_validateEmpty() {

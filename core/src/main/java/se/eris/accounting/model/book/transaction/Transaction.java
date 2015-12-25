@@ -1,25 +1,25 @@
 package se.eris.accounting.model.book.transaction;
 
 import org.jetbrains.annotations.NotNull;
+import se.eris.accounting.model.book.BookYearId;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
-import java.util.UUID;
 
 public class Transaction {
 
     @NotNull
-    private final Optional<UUID> id;
+    private final Optional<TransactionId> id;
     @NotNull
-    private final UUID bookYearId;
+    private final BookYearId bookYearId;
     @NotNull
     private final LocalDate date;
     @NotNull
     private final Collection<TransactionLine> transactionLines;
 
-    public Transaction(@NotNull final Optional<UUID> id, @NotNull final UUID bookYearId, @NotNull final LocalDate date, @NotNull final Collection<TransactionLine> transactionLines) {
+    public Transaction(@NotNull final Optional<TransactionId> id, @NotNull final BookYearId bookYearId, @NotNull final LocalDate date, @NotNull final Collection<TransactionLine> transactionLines) {
         this.id = id;
         this.bookYearId = bookYearId;
         this.date = date;
@@ -43,12 +43,12 @@ public class Transaction {
     }
 
     @NotNull
-    public Optional<UUID> getId() {
+    public Optional<TransactionId> getId() {
         return id;
     }
 
     @NotNull
-    public UUID getBookYearId() {
+    public BookYearId getBookYearId() {
         return bookYearId;
     }
 

@@ -10,7 +10,7 @@ public abstract class StringWrapper extends TypeWrapper<String> {
 
     @NotNull
     public String asString() {
-        return raw();
+        return super.raw();
     }
 
 }
