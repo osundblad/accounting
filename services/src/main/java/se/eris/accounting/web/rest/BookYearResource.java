@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import se.eris.accounting.model.book.BookId;
 import se.eris.accounting.model.book.BookYear;
+import se.eris.accounting.model.book.BookYearId;
 import se.eris.accounting.model.book.DatePeriod;
 import se.eris.accounting.services.BookRestFacade;
 import se.eris.accounting.web.rest.model.RestBookYear;
@@ -43,7 +44,7 @@ public class BookYearResource {
     @NotNull
     @RequestMapping(method = RequestMethod.GET, value = "/{bookId}")
     public List<RestBookYear> get(@PathVariable("bookId") @NotNull final UUID bookId) {
-        return bookRestFacade.getAllBookYears(bookId).map(RestBookYear::new).collect(Collectors.toList());
+        return bookRestFacade.getAllBookYears(BookId.from(bookId)).map(RestBookYear::new).collect(Collectors.toList());
     }
 
     @NotNull
@@ -56,7 +57,8 @@ public class BookYearResource {
     @NotNull
     @RequestMapping(method = RequestMethod.GET, value = "/{bookId}/next")
     public RestBookYear getNext(@PathVariable("bookId") @NotNull final UUID bookId) {
-        final Optional<BookYear> bookYear = bookRestFacade.getAllBookYears(bookId).sorted(BookYear.NEW_TO_OLD).findFirst();
+        final BookId fromBookId = BookId.from(bookId);
+        final Optional<BookYear> bookYear = bookRestFacade.getAllBookYears(fromBookId).sorted(BookYear.NEW_TO_OLD).findFirst();
         final DatePeriod datePeriod;
         if (bookYear.isPresent()) {
             final LocalDate previousEndDate = bookYear.get().getEndDate();
@@ -65,7 +67,7 @@ public class BookYearResource {
             final int currentYear = LocalDate.now().getYear();
             datePeriod = DatePeriod.between(LocalDate.of(currentYear, Month.JANUARY, 1), LocalDate.of(currentYear, Month.DECEMBER, 31));
         }
-        return new RestBookYear(new BookYear(Optional.empty(), BookId.from(bookId), datePeriod));
+        return new RestBookYear(new BookYear(Optional.empty(), fromBookId, datePeriod));
     }
 
     @NotNull
@@ -80,7 +82,7 @@ public class BookYearResource {
     @NotNull
     @RequestMapping(method = RequestMethod.GET, value = "/{bookYear}/accounts")
     public List<RestBookYearAccount> getAccounts(@PathVariable("bookYear") @NotNull final UUID bookYear) {
-        return bookRestFacade.getBookYearAccounts(bookYear).map(RestBookYearAccount::new).collect(Collectors.toList());
+        return bookRestFacade.getBookYearAccounts(BookYearId.from(bookYear)).map(RestBookYearAccount::new).collect(Collectors.toList());
     }
 
 }

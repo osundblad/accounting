@@ -1,34 +1,34 @@
 package se.eris.accounting.model.book.account;
 
 import org.jetbrains.annotations.NotNull;
+import se.eris.accounting.model.book.BookYearId;
 
 import java.util.Optional;
-import java.util.UUID;
 
 public class BookYearAccount {
 
     @NotNull
-    private final Optional<UUID> id;
+    private final Optional<BookYearAccountId> id;
 
     @NotNull
-    private final UUID bookYearId;
+    private final BookYearId bookYearId;
 
     @NotNull
     private final AccountInfo accountInfo;
 
-    public BookYearAccount(@NotNull final Optional<UUID> id, @NotNull final UUID bookYearId, @NotNull final AccountInfo accountInfo) {
+    public BookYearAccount(@NotNull final Optional<BookYearAccountId> id, @NotNull final BookYearId bookYearId, @NotNull final AccountInfo accountInfo) {
         this.id = id;
         this.bookYearId = bookYearId;
         this.accountInfo = accountInfo;
     }
 
     @NotNull
-    public Optional<UUID> getId() {
+    public Optional<BookYearAccountId> getId() {
         return id;
     }
 
     @NotNull
-    public UUID getBookYearId() {
+    public BookYearId getBookYearId() {
         return bookYearId;
     }
 

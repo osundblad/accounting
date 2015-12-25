@@ -4,11 +4,12 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.eris.accounting.model.book.Book;
+import se.eris.accounting.model.book.BookId;
 import se.eris.accounting.model.book.BookYear;
+import se.eris.accounting.model.book.BookYearId;
 import se.eris.accounting.model.book.account.BookYearAccount;
 import se.eris.accounting.persistence.BookDataService;
 
-import java.util.UUID;
 import java.util.stream.Stream;
 
 @Service
@@ -43,12 +44,12 @@ public class BookRestFacade {
     }
 
     @NotNull
-    public Stream<BookYear> getAllBookYears(@NotNull final UUID bookId) {
+    public Stream<BookYear> getAllBookYears(@NotNull final BookId bookId) {
         return bookDataService.getAllBookYears(bookId);
     }
 
     @NotNull
-    public Stream<BookYearAccount> getBookYearAccounts(@NotNull final UUID bookYearId) {
+    public Stream<BookYearAccount> getBookYearAccounts(@NotNull final BookYearId bookYearId) {
         return bookDataService.getBookYearAccounts(bookYearId);
     }
 }

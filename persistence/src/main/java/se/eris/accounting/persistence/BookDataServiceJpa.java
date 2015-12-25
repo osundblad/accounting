@@ -4,12 +4,13 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.eris.accounting.model.book.Book;
+import se.eris.accounting.model.book.BookId;
 import se.eris.accounting.model.book.BookYear;
+import se.eris.accounting.model.book.BookYearId;
 import se.eris.accounting.model.book.account.AccountInfo;
 import se.eris.accounting.model.book.account.BookYearAccount;
 
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Stream;
 
 @Service
@@ -47,7 +48,7 @@ public class BookDataServiceJpa implements BookDataService {
 
     @Override
     @NotNull
-    public Stream<BookYear> getAllBookYears(@NotNull final UUID bookId) {
+    public Stream<BookYear> getAllBookYears(@NotNull final BookId bookId) {
         return bookYearDao.findAllBookYears(bookId);
     }
 
@@ -59,10 +60,10 @@ public class BookDataServiceJpa implements BookDataService {
 
     @NotNull
     @Override
-    public Stream<BookYearAccount> getBookYearAccounts(@NotNull final UUID bookYearId) {
+    public Stream<BookYearAccount> getBookYearAccounts(@NotNull final BookYearId bookYearId) {
         // todo
-        final BookYearAccount account1 = new BookYearAccount(Optional.<UUID>empty(), bookYearId, new AccountInfo("1437", "Avanza Sparkonto", "Bas kontot hos Avanza Bank"));
-        final BookYearAccount account2 = new BookYearAccount(Optional.<UUID>empty(), bookYearId, new AccountInfo("1438", "Avanza Depå", "Depå kontot hos Avanza Bank"));
+        final BookYearAccount account1 = new BookYearAccount(Optional.empty(), bookYearId, new AccountInfo("1437", "Avanza Sparkonto", "Bas kontot hos Avanza Bank"));
+        final BookYearAccount account2 = new BookYearAccount(Optional.empty(), bookYearId, new AccountInfo("1438", "Avanza Depå", "Depå kontot hos Avanza Bank"));
         return Stream.of(account1, account2);
     }
 

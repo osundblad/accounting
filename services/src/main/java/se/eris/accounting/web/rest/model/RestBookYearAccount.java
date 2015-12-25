@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import se.eris.accounting.model.book.account.BookYearAccount;
+import se.eris.accounting.model.book.account.BookYearAccountId;
 
 import java.util.UUID;
 
@@ -29,8 +30,8 @@ public class RestBookYearAccount {
 
     @SuppressWarnings("FeatureEnvy")
     public RestBookYearAccount(@NotNull final BookYearAccount account) {
-        id = account.getId().orElse(null);
-        bookYearId = account.getBookYearId();
+        id = account.getId().map(BookYearAccountId::asUUID).orElse(null);
+        bookYearId = account.getBookYearId().asUUID();
         accountInfo = new RestAccountInfo(account.getAccountInfo());
     }
 
