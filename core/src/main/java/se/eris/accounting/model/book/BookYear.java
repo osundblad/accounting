@@ -5,7 +5,6 @@ import org.jetbrains.annotations.NotNull;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Optional;
-import java.util.UUID;
 
 public final class BookYear {
 
@@ -13,20 +12,20 @@ public final class BookYear {
     public static final Comparator<BookYear> NEW_TO_OLD = (o1, o2) -> o1.getStartDate().compareTo(o2.getStartDate());
 
     @NotNull
-    private final Optional<UUID> id;
+    private final Optional<BookYearId> id;
     @NotNull
     private final BookId bookId;
     @NotNull
     private final DatePeriod datePeriod;
 
-    public BookYear(@NotNull final Optional<UUID> id, @NotNull final BookId bookId, @NotNull final DatePeriod datePeriod) {
+    public BookYear(@NotNull final Optional<BookYearId> id, @NotNull final BookId bookId, @NotNull final DatePeriod datePeriod) {
         this.id = id;
         this.bookId = bookId;
         this.datePeriod = datePeriod;
     }
 
     @NotNull
-    public Optional<UUID> getId() {
+    public Optional<BookYearId> getId() {
         return id;
     }
 

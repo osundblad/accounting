@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import se.eris.accounting.model.book.BookId;
 import se.eris.accounting.model.book.BookYear;
+import se.eris.accounting.model.book.BookYearId;
 import se.eris.accounting.model.book.DatePeriod;
 
 import java.time.LocalDate;
@@ -42,7 +43,7 @@ public class RestBookYear {
 
     @SuppressWarnings("FeatureEnvy")
     public RestBookYear(@NotNull final BookYear bookYear) {
-        id = bookYear.getId().orElse(null);
+        id = bookYear.getId().map(BookYearId::asUUID).orElse(null);
         bookId = bookYear.getBookId().asUUID();
         startDate = bookYear.getStartDate().format(DateTimeFormatter.ISO_DATE);
         endDate = bookYear.getEndDate().format(DateTimeFormatter.ISO_DATE);
@@ -50,7 +51,7 @@ public class RestBookYear {
 
     @NotNull
     public BookYear toCore() {
-        return new BookYear(Optional.ofNullable(id), BookId.from(bookId), DatePeriod.between(LocalDate.parse(startDate), LocalDate.parse(endDate)));
+        return new BookYear(Optional.ofNullable(id).map(BookYearId::from), BookId.from(bookId), DatePeriod.between(LocalDate.parse(startDate), LocalDate.parse(endDate)));
     }
 
     @Override

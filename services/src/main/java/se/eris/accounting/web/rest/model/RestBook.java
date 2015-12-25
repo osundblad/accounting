@@ -31,7 +31,7 @@ public class RestBook {
 
     @SuppressWarnings("FeatureEnvy")
     public RestBook(@NotNull final Book book) {
-        id = book.getId().map(BookId::raw).orElse(null);
+        id = book.getId().map(BookId::asUUID).orElse(null);
         name = book.getName();
         description = book.getDescription();
     }
