@@ -1,13 +1,13 @@
 package se.eris.accounting.persistence.jpa.model;
 
 import se.eris.accounting.model.book.Book;
+import se.eris.accounting.model.book.BookId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.util.Optional;
 import java.util.UUID;
 
 @Entity
@@ -37,14 +37,14 @@ public class JpaBook {
 
     @SuppressWarnings("FeatureEnvy")
     public JpaBook(@NotNull final Book book) {
-        id = book.getId().orElse(UUID.randomUUID()).toString();
+        id = book.getId().asOptional().orElse(UUID.randomUUID()).toString();
         name = book.getName();
         description = book.getDescription();
     }
 
     @NotNull
     public Book toCore() {
-        return new Book(Optional.of(UUID.fromString(id)), name, description);
+        return new Book(BookId.of(UUID.fromString(id)), name, description);
     }
 
     @SuppressWarnings({"SimplifiableIfStatement", "ControlFlowStatementWithoutBraces", "NonFinalFieldReferenceInEquals"})
