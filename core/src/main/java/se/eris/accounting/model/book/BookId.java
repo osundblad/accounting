@@ -1,30 +1,28 @@
 package se.eris.accounting.model.book;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import se.eris.type.UUIDOptionalWrapper;
+import se.eris.type.UUIDWrapper;
 
-import java.util.Optional;
 import java.util.UUID;
 
-public class BookId extends UUIDOptionalWrapper {
+public class BookId extends UUIDWrapper {
 
     @NotNull
-    public static BookId of(@NotNull final Optional<UUID> id) {
-        return new BookId(id);
+    public static BookId from(@NotNull final String name) {
+        return from(UUID.fromString(name));
     }
 
     @NotNull
-    public static BookId of(@Nullable final UUID id) {
-        return new BookId(Optional.ofNullable(id));
+    public static BookId from(@NotNull final UUID uuid) {
+        return new BookId(uuid);
     }
 
     @NotNull
-    public static BookId empty() {
-        return new BookId(Optional.empty());
+    public static BookId random() {
+        return from(UUID.randomUUID());
     }
 
-    private BookId(@NotNull final Optional<UUID> uuid) {
+    private BookId(@NotNull final UUID uuid) {
         super(uuid);
     }
 }

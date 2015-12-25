@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
+import java.util.Optional;
 
 @Entity
 @Table(name = "book")
@@ -37,14 +37,14 @@ public class JpaBook {
 
     @SuppressWarnings("FeatureEnvy")
     public JpaBook(@NotNull final Book book) {
-        id = book.getId().asOptional().orElse(UUID.randomUUID()).toString();
+        id = book.getId().orElse(BookId.random()).asString();
         name = book.getName();
         description = book.getDescription();
     }
 
     @NotNull
     public Book toCore() {
-        return new Book(BookId.of(UUID.fromString(id)), name, description);
+        return new Book(Optional.of(BookId.from(id)), name, description);
     }
 
     @SuppressWarnings({"SimplifiableIfStatement", "ControlFlowStatementWithoutBraces", "NonFinalFieldReferenceInEquals"})

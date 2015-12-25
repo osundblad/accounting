@@ -7,6 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import se.eris.accounting.model.book.Book;
 import se.eris.accounting.model.book.BookId;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public class RestBook {
@@ -30,14 +31,14 @@ public class RestBook {
 
     @SuppressWarnings("FeatureEnvy")
     public RestBook(@NotNull final Book book) {
-        id = book.getId().asOptional().orElse(null);
+        id = book.getId().map(BookId::raw).orElse(null);
         name = book.getName();
         description = book.getDescription();
     }
 
     @NotNull
     public Book toCore() {
-        return new Book(BookId.of(id), name, description);
+        return new Book(Optional.ofNullable(id).map(BookId::from), name, description);
     }
 
     @NotNull

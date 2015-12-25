@@ -2,24 +2,26 @@ package se.eris.accounting.model.book;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
+
 public class Book {
 
     @NotNull
-    private final BookId id;
+    private final Optional<BookId> id;
 
     @NotNull
     private final String name;
     @NotNull
     private final String description;
 
-    public Book(@NotNull final BookId bookId, @NotNull final String name, @NotNull final String description) {
-        this.id = bookId;
+    public Book(@NotNull final Optional<BookId> id, @NotNull final String name, @NotNull final String description) {
+        this.id = id;
         this.name = name;
         this.description = description;
     }
 
     @NotNull
-    public BookId getId() {
+    public Optional<BookId> getId() {
         return id;
     }
 
