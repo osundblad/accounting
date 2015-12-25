@@ -1,4 +1,4 @@
-package se.eris.util;
+package se.eris.limit;
 
 import org.jetbrains.annotations.NotNull;
 

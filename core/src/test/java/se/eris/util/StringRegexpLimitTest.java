@@ -3,6 +3,8 @@ package se.eris.util;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import se.eris.limit.Limit;
+import se.eris.limit.StringRegexpLimit;
 
 import java.util.regex.Pattern;
 

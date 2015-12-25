@@ -3,6 +3,7 @@ package se.eris.util;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import se.eris.limit.IntegerRangeLimit;
 
 public class IntegerRangeLimitTest {
 
