@@ -32,7 +32,7 @@ public class LimitedString extends AbstractLimited<String> {
 
         @NotNull
         public Builder length(final int max) {
-            limit(StringLengthLimit.max(max));
+            limit(StringLengthLimit.zeroTo(max));
             return this;
         }
 

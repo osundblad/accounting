@@ -23,12 +23,12 @@ public class StringLengthLimitTest {
 
     @Test
     public void max_allowsEmptyString() {
-        StringLengthLimit.max(8).validate("");
+        StringLengthLimit.zeroTo(8).validate("");
     }
 
     @Test
     public void max_inRange() {
-        StringLengthLimit.max(3).validate("123");
+        StringLengthLimit.zeroTo(3).validate("123");
     }
 
     @Test

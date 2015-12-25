@@ -16,7 +16,7 @@ public class StringByteLengthLimitTest {
         StringByteLengthLimit.of(2, 4).validate("12");
         StringByteLengthLimit.of(2, 4).validate("1234");
         StringByteLengthLimit.of(2, 2).validate("ö");
-        StringByteLengthLimit.max(4).validate("öö");
+        StringByteLengthLimit.zeroTo(4).validate("öö");
     }
 
     @Test
@@ -28,7 +28,7 @@ public class StringByteLengthLimitTest {
     @Test
     public void validate_toLong() {
         exception.expect(IllegalArgumentException.class);
-        StringByteLengthLimit.max((1+2+2) - 1).validate("aåä");
+        StringByteLengthLimit.zeroTo((1+2+2) - 1).validate("aåä");
     }
 
     @Test

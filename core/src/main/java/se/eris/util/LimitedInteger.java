@@ -24,8 +24,8 @@ public class LimitedInteger extends AbstractLimited<Integer> {
     public static class Builder extends AbstractLimited.Builder<Integer> {
 
         @NotNull
-        public Builder max(final int max) {
-            limit(IntegerRangeLimit.max(max));
+        public Builder range(final int max) {
+            limit(IntegerRangeLimit.zeroTo(max));
             return this;
         }
 

@@ -8,7 +8,7 @@ public class StringLengthLimit implements StringLimit {
     private final int max;
 
     @NotNull
-    public static StringLengthLimit max(final int max) {
+    public static StringLengthLimit zeroTo(final int max) {
         return of(0, max);
     }
 

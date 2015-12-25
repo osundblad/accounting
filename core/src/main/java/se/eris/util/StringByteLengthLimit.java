@@ -13,7 +13,7 @@ public class StringByteLengthLimit implements StringLimit {
     private final Charset charset;
 
     @NotNull
-    public static StringByteLengthLimit max(final int max) {
+    public static StringByteLengthLimit zeroTo(final int max) {
         return of(0, max);
     }
 

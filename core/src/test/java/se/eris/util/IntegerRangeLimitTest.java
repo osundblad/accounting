@@ -24,7 +24,7 @@ public class IntegerRangeLimitTest {
     @Test
     public void validate_toHigh() {
         exception.expect(IllegalArgumentException.class);
-        IntegerRangeLimit.max(7).validate(8);
+        IntegerRangeLimit.zeroTo(7).validate(8);
     }
 
 }

@@ -8,7 +8,7 @@ public class IntegerRangeLimit implements Limit<Integer> {
     private final int max;
 
     @NotNull
-    public static IntegerRangeLimit max(final int max) {
+    public static IntegerRangeLimit zeroTo(final int max) {
         return of(0, max);
     }
 
