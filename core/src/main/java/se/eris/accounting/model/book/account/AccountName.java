@@ -1,9 +1,10 @@
 package se.eris.accounting.model.book.account;
 
 import org.jetbrains.annotations.NotNull;
+import se.eris.type.StringWrapper;
 import se.eris.util.LimitedString;
 
-public final class AccountName {
+public final class AccountName extends StringWrapper {
 
     private static final int MAX_LENGTH = 30;
     @NotNull
@@ -14,16 +15,8 @@ public final class AccountName {
         return new AccountName(name);
     }
 
-    @NotNull
-    private final String name;
-
     private AccountName(@NotNull final String name) {
-        this.name = LIMITED_STRING.of(name);
-    }
-
-    @NotNull
-    public String asString() {
-        return name;
+        super(LIMITED_STRING.of(name));
     }
 
 }

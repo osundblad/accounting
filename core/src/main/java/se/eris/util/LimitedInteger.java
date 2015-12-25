@@ -36,10 +36,8 @@ public class LimitedInteger extends AbstractLimited<Integer> {
         }
 
         @NotNull
-        @Override
         public LimitedInteger build() {
-            //noinspection CastToConcreteClass
-            return (LimitedInteger) super.build();
+            return new LimitedInteger(limits);
         }
     }
 

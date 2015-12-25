@@ -25,17 +25,12 @@ public class AbstractLimited<T> {
     public static class Builder<T> {
 
         @NotNull
-        private final List<Limit<T>> limits = new ArrayList<>();
+        protected final List<Limit<T>> limits = new ArrayList<>();
 
         @NotNull
         public final Builder<T> limit(@NotNull final Limit<T> limit) {
             limits.add(limit);
             return this;
-        }
-
-        @NotNull
-        public AbstractLimited<T> build() {
-            return new AbstractLimited<>(limits);
         }
 
     }

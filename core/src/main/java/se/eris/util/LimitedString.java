@@ -49,11 +49,10 @@ public class LimitedString extends AbstractLimited<String> {
         }
 
         @NotNull
-        @Override
         public LimitedString build() {
-            //noinspection CastToConcreteClass
-            return (LimitedString) super.build();
+            return new LimitedString(limits);
         }
+
     }
 
 }
