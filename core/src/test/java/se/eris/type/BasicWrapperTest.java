@@ -39,7 +39,7 @@ public class BasicWrapperTest {
 
     @Test
     public void toString_showsClassName() {
-        assertThat(BasicWrapperA.of("description").toString(), is("BasicWrapperA{'description'}"));
+        assertThat(BasicWrapperA.of("a").toString(), is("BasicWrapperA{a}"));
     }
 
     private static class BasicWrapperA extends BasicWrapper<String> {

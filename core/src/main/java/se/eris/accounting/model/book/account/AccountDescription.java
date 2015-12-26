@@ -13,6 +13,11 @@ public class AccountDescription extends StringWrapper {
             .length(MAX_LENGTH).build();
 
     @NotNull
+    public static AccountDescription empty() {
+        return of("");
+    }
+
+    @NotNull
     public static AccountDescription of(@NotNull final String description) {
         return new AccountDescription(description);
     }
@@ -20,5 +25,4 @@ public class AccountDescription extends StringWrapper {
     private AccountDescription(@NotNull final String description) {
         super(LIMITED_STRING.of(description));
     }
-
 }

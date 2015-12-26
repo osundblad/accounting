@@ -34,7 +34,7 @@ public abstract class BasicWrapper<T> {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + "{'" + type + "'}";
+        return this.getClass().getSimpleName() + "{" + type + "}";
     }
 
 }

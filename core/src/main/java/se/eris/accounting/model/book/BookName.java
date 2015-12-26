@@ -6,7 +6,7 @@ import se.eris.type.StringWrapper;
 
 public class BookName extends StringWrapper {
 
-    public static final int MAX_LENGTH = 20;
+    public static final int MAX_LENGTH = 40;
 
     @NotNull
     private static final LimitedString LIMITED_STRING = LimitedString.init()
