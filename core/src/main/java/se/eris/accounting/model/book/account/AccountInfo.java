@@ -3,14 +3,21 @@ package se.eris.accounting.model.book.account;
 import org.jetbrains.annotations.NotNull;
 
 public class AccountInfo {
+
+    public static AccountInfo of(@NotNull final AccountCode code, @NotNull final AccountName name, @NotNull final AccountDescription description) {
+        return new AccountInfo(code, name, description);
+    }
+
     @NotNull
     private final AccountCode code;
+
     @NotNull
     private final AccountName name;
+
     @NotNull
     private final AccountDescription description;
 
-    public AccountInfo(@NotNull final AccountCode code, @NotNull final AccountName name, @NotNull final AccountDescription description) {
+    private AccountInfo(@NotNull final AccountCode code, @NotNull final AccountName name, @NotNull final AccountDescription description) {
         this.code = code;
         this.name = name;
         this.description = description;

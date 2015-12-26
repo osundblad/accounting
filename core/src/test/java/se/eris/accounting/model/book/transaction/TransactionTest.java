@@ -21,7 +21,7 @@ public class TransactionTest {
 
     @Test
     public void new_validateEmpty() {
-        new Transaction(Optional.empty(), BOOK_YEAR_ID, LocalDate.now(), Collections.<TransactionLine>emptySet());
+        Transaction.of(Optional.empty(), BOOK_YEAR_ID, LocalDate.now(), Collections.<TransactionLine>emptySet());
     }
 
     @Test
@@ -31,7 +31,7 @@ public class TransactionTest {
         final TransactionLine line3 = new TransactionLine(TransactionLineId.random(), BookYearAccountId.random(), Amount.of(-100));
         final Collection<TransactionLine> lines = Arrays.asList(line1, line2, line3);
 
-        new Transaction(Optional.empty(), BOOK_YEAR_ID, LocalDate.now(), lines);
+        Transaction.of(Optional.empty(), BOOK_YEAR_ID, LocalDate.now(), lines);
     }
 
     @Test
@@ -42,7 +42,7 @@ public class TransactionTest {
         final Collection<TransactionLine> lines = Arrays.asList(line1, line2, line3);
 
         exception.expect(NonZeroSumTransactionException.class);
-        new Transaction(Optional.empty(), BOOK_YEAR_ID, LocalDate.now(), lines);
+        Transaction.of(Optional.empty(), BOOK_YEAR_ID, LocalDate.now(), lines);
     }
 
 }

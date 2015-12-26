@@ -10,6 +10,10 @@ import java.util.Optional;
 
 public class Transaction {
 
+    public static Transaction of(@NotNull final Optional<TransactionId> id, @NotNull final BookYearId bookYearId, @NotNull final LocalDate date, @NotNull final Collection<TransactionLine> transactionLines) {
+        return new Transaction(id, bookYearId, date, transactionLines);
+    }
+
     @NotNull
     private final Optional<TransactionId> id;
     @NotNull
@@ -19,7 +23,7 @@ public class Transaction {
     @NotNull
     private final Collection<TransactionLine> transactionLines;
 
-    public Transaction(@NotNull final Optional<TransactionId> id, @NotNull final BookYearId bookYearId, @NotNull final LocalDate date, @NotNull final Collection<TransactionLine> transactionLines) {
+    private Transaction(@NotNull final Optional<TransactionId> id, @NotNull final BookYearId bookYearId, @NotNull final LocalDate date, @NotNull final Collection<TransactionLine> transactionLines) {
         this.id = id;
         this.bookYearId = bookYearId;
         this.date = date;

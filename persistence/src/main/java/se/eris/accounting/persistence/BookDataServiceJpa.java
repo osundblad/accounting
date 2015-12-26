@@ -61,8 +61,8 @@ public class BookDataServiceJpa implements BookDataService {
     @Override
     public Stream<BookYearAccount> getBookYearAccounts(@NotNull final BookYearId bookYearId) {
         // todo
-        final BookYearAccount account1 = new BookYearAccount(Optional.empty(), bookYearId, new AccountInfo(AccountCode.of("1437"), AccountName.of("Avanza Sparkonto"), AccountDescription.of("Bas kontot hos Avanza Bank")));
-        final BookYearAccount account2 = new BookYearAccount(Optional.empty(), bookYearId, new AccountInfo(AccountCode.of("1438"), AccountName.of("Avanza Depå"), AccountDescription.of("Depå kontot hos Avanza Bank")));
+        final BookYearAccount account1 = new BookYearAccount(Optional.empty(), bookYearId, AccountInfo.of(AccountCode.of("1437"), AccountName.of("Avanza Sparkonto"), AccountDescription.of("Bas kontot hos Avanza Bank")));
+        final BookYearAccount account2 = new BookYearAccount(Optional.empty(), bookYearId, AccountInfo.of(AccountCode.of("1438"), AccountName.of("Avanza Depå"), AccountDescription.of("Depå kontot hos Avanza Bank")));
         return Stream.of(account1, account2);
     }
 
