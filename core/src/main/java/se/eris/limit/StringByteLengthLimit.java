@@ -8,10 +8,6 @@ import java.util.Optional;
 
 public class StringByteLengthLimit implements StringLimit {
 
-    private final int min;
-    private final int max;
-    private final Charset charset;
-
     @NotNull
     public static StringByteLengthLimit zeroTo(final int max) {
         return of(0, max);
@@ -27,6 +23,10 @@ public class StringByteLengthLimit implements StringLimit {
         return new StringByteLengthLimit(min, max, Optional.of(charset));
     }
 
+    private final int min;
+    private final int max;
+    private final Charset charset;
+
     private StringByteLengthLimit(final int min, final int max, @NotNull final Optional<Charset> charset) {
         this.charset = charset.orElse(StandardCharsets.UTF_8);
         if (min < 0) {
@@ -41,7 +41,7 @@ public class StringByteLengthLimit implements StringLimit {
 
     @Override
     public void validate(@NotNull final String s) {
-        final int length = getLength(s);
+        final int length = getByteLength(s);
         if (length < min) {
             throw new IllegalArgumentException("Byte length of " + s + " is less than min " + min);
         }
@@ -50,7 +50,7 @@ public class StringByteLengthLimit implements StringLimit {
         }
     }
 
-    private int getLength(@NotNull final String s) {
+    private int getByteLength(@NotNull final String s) {
         return s.getBytes(charset).length;
     }
 

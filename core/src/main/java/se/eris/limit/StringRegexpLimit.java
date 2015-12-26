@@ -7,9 +7,6 @@ import java.util.regex.Pattern;
 public class StringRegexpLimit implements StringLimit {
 
     @NotNull
-    private final Pattern pattern;
-
-    @NotNull
     public static StringRegexpLimit of(@NotNull final Pattern pattern) {
         return new StringRegexpLimit(pattern);
     }
@@ -18,6 +15,9 @@ public class StringRegexpLimit implements StringLimit {
     public static StringRegexpLimit of(@NotNull final String regexp) {
         return of(Pattern.compile(regexp));
     }
+
+    @NotNull
+    private final Pattern pattern;
 
     private StringRegexpLimit(@NotNull final Pattern pattern) {
         this.pattern = pattern;

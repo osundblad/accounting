@@ -4,9 +4,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class IntegerRangeLimit implements Limit<Integer> {
 
-    private final int min;
-    private final int max;
-
     @NotNull
     public static IntegerRangeLimit zeroTo(final int max) {
         return of(0, max);
@@ -16,6 +13,9 @@ public class IntegerRangeLimit implements Limit<Integer> {
     public static IntegerRangeLimit of(final int min, final int max) {
         return new IntegerRangeLimit(min, max);
     }
+
+    private final int min;
+    private final int max;
 
     private IntegerRangeLimit(final int min, final int max) {
         if (min > max) {
