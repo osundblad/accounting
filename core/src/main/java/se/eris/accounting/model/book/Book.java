@@ -10,11 +10,11 @@ public class Book {
     private final Optional<BookId> id;
 
     @NotNull
-    private final String name;
+    private final BookName name;
     @NotNull
-    private final String description;
+    private final BookDescription description;
 
-    public Book(@NotNull final Optional<BookId> id, @NotNull final String name, @NotNull final String description) {
+    public Book(@NotNull final Optional<BookId> id, @NotNull final BookName name, @NotNull final BookDescription description) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -26,12 +26,12 @@ public class Book {
     }
 
     @NotNull
-    public String getName() {
+    public BookName getName() {
         return name;
     }
 
     @NotNull
-    public String getDescription() {
+    public BookDescription getDescription() {
         return description;
     }
 

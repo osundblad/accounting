@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import se.eris.accounting.model.book.Book;
+import se.eris.accounting.model.book.BookDescription;
 import se.eris.accounting.model.book.BookId;
+import se.eris.accounting.model.book.BookName;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -32,13 +34,13 @@ public class RestBook {
     @SuppressWarnings("FeatureEnvy")
     public RestBook(@NotNull final Book book) {
         id = book.getId().map(BookId::asUUID).orElse(null);
-        name = book.getName();
-        description = book.getDescription();
+        name = book.getName().asString();
+        description = book.getDescription().asString();
     }
 
     @NotNull
     public Book toCore() {
-        return new Book(Optional.ofNullable(id).map(BookId::from), name, description);
+        return new Book(Optional.ofNullable(id).map(BookId::from), BookName.of(name), BookDescription.of(description));
     }
 
     @NotNull

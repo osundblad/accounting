@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import se.eris.accounting.model.book.Book;
+import se.eris.accounting.model.book.BookDescription;
+import se.eris.accounting.model.book.BookName;
 import se.eris.accounting.services.BookRestFacade;
 import se.eris.accounting.web.rest.model.RestBook;
 
@@ -45,13 +47,13 @@ public class BookResource {
     @NotNull
     @RequestMapping(method = RequestMethod.GET, value = "/template")
     public RestBook getTemplate() {
-        return new RestBook(new Book(Optional.empty(), "", ""));
+        return new RestBook(new Book(Optional.empty(), BookName.of("template"), BookDescription.empty()));
     }
 
     @NotNull
     @RequestMapping(method = RequestMethod.GET, value = "/create")
     public RestBook createRandom(@RequestParam("name") final String name, @RequestParam("description") final String description) {
-        return new RestBook(bookRestFacade.create(new Book(Optional.empty(), name, description)));
+        return new RestBook(bookRestFacade.create(new Book(Optional.empty(), BookName.of(name), BookDescription.of(description))));
     }
 
     @NotNull

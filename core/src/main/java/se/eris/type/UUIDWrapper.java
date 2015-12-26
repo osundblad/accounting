@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
-public abstract class UUIDWrapper extends TypeWrapper<UUID> {
+public abstract class UUIDWrapper extends BasicWrapper<UUID> {
 
     protected UUIDWrapper(@NotNull final UUID uuid) {
         super(uuid);

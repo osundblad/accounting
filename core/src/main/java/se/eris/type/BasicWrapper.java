@@ -2,12 +2,12 @@ package se.eris.type;
 
 import org.jetbrains.annotations.NotNull;
 
-public abstract class TypeWrapper<T> {
+public abstract class BasicWrapper<T> {
 
     @NotNull
     private final T type;
 
-    protected TypeWrapper(@NotNull final T type) {
+    protected BasicWrapper(@NotNull final T type) {
         this.type = type;
     }
 
@@ -22,7 +22,7 @@ public abstract class TypeWrapper<T> {
         if (this == o) return true;
         if ((o == null) || (getClass() != o.getClass())) return false;
 
-        final TypeWrapper that = (TypeWrapper) o;
+        final BasicWrapper that = (BasicWrapper) o;
 
         return type.equals(that.type);
     }

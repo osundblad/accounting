@@ -1,11 +1,11 @@
 package se.eris.accounting.model.book.transaction;
 
 import org.jetbrains.annotations.NotNull;
-import se.eris.type.TypeWrapper;
+import se.eris.type.BasicWrapper;
 
 import java.math.BigDecimal;
 
-public final class Amount extends TypeWrapper<BigDecimal> {
+public final class Amount extends BasicWrapper<BigDecimal> {
 
     @NotNull
     private static final BigDecimal DIVISOR = new BigDecimal(100);
