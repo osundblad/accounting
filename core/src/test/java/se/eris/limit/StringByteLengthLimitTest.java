@@ -1,9 +1,8 @@
-package se.eris.util;
+package se.eris.limit;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import se.eris.limit.StringByteLengthLimit;
 
 import java.nio.charset.StandardCharsets;
 

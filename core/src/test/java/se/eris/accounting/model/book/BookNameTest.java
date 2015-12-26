@@ -3,6 +3,7 @@ package se.eris.accounting.model.book;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import se.eris.util.StringTestUtil;
 
 public class BookNameTest {
 
@@ -13,7 +14,7 @@ public class BookNameTest {
     public void of_valid() {
         BookName.of("a");
         BookName.of("name");
-        BookName.of("12345678901234567890");
+        BookName.of(StringTestUtil.createLongString(BookName.MAX_LENGTH));
     }
 
     @Test
@@ -25,7 +26,7 @@ public class BookNameTest {
     @Test
     public void of_toLong() {
         exception.expect(IllegalArgumentException.class);
-        BookName.of("12345678901234567890_");
+        BookName.of(StringTestUtil.createLongString(BookName.MAX_LENGTH + 1));
     }
 
 }

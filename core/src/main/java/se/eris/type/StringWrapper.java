@@ -12,4 +12,5 @@ public abstract class StringWrapper extends BasicWrapper<String> {
     public String asString() {
         return super.raw();
     }
+
 }

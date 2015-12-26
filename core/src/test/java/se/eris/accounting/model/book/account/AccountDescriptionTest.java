@@ -3,6 +3,7 @@ package se.eris.accounting.model.book.account;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import se.eris.util.StringTestUtil;
 
 public class AccountDescriptionTest {
 
@@ -17,13 +18,8 @@ public class AccountDescriptionTest {
 
     @Test
     public void of_toLong() {
-        final StringBuilder sb = new StringBuilder(2000);
-        while (sb.length() <= AccountDescription.MAX_LENGTH) {
-            sb.append("some more text in description ");
-        }
-
         exception.expect(IllegalArgumentException.class);
-        AccountDescription.of(sb.toString());
+        AccountDescription.of(StringTestUtil.createLongString(AccountDescription.MAX_LENGTH + 1));
     }
 
 }
