@@ -9,7 +9,6 @@ import static org.junit.Assert.assertThat;
 
 public class PairWrapperTest {
 
-
     @Test
     public void rawFirst() {
         assertThat(PairWrapperA.of("a", "b").rawFirst(), is("a"));

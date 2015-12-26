@@ -13,12 +13,12 @@ public class BookName extends StringWrapper {
             .length(1, MAX_LENGTH).build();
 
     @NotNull
-    public static BookName of(@NotNull final String s) {
-        return new BookName(s);
+    public static BookName of(@NotNull final String name) {
+        return new BookName(name);
     }
 
-    private BookName(@NotNull final String s) {
-        super(LIMITED_STRING.of(s));
+    private BookName(@NotNull final String name) {
+        super(LIMITED_STRING.of(name.trim()));
     }
 
 }

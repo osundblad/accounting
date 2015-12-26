@@ -6,7 +6,8 @@ import se.eris.type.StringWrapper;
 
 public final class AccountName extends StringWrapper {
 
-    private static final int MAX_LENGTH = 30;
+    public static final int MAX_LENGTH = 30;
+
     @NotNull
     private static final LimitedString LIMITED_STRING = LimitedString.init().length(1, MAX_LENGTH).build();
 
@@ -16,7 +17,7 @@ public final class AccountName extends StringWrapper {
     }
 
     private AccountName(@NotNull final String name) {
-        super(LIMITED_STRING.of(name));
+        super(LIMITED_STRING.of(name.trim()));
     }
 
 }

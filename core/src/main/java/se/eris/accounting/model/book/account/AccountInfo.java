@@ -10,10 +10,10 @@ public class AccountInfo {
     @NotNull
     private final AccountDescription description;
 
-    public AccountInfo(@NotNull final String code, @NotNull final String name, @NotNull final String description) {
-        this.code = AccountCode.of(code);
-        this.name = AccountName.of(name);
-        this.description = AccountDescription.of(description);
+    public AccountInfo(@NotNull final AccountCode code, @NotNull final AccountName name, @NotNull final AccountDescription description) {
+        this.code = code;
+        this.name = name;
+        this.description = description;
     }
 
     @NotNull
