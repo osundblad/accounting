@@ -4,6 +4,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.math.BigDecimal;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -44,6 +46,30 @@ public class AmountTest {
     public void subtract() {
         assertThat(Amount.of("10.10").subtract(Amount.of("4.20")), is(Amount.of("5.90")));
         assertThat(Amount.of("10.10").subtract(Amount.of("-4.20")), is(Amount.of("14.30")));
+    }
+
+    @Test
+    public void percent() {
+        assertThat(Amount.of("1000").percent(BigDecimal.valueOf(5)), is(Amount.of("50")));
+    }
+
+    @Test
+    public void percent_roundHalfUp() {
+        assertThat(Amount.of("10").percent(BigDecimal.valueOf(0.25)), is(Amount.of("0.03")));
+    }
+
+    @Test
+    public void split() {
+        final AmountPair split1000 = Amount.of("1000").split(BigDecimal.valueOf(25));
+        assertThat(split1000.getFirst(), is(Amount.of("250")));
+        assertThat(split1000.getSecond(), is(Amount.of("750")));
+    }
+
+    @Test
+    public void split_sumIsOriginalAmount() {
+        final AmountPair split10 = Amount.of("10").split(BigDecimal.valueOf(0.25));
+        assertThat(split10.getFirst(), is(Amount.of("0.03")));
+        assertThat(split10.getSecond(), is(Amount.of("9.97")));
     }
 
     @Test

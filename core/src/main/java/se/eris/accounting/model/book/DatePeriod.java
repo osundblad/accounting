@@ -1,11 +1,11 @@
 package se.eris.accounting.model.book;
 
 import org.jetbrains.annotations.NotNull;
-import se.eris.type.PairWrapper;
+import se.eris.type.SimplePair;
 
 import java.time.LocalDate;
 
-public class DatePeriod extends PairWrapper<LocalDate> {
+public class DatePeriod extends SimplePair<LocalDate> {
 
     @NotNull
     public static DatePeriod between(@NotNull final LocalDate startDate, @NotNull final LocalDate endDate) {

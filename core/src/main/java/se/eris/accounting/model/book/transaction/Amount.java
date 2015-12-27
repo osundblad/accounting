@@ -5,6 +5,7 @@ import se.eris.limit.LimitedBigDecimal;
 import se.eris.type.BasicWrapper;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public final class Amount extends BasicWrapper<BigDecimal> {
 
@@ -14,6 +15,11 @@ public final class Amount extends BasicWrapper<BigDecimal> {
 
     @NotNull
     public static final Amount ZERO = new Amount(BigDecimal.ZERO);
+
+    @NotNull
+    private static Amount of(@NotNull final BigDecimal bigDecimal) {
+        return new Amount(bigDecimal);
+    }
 
     @NotNull
     public static Amount of(final int amount) {
@@ -37,6 +43,22 @@ public final class Amount extends BasicWrapper<BigDecimal> {
     @NotNull
     public Amount subtract(@NotNull final Amount amount) {
         return new Amount(this.raw().subtract(amount.raw()));
+    }
+
+    @NotNull
+    public AmountPair split(@NotNull final BigDecimal percent) {
+        if ((percent.signum() != -1) && (percent.subtract(BigDecimal.valueOf(100)).signum() != 1)) {
+            final Amount first = percent(percent);
+            final Amount second = subtract(first);
+            return AmountPair.of(first, second);
+        } else {
+            throw new AssertionError();
+        }
+    }
+
+    @NotNull
+    public Amount percent(@NotNull final BigDecimal percent) {
+        return Amount.of(raw().multiply(percent).divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP).setScale(DECIMALS, RoundingMode.HALF_UP));
     }
 
     public boolean isZero() {
