@@ -10,10 +10,10 @@ public final class Amount extends BasicWrapper<BigDecimal> {
 
     public static final int DECIMALS = 2;
 
+    private static final LimitedBigDecimal LIMIT = LimitedBigDecimal.init().decimals(DECIMALS).build();
+
     @NotNull
     public static final Amount ZERO = new Amount(BigDecimal.ZERO);
-
-    private static final LimitedBigDecimal LIMIT = LimitedBigDecimal.init().decimals(DECIMALS).build();
 
     @NotNull
     public static Amount of(final int amount) {

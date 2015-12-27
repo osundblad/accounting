@@ -14,6 +14,13 @@ public class AmountTest {
     public final ExpectedException exception = ExpectedException.none();
 
     @Test
+    public void of_valid() {
+        Amount.of("0.03");
+        Amount.of("-0.03");
+        Amount.of(3);
+    }
+
+    @Test
     public void of_moreThan2Decimals_shouldFail() {
         exception.expect(IllegalArgumentException.class);
         Amount.of("0.003");
