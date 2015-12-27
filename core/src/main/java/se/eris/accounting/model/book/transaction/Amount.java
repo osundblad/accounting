@@ -1,6 +1,7 @@
 package se.eris.accounting.model.book.transaction;
 
 import org.jetbrains.annotations.NotNull;
+import se.eris.limit.LimitedBigDecimal;
 import se.eris.type.BasicWrapper;
 
 import java.math.BigDecimal;
@@ -9,8 +10,7 @@ public final class Amount extends BasicWrapper<BigDecimal> {
 
     public static final int DECIMALS = 2;
 
-    @NotNull
-    public static final Amount ZERO = Amount.of(0);
+    private static final LimitedBigDecimal AMOUNT_LIMIT = LimitedBigDecimal.init().decimals(DECIMALS).build();
 
     @NotNull
     public static Amount of(final int amount) {
@@ -22,15 +22,11 @@ public final class Amount extends BasicWrapper<BigDecimal> {
         return new Amount(new BigDecimal(amount));
     }
 
-    private Amount(@NotNull final BigDecimal amount) {
-        super(amount);
-        validate(raw());
-    }
+    @NotNull
+    public static final Amount ZERO = Amount.of(0);
 
-    private void validate(@NotNull final BigDecimal bigDecimal) {
-        if (bigDecimal.scale() > DECIMALS) {
-            throw new IllegalArgumentException("Too many decimals " + bigDecimal.toString() + " (only " + DECIMALS + " allowed)");
-        }
+    private Amount(@NotNull final BigDecimal amount) {
+        super(AMOUNT_LIMIT.of(amount).setScale(DECIMALS, BigDecimal.ROUND_UNNECESSARY));
     }
 
     @NotNull
@@ -49,7 +45,7 @@ public final class Amount extends BasicWrapper<BigDecimal> {
 
     @NotNull
     public String asString() {
-        return raw().toString();
+        return raw().toPlainString();
     }
 
 }

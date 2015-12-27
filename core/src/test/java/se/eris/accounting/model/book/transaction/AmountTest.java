@@ -43,6 +43,7 @@ public class AmountTest {
     public void asString() {
         assertThat(Amount.of("10.10").asString(), is("10.10"));
         assertThat(Amount.of("-1.30").asString(), is("-1.30"));
+        assertThat(Amount.of("1.3").asString(), is("1.30"));
     }
 
 }
