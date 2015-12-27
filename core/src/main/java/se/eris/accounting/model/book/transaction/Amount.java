@@ -10,7 +10,7 @@ public final class Amount extends BasicWrapper<BigDecimal> {
 
     public static final int DECIMALS = 2;
 
-    private static final LimitedBigDecimal AMOUNT_LIMIT = LimitedBigDecimal.init().decimals(DECIMALS).build();
+    private static final LimitedBigDecimal LIMIT = LimitedBigDecimal.init().decimals(DECIMALS).build();
 
     @NotNull
     public static Amount of(final int amount) {
@@ -26,7 +26,7 @@ public final class Amount extends BasicWrapper<BigDecimal> {
     public static final Amount ZERO = Amount.of(0);
 
     private Amount(@NotNull final BigDecimal amount) {
-        super(AMOUNT_LIMIT.of(amount).setScale(DECIMALS, BigDecimal.ROUND_UNNECESSARY));
+        super(LIMIT.of(amount).setScale(DECIMALS, BigDecimal.ROUND_UNNECESSARY));
     }
 
     @NotNull
