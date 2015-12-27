@@ -55,6 +55,7 @@ public class AmountTest {
 
     @Test
     public void percent_roundHalfUp() {
+        //noinspection MagicNumber
         assertThat(Amount.of("10").percent(BigDecimal.valueOf(0.25)), is(Amount.of("0.03")));
     }
 
