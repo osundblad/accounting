@@ -7,28 +7,10 @@ import java.math.BigDecimal;
 
 public final class Amount extends BasicWrapper<BigDecimal> {
 
-    @NotNull
-    private static final BigDecimal DIVISOR = new BigDecimal(100);
-    @NotNull
-    public static final Amount ZERO = Amount.of(0, 0);
+    public static final int DECIMALS = 2;
 
     @NotNull
-    private static Amount part(final int decimalPart) {
-        validateDecimalPart(decimalPart);
-        return new Amount(new BigDecimal(decimalPart).divide(DIVISOR, 2, BigDecimal.ROUND_UNNECESSARY));
-    }
-
-    private static void validateDecimalPart(final int decimalPart) {
-        if ((decimalPart < 0) || (decimalPart >= 100)) {
-            throw new IllegalArgumentException("Invalid decimal part " + decimalPart);
-        }
-    }
-
-    @NotNull
-    public static Amount of(final int amount, final int decimalPart) {
-        final Amount part = part(decimalPart);
-        return (amount >= 0) ? of(amount).add(part) : of(amount).subtract(part);
-    }
+    public static final Amount ZERO = Amount.of(0);
 
     @NotNull
     public static Amount of(final int amount) {
@@ -42,6 +24,13 @@ public final class Amount extends BasicWrapper<BigDecimal> {
 
     private Amount(@NotNull final BigDecimal amount) {
         super(amount);
+        validate(raw());
+    }
+
+    private void validate(@NotNull final BigDecimal bigDecimal) {
+        if (bigDecimal.scale() > DECIMALS) {
+            throw new IllegalArgumentException("Too many decimals " + bigDecimal.toString() + " (only " + DECIMALS + " allowed)");
+        }
     }
 
     @NotNull

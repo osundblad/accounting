@@ -36,7 +36,7 @@ public class TransactionTest {
 
     @Test
     public void new_validateUnbalanced() {
-        final TransactionLine line1 = new TransactionLine(null, BookYearAccountId.random(), Amount.of(120,1));
+        final TransactionLine line1 = new TransactionLine(null, BookYearAccountId.random(), Amount.of("120.01"));
         final TransactionLine line2 = new TransactionLine(null, BookYearAccountId.random(), Amount.of(-20));
         final TransactionLine line3 = new TransactionLine(null, BookYearAccountId.random(), Amount.of(-100));
         final Collection<TransactionLine> lines = Arrays.asList(line1, line2, line3);
