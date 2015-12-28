@@ -40,6 +40,7 @@ public class BookDataServiceJpa implements BookDataService {
 
     @Override
     public void delete(@NotNull final BookId bookId) {
+        // todo validate that book has no years
         bookDao.delete(bookId);
     }
 

@@ -41,9 +41,13 @@ public class BookResource {
 
     @NotNull
     @RequestMapping(method = RequestMethod.GET, value = "/{bookId}")
-    public RestBook get(@PathVariable("bookId") final UUID bookId) {
-        final Book book = bookRestFacade.getAllBooks().filter(b -> b.getId().get().asUUID().equals(bookId)).findFirst().orElseThrow(() -> new NotFoundException("no " + Book.class.getSimpleName() + " with id " + bookId + " found."));
-        return new RestBook(book);
+    public ResponseEntity<RestBook> get(@PathVariable("bookId") final UUID bookId) {
+        final Optional<Book> book = bookRestFacade.getAllBooks().filter(b -> b.getId().get().asUUID().equals(bookId)).findFirst();
+        if (book.isPresent()) {
+            return new ResponseEntity<>(new RestBook(book.get()), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @NotNull
