@@ -1,6 +1,7 @@
 package se.eris.accounting.web.rest.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -38,9 +39,15 @@ public class RestBook {
         description = book.getDescription().asString();
     }
 
+    @JsonIgnore
+    @NotNull
+    public Optional<BookId> getBookId() {
+        return Optional.ofNullable(id).map(BookId::from);
+    }
+
     @NotNull
     public Book toCore() {
-        return new Book(Optional.ofNullable(id).map(BookId::from), BookName.of(name), BookDescription.of(description));
+        return new Book(getBookId(), BookName.of(name), BookDescription.of(description));
     }
 
     @NotNull

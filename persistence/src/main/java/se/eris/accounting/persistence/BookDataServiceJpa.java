@@ -3,6 +3,7 @@ package se.eris.accounting.persistence;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import se.eris.accounting.model.book.Book;
 import se.eris.accounting.model.book.BookId;
 import se.eris.accounting.model.book.BookYear;
@@ -13,6 +14,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 @Service
+@Transactional
 public class BookDataServiceJpa implements BookDataService {
 
     @NotNull
@@ -59,6 +61,7 @@ public class BookDataServiceJpa implements BookDataService {
     @Override
     @NotNull
     public BookYear create(@NotNull final BookYear bookYear) {
+        // todo validate year continuity and overlap
         return bookYearDao.create(bookYear);
     }
 

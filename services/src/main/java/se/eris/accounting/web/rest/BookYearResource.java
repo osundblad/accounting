@@ -4,7 +4,9 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.eris.accounting.model.book.BookId;
 import se.eris.accounting.model.book.BookYear;
@@ -77,12 +79,11 @@ public class BookYearResource {
     }
 
     @NotNull
-    @ResponseBody
     @RequestMapping(method = RequestMethod.POST)
-    public RestBookYear create(@RequestBody @NotNull final RestBookYear restBookYear) {
+    public ResponseEntity<RestBookYear> create(@RequestBody @NotNull final RestBookYear restBookYear) {
         final BookYear saved = bookRestFacade.create(restBookYear.toCore());
         logger.debug("created book year: " + saved);
-        return new RestBookYear(saved);
+        return new ResponseEntity<>(new RestBookYear(saved), HttpStatus.OK);
     }
 
     @NotNull
