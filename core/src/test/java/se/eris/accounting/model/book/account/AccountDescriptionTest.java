@@ -20,14 +20,14 @@ public class AccountDescriptionTest {
 
     @Test
     public void of_valid() {
-        AccountDescription.of("");
-        AccountDescription.of("This is a text with some 5p€c!@l characters. <=**=> ");
+        AccountDescription.from("");
+        AccountDescription.from("This is a text with some 5p€c!@l characters. <=**=> ");
     }
 
     @Test
     public void of_toLong() {
         exception.expect(IllegalArgumentException.class);
-        AccountDescription.of(StringTestUtil.createLongString(AccountDescription.MAX_LENGTH + 1));
+        AccountDescription.from(StringTestUtil.createLongString(AccountDescription.MAX_LENGTH + 1));
     }
 
 }

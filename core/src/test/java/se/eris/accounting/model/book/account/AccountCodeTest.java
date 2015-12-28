@@ -11,22 +11,22 @@ public class AccountCodeTest {
 
     @Test
     public void of_validCodes() {
-        AccountCode.of("1");
-        AccountCode.of("1234567890");
-        AccountCode.of("abcdefghijkl");
-        AccountCode.of("MNOPQRSTUVWX");
+        AccountCode.from("1");
+        AccountCode.from("1234567890");
+        AccountCode.from("abcdefghijkl");
+        AccountCode.from("MNOPQRSTUVWX");
     }
 
     @Test
     public void of_empty_isInvalid() {
         exception.expect(IllegalArgumentException.class);
-        AccountCode.of("");
+        AccountCode.from("");
     }
 
     @Test
     public void of_withIllegalCharacter_isInvalid() {
         exception.expect(IllegalArgumentException.class);
-        AccountCode.of("a c");
+        AccountCode.from("a c");
     }
 
 }

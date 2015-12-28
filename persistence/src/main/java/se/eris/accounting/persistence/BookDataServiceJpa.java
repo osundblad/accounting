@@ -8,9 +8,8 @@ import se.eris.accounting.model.book.Book;
 import se.eris.accounting.model.book.BookId;
 import se.eris.accounting.model.book.BookYear;
 import se.eris.accounting.model.book.BookYearId;
-import se.eris.accounting.model.book.account.*;
+import se.eris.accounting.model.book.account.BookYearAccount;
 
-import java.util.Optional;
 import java.util.stream.Stream;
 
 @Service
@@ -21,11 +20,14 @@ public class BookDataServiceJpa implements BookDataService {
     private final BookDao bookDao;
     @NotNull
     private final BookYearDao bookYearDao;
+    @NotNull
+    private final BookYearAccountDao bookYearAccountDao;
 
     @Autowired
-    public BookDataServiceJpa(@NotNull final BookDao bookDao, @NotNull final BookYearDao bookYearDao) {
+    public BookDataServiceJpa(@NotNull final BookDao bookDao, @NotNull final BookYearDao bookYearDao, @NotNull final BookYearAccountDao bookYearAccountDao) {
         this.bookDao = bookDao;
         this.bookYearDao = bookYearDao;
+        this.bookYearAccountDao = bookYearAccountDao;
     }
 
     @Override
@@ -65,13 +67,21 @@ public class BookDataServiceJpa implements BookDataService {
         return bookYearDao.create(bookYear);
     }
 
+    @Override
+    public void delete(@NotNull final BookYearId bookYearId) {
+        bookYearDao.delete(bookYearId);
+    }
+
     @NotNull
     @Override
-    public Stream<BookYearAccount> getBookYearAccounts(@NotNull final BookYearId bookYearId) {
-        // todo
-        final BookYearAccount account1 = new BookYearAccount(Optional.empty(), bookYearId, AccountInfo.of(AccountCode.of("1437"), AccountName.of("Avanza Sparkonto"), AccountDescription.of("Bas kontot hos Avanza Bank")));
-        final BookYearAccount account2 = new BookYearAccount(Optional.empty(), bookYearId, AccountInfo.of(AccountCode.of("1438"), AccountName.of("Avanza Depå"), AccountDescription.of("Depå kontot hos Avanza Bank")));
-        return Stream.of(account1, account2);
+    public BookYearAccount create(@NotNull final BookYearAccount account) {
+        return bookYearAccountDao.create(account);
+    }
+
+    @NotNull
+    @Override
+    public Stream<BookYearAccount> findBookYearAccounts(@NotNull final BookYearId bookYearId) {
+        return bookYearAccountDao.findBookYearAccounts(bookYearId);
     }
 
 }

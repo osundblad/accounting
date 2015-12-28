@@ -86,10 +86,21 @@ public class BookYearResource {
         return new ResponseEntity<>(new RestBookYear(saved), HttpStatus.OK);
     }
 
-    @NotNull
-    @RequestMapping(method = RequestMethod.GET, value = "/{bookYear}/accounts")
-    public List<RestBookYearAccount> getAccounts(@PathVariable("bookYear") @NotNull final UUID bookYear) {
-        return bookRestFacade.getBookYearAccounts(BookYearId.from(bookYear)).map(RestBookYearAccount::new).collect(Collectors.toList());
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{bookYearId}")
+    public void delete(@PathVariable("bookYearId") @NotNull final UUID bookYearId) {
+        bookRestFacade.delete(BookYearId.from(bookYearId));
     }
 
+    @NotNull
+    @RequestMapping(method = RequestMethod.GET, value = "/{bookYearId}/account")
+    public List<RestBookYearAccount> getAccounts(@PathVariable("bookYearId") @NotNull final UUID bookYearId) {
+        return bookRestFacade.getBookYearAccounts(BookYearId.from(bookYearId)).map(RestBookYearAccount::new).collect(Collectors.toList());
+    }
+
+    @NotNull
+    @RequestMapping(method = RequestMethod.GET, value = "/{bookYear}/account/create")
+    public RestBookYearAccount createAccount(@PathVariable("bookYear") @NotNull final UUID bookYear, @RequestBody @NotNull final RestBookYearAccount account) {
+        assert account.getBookYearId().equals(bookYear);
+        return new RestBookYearAccount(bookRestFacade.create(account.toCore()));
+    }
 }

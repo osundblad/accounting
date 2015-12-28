@@ -42,6 +42,10 @@ public class BookRestFacade {
         return bookDataService.create(bookYear);
     }
 
+    public void delete(@NotNull final BookYearId bookYearId) {
+        bookDataService.delete(bookYearId);
+    }
+
     @NotNull
     public Stream<BookYear> getAllBookYears() {
         return bookDataService.getAllBookYears();
@@ -54,7 +58,11 @@ public class BookRestFacade {
 
     @NotNull
     public Stream<BookYearAccount> getBookYearAccounts(@NotNull final BookYearId bookYearId) {
-        return bookDataService.getBookYearAccounts(bookYearId);
+        return bookDataService.findBookYearAccounts(bookYearId);
     }
 
+    @NotNull
+    public BookYearAccount create(@NotNull final BookYearAccount account) {
+        return bookDataService.create(account);
+    }
 }

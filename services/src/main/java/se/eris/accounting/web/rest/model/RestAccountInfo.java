@@ -3,7 +3,10 @@ package se.eris.accounting.web.rest.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
+import se.eris.accounting.model.book.account.AccountCode;
+import se.eris.accounting.model.book.account.AccountDescription;
 import se.eris.accounting.model.book.account.AccountInfo;
+import se.eris.accounting.model.book.account.AccountName;
 
 public class RestAccountInfo {
 
@@ -44,6 +47,11 @@ public class RestAccountInfo {
     @NotNull
     public String getDescription() {
         return description;
+    }
+
+    @NotNull
+    public AccountInfo toCore() {
+        return AccountInfo.of(AccountCode.from(code), AccountName.from(name), AccountDescription.from(description));
     }
 
 }

@@ -1,6 +1,7 @@
 package se.eris.accounting.web.rest.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -47,6 +48,12 @@ public class RestBookYear {
         bookId = bookYear.getBookId().asUUID();
         startDate = bookYear.getStartDate().format(DateTimeFormatter.ISO_DATE);
         endDate = bookYear.getEndDate().format(DateTimeFormatter.ISO_DATE);
+    }
+
+    @JsonIgnore
+    @NotNull
+    public Optional<UUID> getId() {
+        return Optional.ofNullable(id);
     }
 
     @NotNull

@@ -28,7 +28,11 @@ public interface BookDataService {
     @NotNull
     BookYear create(@NotNull BookYear bookYear);
 
-    @NotNull
-    Stream<BookYearAccount> getBookYearAccounts(@NotNull BookYearId bookYearId);
+    void delete(@NotNull BookYearId bookYearId);
 
+    @NotNull
+    BookYearAccount create(@NotNull BookYearAccount account);
+
+    @NotNull
+    Stream<BookYearAccount> findBookYearAccounts(@NotNull BookYearId bookYearId);
 }

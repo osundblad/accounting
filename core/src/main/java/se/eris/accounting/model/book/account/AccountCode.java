@@ -13,7 +13,7 @@ public class AccountCode extends StringWrapper {
             .length(1, MAX_LENGTH)
             .matches(MUST_MATCH).build();
 
-    public static AccountCode of(@NotNull final String code) {
+    public static AccountCode from(@NotNull final String code) {
         return new AccountCode(code);
     }
 

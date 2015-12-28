@@ -14,11 +14,11 @@ public class AccountDescription extends StringWrapper {
 
     @NotNull
     public static AccountDescription empty() {
-        return of("");
+        return from("");
     }
 
     @NotNull
-    public static AccountDescription of(@NotNull final String description) {
+    public static AccountDescription from(@NotNull final String description) {
         return new AccountDescription(description);
     }
 

@@ -8,6 +8,11 @@ import java.util.Optional;
 public class BookYearAccount {
 
     @NotNull
+    public static BookYearAccount of(@NotNull final Optional<BookYearAccountId> id, @NotNull final BookYearId bookYearId, @NotNull final AccountInfo accountInfo) {
+        return new BookYearAccount(id, bookYearId, accountInfo);
+    }
+
+    @NotNull
     private final Optional<BookYearAccountId> id;
 
     @NotNull
@@ -16,7 +21,7 @@ public class BookYearAccount {
     @NotNull
     private final AccountInfo accountInfo;
 
-    public BookYearAccount(@NotNull final Optional<BookYearAccountId> id, @NotNull final BookYearId bookYearId, @NotNull final AccountInfo accountInfo) {
+    private BookYearAccount(@NotNull final Optional<BookYearAccountId> id, @NotNull final BookYearId bookYearId, @NotNull final AccountInfo accountInfo) {
         this.id = id;
         this.bookYearId = bookYearId;
         this.accountInfo = accountInfo;

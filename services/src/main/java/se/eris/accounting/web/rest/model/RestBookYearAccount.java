@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import se.eris.accounting.model.book.BookYearId;
 import se.eris.accounting.model.book.account.BookYearAccount;
 import se.eris.accounting.model.book.account.BookYearAccountId;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public class RestBookYearAccount {
@@ -48,6 +50,11 @@ public class RestBookYearAccount {
     @NotNull
     public RestAccountInfo getAccountInfo() {
         return accountInfo;
+    }
+
+    @NotNull
+    public BookYearAccount toCore() {
+        return BookYearAccount.of(Optional.ofNullable(id).map(BookYearAccountId::from), BookYearId.from(bookYearId), accountInfo.toCore());
     }
 
 }

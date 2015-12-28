@@ -12,31 +12,31 @@ public class AccountNameTest {
 
     @Test
     public void of_valid() {
-        AccountName.of("a");
-        AccountName.of(StringTestUtil.createLongString(AccountName.MAX_LENGTH));
+        AccountName.from("a");
+        AccountName.from(StringTestUtil.createLongString(AccountName.MAX_LENGTH));
     }
 
     @Test
     public void of_trim() {
-        AccountName.of(" \r" + StringTestUtil.createLongString(AccountName.MAX_LENGTH) + "  \n");
+        AccountName.from(" \r" + StringTestUtil.createLongString(AccountName.MAX_LENGTH) + "  \n");
     }
 
     @Test
     public void of_toShort() {
         exception.expect(IllegalArgumentException.class);
-        AccountName.of("");
+        AccountName.from("");
     }
 
     @Test
     public void of_toShortWhiteSpace() {
         exception.expect(IllegalArgumentException.class);
-        AccountName.of("  ");
+        AccountName.from("  ");
     }
 
     @Test
     public void of_toLong() {
         exception.expect(IllegalArgumentException.class);
-        AccountName.of(StringTestUtil.createLongString(AccountName.MAX_LENGTH + 1));
+        AccountName.from(StringTestUtil.createLongString(AccountName.MAX_LENGTH + 1));
     }
 
 }

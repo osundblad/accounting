@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import se.eris.accounting.model.book.Book;
 import se.eris.accounting.model.book.BookDescription;
 import se.eris.accounting.model.book.BookName;
+import se.eris.accounting.web.rest.model.RestAccountInfo;
 import se.eris.accounting.web.rest.model.RestBook;
 import se.eris.accounting.web.rest.model.RestBookYear;
+import se.eris.accounting.web.rest.model.RestBookYearAccount;
 
 import java.util.Optional;
 
@@ -42,12 +44,15 @@ public class TestResource {
     @RequestMapping(method = RequestMethod.GET, value = "/run/{bookName}")
     public ResponseEntity<String> run(@PathVariable("bookName") final String bookName) {
         logger.info("creating book");
-        final RestBook book = bookResource.create(new RestBook(new Book(Optional.empty(), BookName.of(bookName), BookDescription.of("This book was created by the test script."))));
+        final RestBook book = bookResource.create(new RestBook(new Book(Optional.empty(), BookName.of(bookName), BookDescription.of("This book was created by the test script.")))).getBody();
         logger.info("  created book: '" + bookName + "'");
+
         final RestBookYear bookYear1 = bookYearResource.create(new RestBookYear(null, book.getBookId().get().asUUID(), "2014-07-01", "2015-06-30")).getBody();
         logger.info("  created year: '" + bookYear1.toCore().toString() + "'");
         final RestBookYear bookYear2 = bookYearResource.create(bookYearResource.getNext(book.getBookId().get().asUUID())).getBody();
         logger.info("  created year: '" + bookYear2.toCore().toString() + "'");
+
+        final RestBookYearAccount account = bookYearResource.createAccount(bookYear1.getId().get(), new RestBookYearAccount(null, bookYear1.getId().get(), new RestAccountInfo("1234", "Bank", "Banken med alla pengarna")));
 
         return new ResponseEntity<>("ok", HttpStatus.OK);
     }
@@ -55,8 +60,26 @@ public class TestResource {
     @NotNull
     @RequestMapping(method = RequestMethod.GET, value = "/delete/{bookName}")
     public ResponseEntity delete(@PathVariable("bookName") final String bookName) {
-        return bookResource.delete(bookName);
+        final Optional<Book> book = getBookByName(bookName);
+        if (book.isPresent()) {
+            logger.info("deleting book: '" + bookName + "'");
+            for (final RestBookYear year : bookYearResource.get(book.get().getId().get().asUUID())) {
+                logger.info("  deleting year: '" + year.toString() + "'");
+                bookYearResource.delete(year.getId().get());
+            }
+
+            bookResource.delete(book.flatMap(Book::getId).get().asUUID());
+            logger.info("  deleted book: '" + bookName + "'");
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } else {
+            logger.info("deleting book: '" + bookName + "' not found");
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
     }
 
+    @NotNull
+    private Optional<Book> getBookByName(@NotNull final String bookName) {
+        return bookResource.getAll().stream().map(RestBook::toCore).filter(b -> b.getName().equals(BookName.of(bookName))).findFirst();
+    }
 
 }
