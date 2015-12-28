@@ -4,6 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import javax.validation.constraints.NotNull;
 
+@SuppressWarnings("unused")
 @ConfigurationProperties(prefix="mariadb")
 public class MariaDBProperties {
 
@@ -20,9 +21,9 @@ public class MariaDBProperties {
 
     private static class Datasource {
 
-        private String url;
-        private Class driverClassName;
-        private String userName;
+        private String url = "jdbc:mariadb://localhost/accounting";
+        private Class driverClassName = org.mariadb.jdbc.Driver.class;
+        private String userName = "book";
         private String password;
 
         public String getUrl() {
@@ -32,7 +33,6 @@ public class MariaDBProperties {
         public void setUrl(final String url) {
             this.url = url;
         }
-
 
         public Class getDriverClassName() {
             return driverClassName;
