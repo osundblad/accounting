@@ -13,8 +13,8 @@ public class LocalDateConverter implements AttributeConverter<LocalDate, Date> {
 
     @Nullable
     @Override
-    public Date convertToDatabaseColumn(@Nullable final LocalDate locDate) {
-    	return ((locDate == null) ? null : Date.valueOf(locDate));
+    public Date convertToDatabaseColumn(@Nullable final LocalDate localDate) {
+    	return ((localDate == null) ? null : Date.valueOf(localDate));
     }
 
     @Nullable
