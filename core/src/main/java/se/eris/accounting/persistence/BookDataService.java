@@ -9,15 +9,15 @@ import se.eris.accounting.model.book.account.BookYearAccount;
 
 import java.util.stream.Stream;
 
-/**
- * Describe class/interface here.
- */
 public interface BookDataService {
+
     @NotNull
     Stream<Book> getAllBooks();
 
     @NotNull
     Book create(@NotNull Book book);
+
+    void delete(@NotNull BookId bookId);
 
     @NotNull
     Stream<BookYear> getAllBookYears();
@@ -30,4 +30,5 @@ public interface BookDataService {
 
     @NotNull
     Stream<BookYearAccount> getBookYearAccounts(@NotNull BookYearId bookYearId);
+
 }

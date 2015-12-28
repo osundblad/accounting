@@ -59,6 +59,12 @@ public class BookYearResource {
     public RestBookYear getNext(@PathVariable("bookId") @NotNull final UUID bookId) {
         final BookId fromBookId = BookId.from(bookId);
         final Optional<BookYear> bookYear = bookRestFacade.getAllBookYears(fromBookId).sorted(BookYear.NEW_TO_OLD).findFirst();
+        final DatePeriod datePeriod = getNextYearDatePeriod(bookYear);
+        return new RestBookYear(new BookYear(Optional.empty(), fromBookId, datePeriod));
+    }
+
+    @NotNull
+    private DatePeriod getNextYearDatePeriod(@NotNull final Optional<BookYear> bookYear) {
         final DatePeriod datePeriod;
         if (bookYear.isPresent()) {
             final LocalDate previousEndDate = bookYear.get().getEndDate();
@@ -67,7 +73,7 @@ public class BookYearResource {
             final int currentYear = LocalDate.now().getYear();
             datePeriod = DatePeriod.between(LocalDate.of(currentYear, Month.JANUARY, 1), LocalDate.of(currentYear, Month.DECEMBER, 31));
         }
-        return new RestBookYear(new BookYear(Optional.empty(), fromBookId, datePeriod));
+        return datePeriod;
     }
 
     @NotNull

@@ -38,6 +38,10 @@ public class BookDataServiceJpa implements BookDataService {
         return bookDao.create(book);
     }
 
+    @Override
+    public void delete(@NotNull final BookId bookId) {
+        bookDao.delete(bookId);
+    }
 
     @Override
     @NotNull

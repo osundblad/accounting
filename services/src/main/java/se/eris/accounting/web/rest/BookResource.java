@@ -4,7 +4,9 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.eris.accounting.model.book.Book;
 import se.eris.accounting.model.book.BookDescription;
@@ -64,6 +66,25 @@ public class BookResource {
         final Book saved = bookRestFacade.create(restBook.toCore());
         logger.debug("created book: " + saved);
         return new RestBook(saved);
+    }
+
+    @NotNull
+    @RequestMapping(method = RequestMethod.GET, value = "/delete/{bookName}")
+    public ResponseEntity delete(@PathVariable("bookName") final String bookName) {
+        final Optional<Book> book = getBookByName(bookName);
+        if (book.isPresent()) {
+            logger.info("deleting book: '" + bookName + "'");
+            bookRestFacade.delete(book.flatMap(Book::getId).get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } else {
+            logger.info("deleting book: '" + bookName + "' not found");
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @NotNull
+    private Optional<Book> getBookByName(@NotNull final String bookName) {
+        return bookRestFacade.getAllBooks().filter(b -> b.getName().equals(BookName.of(bookName))).findFirst();
     }
 
 }
