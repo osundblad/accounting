@@ -17,10 +17,7 @@ import se.eris.accounting.model.book.BookName;
 import se.eris.accounting.model.book.BookYearId;
 import se.eris.accounting.model.book.account.AccountClass;
 import se.eris.accounting.model.book.transaction.Transaction;
-import se.eris.accounting.web.rest.model.RestAccountInfo;
-import se.eris.accounting.web.rest.model.RestBook;
-import se.eris.accounting.web.rest.model.RestBookYear;
-import se.eris.accounting.web.rest.model.RestBookYearAccount;
+import se.eris.accounting.web.rest.model.*;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -42,11 +39,15 @@ public class TestResource {
     @NotNull
     private final AccountResource accountResource;
 
+    @NotNull
+    private final TransactionResource transactionResource;
+
     @Autowired
-    public TestResource(@NotNull final BookResource bookResource, @NotNull final BookYearResource bookYearResource, @NotNull final AccountResource accountResource) {
+    public TestResource(@NotNull final BookResource bookResource, @NotNull final BookYearResource bookYearResource, @NotNull final AccountResource accountResource, @NotNull TransactionResource transactionResource) {
         this.bookResource = bookResource;
         this.bookYearResource = bookYearResource;
         this.accountResource = accountResource;
+        this.transactionResource = transactionResource;
     }
 
     @SuppressWarnings("FeatureEnvy")
@@ -78,8 +79,16 @@ public class TestResource {
         final RestBookYearAccount varor = accountResource.createAccount(new RestBookYearAccount(null, bookYear1Id, new RestAccountInfo(AccountClass.EXPENSE, "4000", "Varor", "R5")));
         final RestBookYearAccount tele = accountResource.createAccount(new RestBookYearAccount(null, bookYear1Id, new RestAccountInfo(AccountClass.EXPENSE, "6200", "Tele och post", "R6")));
 
-        final Transaction transaction = Transaction.of(Optional.empty(), BookYearId.from(bookYear1.getId().get()), LocalDate.now(), Collections.emptyList());
+        final Transaction transaction = createNewTransaction(BookYearId.from(bookYear1.getId().get()));
+        final RestTransaction restTransaction = RestTransaction.of(transaction);
+        transactionResource.create(restTransaction);
+
         return new ResponseEntity<>("ok", HttpStatus.OK);
+    }
+
+    @NotNull
+    private Transaction createNewTransaction(@NotNull final BookYearId bookYearId) {
+        return Transaction.of(Optional.empty(), bookYearId, LocalDate.now(), Collections.emptyList());
     }
 
     @NotNull

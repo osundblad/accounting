@@ -92,4 +92,11 @@ public class BookDataServiceJpa implements BookDataService {
         return Stream.empty();
     }
 
+    @NotNull
+    @Override
+    public Transaction create(@NotNull final Transaction transaction) {
+        // todo
+        return null;
+    }
+
 }

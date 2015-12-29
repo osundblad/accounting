@@ -72,4 +72,9 @@ public class BookRestFacade {
         return bookDataService.getTransactions(bookYearId);
     }
 
+    @NotNull
+    public Transaction create(@NotNull final Transaction transaction) {
+        return bookDataService.create(transaction);
+    }
+
 }

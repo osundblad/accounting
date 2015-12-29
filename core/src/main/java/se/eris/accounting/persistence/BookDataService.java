@@ -39,4 +39,8 @@ public interface BookDataService {
 
     @NotNull
     Stream<Transaction> getTransactions(@NotNull BookYearId bookYearId);
+
+    @NotNull
+    Transaction create(@NotNull Transaction transaction);
+
 }
