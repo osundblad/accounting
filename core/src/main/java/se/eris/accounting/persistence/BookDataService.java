@@ -8,6 +8,7 @@ import se.eris.accounting.model.book.BookYearId;
 import se.eris.accounting.model.book.account.BookYearAccount;
 import se.eris.accounting.model.book.account.BookYearAccountId;
 import se.eris.accounting.model.book.transaction.Transaction;
+import se.eris.accounting.model.book.transaction.TransactionId;
 
 import java.util.stream.Stream;
 
@@ -42,5 +43,7 @@ public interface BookDataService {
 
     @NotNull
     Transaction create(@NotNull Transaction transaction);
+
+    void delete(@NotNull TransactionId transactionId);
 
 }

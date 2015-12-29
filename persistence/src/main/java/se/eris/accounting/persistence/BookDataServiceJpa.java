@@ -11,6 +11,7 @@ import se.eris.accounting.model.book.BookYearId;
 import se.eris.accounting.model.book.account.BookYearAccount;
 import se.eris.accounting.model.book.account.BookYearAccountId;
 import se.eris.accounting.model.book.transaction.Transaction;
+import se.eris.accounting.model.book.transaction.TransactionId;
 
 import java.util.stream.Stream;
 
@@ -24,12 +25,15 @@ public class BookDataServiceJpa implements BookDataService {
     private final BookYearDao bookYearDao;
     @NotNull
     private final BookYearAccountDao bookYearAccountDao;
+    @NotNull
+    private final TransactionDao transactionDao;
 
     @Autowired
-    public BookDataServiceJpa(@NotNull final BookDao bookDao, @NotNull final BookYearDao bookYearDao, @NotNull final BookYearAccountDao bookYearAccountDao) {
+    public BookDataServiceJpa(@NotNull final BookDao bookDao, @NotNull final BookYearDao bookYearDao, @NotNull final BookYearAccountDao bookYearAccountDao, @NotNull final TransactionDao transactionDao) {
         this.bookDao = bookDao;
         this.bookYearDao = bookYearDao;
         this.bookYearAccountDao = bookYearAccountDao;
+        this.transactionDao = transactionDao;
     }
 
     @Override
@@ -88,15 +92,18 @@ public class BookDataServiceJpa implements BookDataService {
     @NotNull
     @Override
     public Stream<Transaction> getTransactions(@NotNull final BookYearId bookYearId) {
-        // todo
-        return Stream.empty();
+        return transactionDao.findBookYearTransactions(bookYearId);
     }
 
     @NotNull
     @Override
     public Transaction create(@NotNull final Transaction transaction) {
-        // todo
-        return null;
+        return transactionDao.create(transaction);
+    }
+
+    @Override
+    public void delete(@NotNull final TransactionId transactionId) {
+        transactionDao.delete(transactionId);
     }
 
 }

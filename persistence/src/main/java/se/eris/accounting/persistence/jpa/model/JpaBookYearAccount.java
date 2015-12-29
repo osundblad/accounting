@@ -13,6 +13,7 @@ public class JpaBookYearAccount {
 
     public static final int CODE_LENGTH = 16;
     public static final int NAME_LENGTH = 200;
+
     @NotNull
     @Id
     @Column(nullable = false, length = 36)
