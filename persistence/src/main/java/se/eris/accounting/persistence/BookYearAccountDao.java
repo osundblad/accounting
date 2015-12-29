@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.eris.accounting.model.book.BookYearId;
 import se.eris.accounting.model.book.account.BookYearAccount;
+import se.eris.accounting.model.book.account.BookYearAccountId;
 import se.eris.accounting.persistence.jpa.JpaBookYearAccountRepository;
 import se.eris.accounting.persistence.jpa.model.JpaBookYearAccount;
 
@@ -32,6 +33,10 @@ public class BookYearAccountDao {
             throw new AlreadyPersistedException(account + " has already been persisted (use update)." );
         }
         return repository.save(new JpaBookYearAccount(account)).toCore();
+    }
+
+    public void delete(@NotNull final BookYearAccountId bookYearAccountId) {
+        repository.delete(bookYearAccountId.asString());
     }
 
 }

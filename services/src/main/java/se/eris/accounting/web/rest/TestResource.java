@@ -52,7 +52,7 @@ public class TestResource {
         final RestBookYear bookYear2 = bookYearResource.create(bookYearResource.getNext(book.getBookId().get().asUUID())).getBody();
         logger.info("  created year: '" + bookYear2.toCore().toString() + "'");
 
-        final RestBookYearAccount account = bookYearResource.createAccount(bookYear1.getId().get(), new RestBookYearAccount(null, bookYear1.getId().get(), new RestAccountInfo("1234", "Bank", "Banken med alla pengarna")));
+        final RestBookYearAccount account = bookYearResource.createAccount(new RestBookYearAccount(null, bookYear1.getId().get(), new RestAccountInfo("1234", "Bank", "Banken med alla pengarna")));
 
         return new ResponseEntity<>("ok", HttpStatus.OK);
     }
@@ -63,17 +63,28 @@ public class TestResource {
         final Optional<Book> book = getBookByName(bookName);
         if (book.isPresent()) {
             logger.info("deleting book: '" + bookName + "'");
-            for (final RestBookYear year : bookYearResource.get(book.get().getId().get().asUUID())) {
-                logger.info("  deleting year: '" + year.toString() + "'");
-                bookYearResource.delete(year.getId().get());
-            }
-
+            deleteAllBookYears(book.get());
             bookResource.delete(book.flatMap(Book::getId).get().asUUID());
             logger.info("  deleted book: '" + bookName + "'");
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         } else {
             logger.info("deleting book: '" + bookName + "' not found");
             return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    private void deleteAllBookYears(@NotNull final Book book) {
+        for (final RestBookYear year : bookYearResource.get(book.getId().get().asUUID())) {
+            logger.info("  deleting year: '" + year.toString() + "'");
+            deleteAllAccounts(year);
+            bookYearResource.delete(year.getId().get());
+        }
+    }
+
+    private void deleteAllAccounts(@NotNull final RestBookYear year) {
+        for (final RestBookYearAccount account : bookYearResource.getAccounts(year.getId().get())) {
+            logger.info("  deleting account: '" + account.toString() + "'");
+            bookYearResource.deleteAccount(account.getId().get().asUUID());
         }
     }
 

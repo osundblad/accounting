@@ -12,6 +12,7 @@ import se.eris.accounting.model.book.BookId;
 import se.eris.accounting.model.book.BookYear;
 import se.eris.accounting.model.book.BookYearId;
 import se.eris.accounting.model.book.DatePeriod;
+import se.eris.accounting.model.book.account.BookYearAccountId;
 import se.eris.accounting.services.BookRestFacade;
 import se.eris.accounting.web.rest.model.RestBookYear;
 import se.eris.accounting.web.rest.model.RestBookYearAccount;
@@ -98,9 +99,13 @@ public class BookYearResource {
     }
 
     @NotNull
-    @RequestMapping(method = RequestMethod.GET, value = "/{bookYear}/account/create")
-    public RestBookYearAccount createAccount(@PathVariable("bookYear") @NotNull final UUID bookYear, @RequestBody @NotNull final RestBookYearAccount account) {
-        assert account.getBookYearId().equals(bookYear);
+    @RequestMapping(method = RequestMethod.POST, value = "/account")
+    public RestBookYearAccount createAccount(@RequestBody @NotNull final RestBookYearAccount account) {
         return new RestBookYearAccount(bookRestFacade.create(account.toCore()));
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/account/{bookYearAccountId}")
+    public void deleteAccount(@PathVariable("bookYearAccountId") @NotNull final UUID bookYearAccountId) {
+        bookRestFacade.delete(BookYearAccountId.from(bookYearAccountId));
     }
 }

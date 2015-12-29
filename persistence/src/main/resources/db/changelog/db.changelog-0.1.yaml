@@ -52,3 +52,38 @@ databaseChangeLog:
                   type: date
                   constraints:
                     nullable: false
+  - changeSet:
+      id: 3
+      author: olle
+      changes:
+        - createTable:
+            tableName: book_year_account
+            columns:
+              - column:
+                  name: id
+                  type: char(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: book_year_id
+                  type: char(36)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_bookyearaccount_bookyear
+                    references: book_year(id)
+              - column:
+                  name: code
+                  type: char(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: char(40)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: char(255)
+                  constraints:
+                    nullable: false

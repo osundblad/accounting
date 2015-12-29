@@ -1,6 +1,7 @@
 package se.eris.accounting.web.rest.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -14,10 +15,13 @@ import java.util.UUID;
 public class RestBookYearAccount {
 
     @Nullable
+    @JsonProperty
     private final UUID id;
     @NotNull
+    @JsonProperty
     private final UUID bookYearId;
     @NotNull
+    @JsonProperty
     private final RestAccountInfo accountInfo;
 
     @JsonCreator
@@ -37,24 +41,24 @@ public class RestBookYearAccount {
         accountInfo = new RestAccountInfo(account.getAccountInfo());
     }
 
-    @Nullable
-    public UUID getId() {
-        return id;
-    }
-
-    @NotNull
-    public UUID getBookYearId() {
-        return bookYearId;
-    }
-
-    @NotNull
-    public RestAccountInfo getAccountInfo() {
-        return accountInfo;
-    }
-
     @NotNull
     public BookYearAccount toCore() {
-        return BookYearAccount.of(Optional.ofNullable(id).map(BookYearAccountId::from), BookYearId.from(bookYearId), accountInfo.toCore());
+        return BookYearAccount.of(getId(), BookYearId.from(bookYearId), accountInfo.toCore());
+    }
+
+    @JsonIgnore
+    @NotNull
+    public Optional<BookYearAccountId> getId() {
+        return Optional.ofNullable(id).map(BookYearAccountId::from);
+    }
+
+    @Override
+    public String toString() {
+        return "RestBookYearAccount{" +
+                "id=" + id +
+                ", bookYearId=" + bookYearId +
+                ", accountInfo=" + accountInfo +
+                '}';
     }
 
 }

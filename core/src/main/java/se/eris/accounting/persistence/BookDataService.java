@@ -6,6 +6,7 @@ import se.eris.accounting.model.book.BookId;
 import se.eris.accounting.model.book.BookYear;
 import se.eris.accounting.model.book.BookYearId;
 import se.eris.accounting.model.book.account.BookYearAccount;
+import se.eris.accounting.model.book.account.BookYearAccountId;
 
 import java.util.stream.Stream;
 
@@ -31,8 +32,10 @@ public interface BookDataService {
     void delete(@NotNull BookYearId bookYearId);
 
     @NotNull
-    BookYearAccount create(@NotNull BookYearAccount account);
+    Stream<BookYearAccount> findBookYearAccounts(@NotNull BookYearId bookYearId);
 
     @NotNull
-    Stream<BookYearAccount> findBookYearAccounts(@NotNull BookYearId bookYearId);
+    BookYearAccount create(@NotNull BookYearAccount account);
+
+    void delete(@NotNull BookYearAccountId bookYearAccountId);
 }

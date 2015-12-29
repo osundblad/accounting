@@ -9,6 +9,7 @@ import se.eris.accounting.model.book.BookId;
 import se.eris.accounting.model.book.BookYear;
 import se.eris.accounting.model.book.BookYearId;
 import se.eris.accounting.model.book.account.BookYearAccount;
+import se.eris.accounting.model.book.account.BookYearAccountId;
 
 import java.util.stream.Stream;
 
@@ -74,14 +75,19 @@ public class BookDataServiceJpa implements BookDataService {
 
     @NotNull
     @Override
-    public BookYearAccount create(@NotNull final BookYearAccount account) {
-        return bookYearAccountDao.create(account);
+    public Stream<BookYearAccount> findBookYearAccounts(@NotNull final BookYearId bookYearId) {
+        return bookYearAccountDao.findBookYearAccounts(bookYearId);
     }
 
     @NotNull
     @Override
-    public Stream<BookYearAccount> findBookYearAccounts(@NotNull final BookYearId bookYearId) {
-        return bookYearAccountDao.findBookYearAccounts(bookYearId);
+    public BookYearAccount create(@NotNull final BookYearAccount account) {
+        return bookYearAccountDao.create(account);
+    }
+
+    @Override
+    public void delete(@NotNull final BookYearAccountId bookYearAccountId) {
+        bookYearAccountDao.delete(bookYearAccountId);
     }
 
 }
