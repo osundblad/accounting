@@ -11,6 +11,8 @@ import java.util.Optional;
 @Table(name = "bookYearAccount")
 public class JpaBookYearAccount {
 
+    public static final int CODE_LENGTH = 16;
+    public static final int NAME_LENGTH = 200;
     @NotNull
     @Id
     @Column(nullable = false, length = 36)
@@ -25,11 +27,11 @@ public class JpaBookYearAccount {
     private AccountClass accountClass;
 
     @NotNull
-    @Column(name = "code", nullable = false, length = 64)
+    @Column(name = "code", nullable = false, length = CODE_LENGTH)
     private String code;
 
     @NotNull
-    @Column(name = "name", nullable = false, length = 64)
+    @Column(name = "name", nullable = false, length = NAME_LENGTH)
     private String name;
 
     @NotNull
