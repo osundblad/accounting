@@ -3,10 +3,7 @@ package se.eris.accounting.persistence.jpa.model;
 import se.eris.accounting.model.book.BookYearId;
 import se.eris.accounting.model.book.account.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
@@ -22,6 +19,10 @@ public class JpaBookYearAccount {
     @NotNull
     @Column(name = "bookYearId", nullable = false, length = 36)
     private String bookYearId;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private AccountClass accountClass;
 
     @NotNull
     @Column(name = "code", nullable = false, length = 64)
@@ -46,6 +47,7 @@ public class JpaBookYearAccount {
         bookYearId = account.getBookYearId().asString();
 
         final AccountInfo accountInfo = account.getAccountInfo();
+        accountClass = accountInfo.getAccountClass();
         code = accountInfo.getCode().asString();
         name = accountInfo.getName().asString();
         description = accountInfo.getDescription().asString();
@@ -58,7 +60,7 @@ public class JpaBookYearAccount {
 
     @org.jetbrains.annotations.NotNull
     private AccountInfo getAccountInfo() {
-        return AccountInfo.of(AccountCode.from(code), AccountName.from(name), AccountDescription.from(description));
+        return AccountInfo.of(accountClass, AccountCode.from(code), AccountName.from(name), AccountDescription.from(description));
     }
 
     @SuppressWarnings({"ControlFlowStatementWithoutBraces", "NonFinalFieldReferenceInEquals"})
@@ -71,6 +73,7 @@ public class JpaBookYearAccount {
 
         if (!id.equals(that.id)) return false;
         if (!bookYearId.equals(that.bookYearId)) return false;
+        if (!accountClass.equals(that.accountClass)) return false;
         if (!code.equals(that.code)) return false;
         if (!name.equals(that.name)) return false;
         return description.equals(that.description);

@@ -73,6 +73,11 @@ databaseChangeLog:
                     foreignKeyName: fk_bookyearaccount_bookyear
                     references: book_year(id)
               - column:
+                  name: account_class
+                  type: char(64)
+                  constraints:
+                    nullable: false
+              - column:
                   name: code
                   type: char(20)
                   constraints:

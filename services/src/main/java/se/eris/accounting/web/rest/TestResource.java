@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import se.eris.accounting.model.book.Book;
 import se.eris.accounting.model.book.BookDescription;
 import se.eris.accounting.model.book.BookName;
+import se.eris.accounting.model.book.account.AccountClass;
 import se.eris.accounting.web.rest.model.RestAccountInfo;
 import se.eris.accounting.web.rest.model.RestBook;
 import se.eris.accounting.web.rest.model.RestBookYear;
@@ -52,7 +53,10 @@ public class TestResource {
         final RestBookYear bookYear2 = bookYearResource.create(bookYearResource.getNext(book.getBookId().get().asUUID())).getBody();
         logger.info("  created year: '" + bookYear2.toCore().toString() + "'");
 
-        final RestBookYearAccount account = bookYearResource.createAccount(new RestBookYearAccount(null, bookYear1.getId().get(), new RestAccountInfo("1234", "Bank", "Banken med alla pengarna")));
+        final RestBookYearAccount bank1 = bookYearResource.createAccount(new RestBookYearAccount(null, bookYear1.getId().get(), new RestAccountInfo(AccountClass.ASSET, "1940", "Bank", "Banken med alla pengarna")));
+        final RestBookYearAccount bank2 = bookYearResource.createAccount(new RestBookYearAccount(null, bookYear1.getId().get(), new RestAccountInfo(AccountClass.ASSET, "1941", "Bank", "Banken med nästan tomt konto")));
+        final RestBookYearAccount kassa = bookYearResource.createAccount(new RestBookYearAccount(null, bookYear1.getId().get(), new RestAccountInfo(AccountClass.ASSET, "1920", "Kassa", "Kassan (med alla svarta pengar)")));
+        final RestBookYearAccount skulder = bookYearResource.createAccount(new RestBookYearAccount(null, bookYear1.getId().get(), new RestAccountInfo(AccountClass.LIABILITY, "4000", "Skulder", "Obetalda räkningar")));
 
         return new ResponseEntity<>("ok", HttpStatus.OK);
     }

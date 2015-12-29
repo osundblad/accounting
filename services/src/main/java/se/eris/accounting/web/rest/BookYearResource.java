@@ -95,13 +95,13 @@ public class BookYearResource {
     @NotNull
     @RequestMapping(method = RequestMethod.GET, value = "/{bookYearId}/account")
     public List<RestBookYearAccount> getAccounts(@PathVariable("bookYearId") @NotNull final UUID bookYearId) {
-        return bookRestFacade.getBookYearAccounts(BookYearId.from(bookYearId)).map(RestBookYearAccount::new).collect(Collectors.toList());
+        return bookRestFacade.getBookYearAccounts(BookYearId.from(bookYearId)).map(RestBookYearAccount::of).collect(Collectors.toList());
     }
 
     @NotNull
     @RequestMapping(method = RequestMethod.POST, value = "/account")
     public RestBookYearAccount createAccount(@RequestBody @NotNull final RestBookYearAccount account) {
-        return new RestBookYearAccount(bookRestFacade.create(account.toCore()));
+        return RestBookYearAccount.of(bookRestFacade.create(account.toCore()));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/account/{bookYearAccountId}")

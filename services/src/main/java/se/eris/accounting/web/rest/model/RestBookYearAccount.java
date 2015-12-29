@@ -24,6 +24,14 @@ public class RestBookYearAccount {
     @JsonProperty
     private final RestAccountInfo accountInfo;
 
+    @SuppressWarnings("FeatureEnvy")
+    public static RestBookYearAccount of(@NotNull final BookYearAccount account) {
+        return new RestBookYearAccount(
+                account.getId().map(BookYearAccountId::asUUID).orElse(null),
+                account.getBookYearId().asUUID(),
+                new RestAccountInfo(account.getAccountInfo()));
+    }
+
     @JsonCreator
     public RestBookYearAccount(
             @JsonProperty("id") @Nullable final UUID id,
@@ -32,13 +40,6 @@ public class RestBookYearAccount {
         this.id = id;
         this.bookYearId = bookYearId;
         this.accountInfo = accountInfo;
-    }
-
-    @SuppressWarnings("FeatureEnvy")
-    public RestBookYearAccount(@NotNull final BookYearAccount account) {
-        id = account.getId().map(BookYearAccountId::asUUID).orElse(null);
-        bookYearId = account.getBookYearId().asUUID();
-        accountInfo = new RestAccountInfo(account.getAccountInfo());
     }
 
     @NotNull
