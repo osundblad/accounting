@@ -34,10 +34,14 @@ public class TestResource {
     @NotNull
     private final BookYearResource bookYearResource;
 
+    @NotNull
+    private final AccountResource accountResource;
+
     @Autowired
-    public TestResource(@NotNull final BookResource bookResource, @NotNull final BookYearResource bookYearResource) {
+    public TestResource(@NotNull final BookResource bookResource, @NotNull final BookYearResource bookYearResource, @NotNull final AccountResource accountResource) {
         this.bookResource = bookResource;
         this.bookYearResource = bookYearResource;
+        this.accountResource = accountResource;
     }
 
     @SuppressWarnings("FeatureEnvy")
@@ -50,13 +54,13 @@ public class TestResource {
 
         final RestBookYear bookYear1 = bookYearResource.create(new RestBookYear(null, book.getBookId().get().asUUID(), "2014-07-01", "2015-06-30")).getBody();
         logger.info("  created year: '" + bookYear1.toCore().toString() + "'");
-        final RestBookYear bookYear2 = bookYearResource.create(bookYearResource.getNext(book.getBookId().get().asUUID())).getBody();
+        final RestBookYear bookYear2 = bookYearResource.create(bookYearResource.getNext(book.getBookId().get().asUUID()).getBody()).getBody();
         logger.info("  created year: '" + bookYear2.toCore().toString() + "'");
 
-        final RestBookYearAccount bank1 = bookYearResource.createAccount(new RestBookYearAccount(null, bookYear1.getId().get(), new RestAccountInfo(AccountClass.ASSET, "1940", "Bank", "Banken med alla pengarna")));
-        final RestBookYearAccount bank2 = bookYearResource.createAccount(new RestBookYearAccount(null, bookYear1.getId().get(), new RestAccountInfo(AccountClass.ASSET, "1941", "Bank", "Banken med nästan tomt konto")));
-        final RestBookYearAccount kassa = bookYearResource.createAccount(new RestBookYearAccount(null, bookYear1.getId().get(), new RestAccountInfo(AccountClass.ASSET, "1920", "Kassa", "Kassan (med alla svarta pengar)")));
-        final RestBookYearAccount skulder = bookYearResource.createAccount(new RestBookYearAccount(null, bookYear1.getId().get(), new RestAccountInfo(AccountClass.LIABILITY, "4000", "Skulder", "Obetalda räkningar")));
+        final RestBookYearAccount bank1 = accountResource.createAccount(new RestBookYearAccount(null, bookYear1.getId().get(), new RestAccountInfo(AccountClass.ASSET, "1940", "Bank", "Banken med alla pengarna")));
+        final RestBookYearAccount bank2 = accountResource.createAccount(new RestBookYearAccount(null, bookYear1.getId().get(), new RestAccountInfo(AccountClass.ASSET, "1941", "Bank", "Banken med nästan tomt konto")));
+        final RestBookYearAccount kassa = accountResource.createAccount(new RestBookYearAccount(null, bookYear1.getId().get(), new RestAccountInfo(AccountClass.ASSET, "1920", "Kassa", "Kassan (med alla svarta pengar)")));
+        final RestBookYearAccount skulder = accountResource.createAccount(new RestBookYearAccount(null, bookYear1.getId().get(), new RestAccountInfo(AccountClass.LIABILITY, "4000", "Skulder", "Obetalda räkningar")));
 
         return new ResponseEntity<>("ok", HttpStatus.OK);
     }
@@ -86,9 +90,9 @@ public class TestResource {
     }
 
     private void deleteAllAccounts(@NotNull final RestBookYear year) {
-        for (final RestBookYearAccount account : bookYearResource.getAccounts(year.getId().get())) {
+        for (final RestBookYearAccount account : accountResource.getAccounts(year.getId().get())) {
             logger.info("  deleting account: '" + account.toString() + "'");
-            bookYearResource.deleteAccount(account.getId().get().asUUID());
+            accountResource.deleteAccount(account.getId().get().asUUID());
         }
     }
 
