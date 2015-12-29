@@ -10,6 +10,7 @@ import se.eris.accounting.model.book.BookYearId;
 import se.eris.accounting.model.book.account.BookYearAccount;
 import se.eris.accounting.model.book.account.BookYearAccountId;
 import se.eris.accounting.model.book.transaction.Transaction;
+import se.eris.accounting.model.book.transaction.TransactionId;
 import se.eris.accounting.persistence.BookDataService;
 
 import java.util.stream.Stream;
@@ -75,6 +76,10 @@ public class BookRestFacade {
     @NotNull
     public Transaction create(@NotNull final Transaction transaction) {
         return bookDataService.create(transaction);
+    }
+
+    public void delete(@NotNull final TransactionId transactionId) {
+        bookDataService.delete(transactionId);
     }
 
 }

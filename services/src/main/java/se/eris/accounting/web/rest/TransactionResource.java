@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.eris.accounting.model.book.BookYearId;
 import se.eris.accounting.model.book.transaction.Transaction;
+import se.eris.accounting.model.book.transaction.TransactionId;
 import se.eris.accounting.services.BookRestFacade;
 import se.eris.accounting.web.rest.model.RestTransaction;
 
@@ -39,6 +40,11 @@ public class TransactionResource {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<RestTransaction> create(@RequestBody @NotNull final RestTransaction restTransaction) {
         return new ResponseEntity<>(RestTransaction.of(bookRestFacade.create(restTransaction.toCore())), HttpStatus.CREATED);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{transactionId}")
+    public void deleteAccount(@PathVariable("transactionId") @NotNull final UUID transactionId) {
+        bookRestFacade.delete(TransactionId.from(transactionId));
     }
 
 }
