@@ -9,6 +9,7 @@ import se.eris.accounting.model.book.BookYear;
 import se.eris.accounting.model.book.BookYearId;
 import se.eris.accounting.model.book.account.BookYearAccount;
 import se.eris.accounting.model.book.account.BookYearAccountId;
+import se.eris.accounting.model.book.transaction.Transaction;
 import se.eris.accounting.persistence.BookDataService;
 
 import java.util.stream.Stream;
@@ -48,13 +49,8 @@ public class BookRestFacade {
     }
 
     @NotNull
-    public Stream<BookYear> getAllBookYears() {
-        return bookDataService.getAllBookYears();
-    }
-
-    @NotNull
-    public Stream<BookYear> getAllBookYears(@NotNull final BookId bookId) {
-        return bookDataService.getAllBookYears(bookId);
+    public Stream<BookYear> getBookYears(@NotNull final BookId bookId) {
+        return bookDataService.getBookYears(bookId);
     }
 
     @NotNull
@@ -70,4 +66,10 @@ public class BookRestFacade {
     public void delete(@NotNull final BookYearAccountId bookYearAccountId) {
         bookDataService.delete(bookYearAccountId);
     }
+
+    @NotNull
+    public Stream<Transaction> getTransactions(@NotNull final BookYearId bookYearId) {
+        return bookDataService.getTransactions(bookYearId);
+    }
+
 }

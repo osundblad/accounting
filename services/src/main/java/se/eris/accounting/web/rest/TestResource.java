@@ -14,13 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
 import se.eris.accounting.model.book.Book;
 import se.eris.accounting.model.book.BookDescription;
 import se.eris.accounting.model.book.BookName;
+import se.eris.accounting.model.book.BookYearId;
 import se.eris.accounting.model.book.account.AccountClass;
+import se.eris.accounting.model.book.transaction.Transaction;
 import se.eris.accounting.web.rest.model.RestAccountInfo;
 import se.eris.accounting.web.rest.model.RestBook;
 import se.eris.accounting.web.rest.model.RestBookYear;
 import se.eris.accounting.web.rest.model.RestBookYearAccount;
 
+import java.time.LocalDate;
+import java.util.Collections;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/test", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -57,11 +62,23 @@ public class TestResource {
         final RestBookYear bookYear2 = bookYearResource.create(bookYearResource.getNext(book.getBookId().get().asUUID()).getBody()).getBody();
         logger.info("  created year: '" + bookYear2.toCore().toString() + "'");
 
-        final RestBookYearAccount bank1 = accountResource.createAccount(new RestBookYearAccount(null, bookYear1.getId().get(), new RestAccountInfo(AccountClass.ASSET, "1940", "Bank", "Banken med alla pengarna")));
-        final RestBookYearAccount bank2 = accountResource.createAccount(new RestBookYearAccount(null, bookYear1.getId().get(), new RestAccountInfo(AccountClass.ASSET, "1941", "Bank", "Banken med nästan tomt konto")));
-        final RestBookYearAccount kassa = accountResource.createAccount(new RestBookYearAccount(null, bookYear1.getId().get(), new RestAccountInfo(AccountClass.ASSET, "1920", "Kassa", "Kassan (med alla svarta pengar)")));
-        final RestBookYearAccount skulder = accountResource.createAccount(new RestBookYearAccount(null, bookYear1.getId().get(), new RestAccountInfo(AccountClass.LIABILITY, "4000", "Skulder", "Obetalda räkningar")));
+        final UUID bookYear1Id = bookYear1.getId().get();
+        final RestBookYearAccount kassa = accountResource.createAccount(new RestBookYearAccount(null, bookYear1Id, new RestAccountInfo(AccountClass.ASSET, "1920", "Kassa", "B9")));
+        final RestBookYearAccount bank1 = accountResource.createAccount(new RestBookYearAccount(null, bookYear1Id, new RestAccountInfo(AccountClass.ASSET, "1940", "Avanza - Depå", "B9 Strö pengar")));
+        final RestBookYearAccount bank2 = accountResource.createAccount(new RestBookYearAccount(null, bookYear1Id, new RestAccountInfo(AccountClass.ASSET, "1941", "Avanza - Klarna+", "B9 Lite ränta")));
+        final RestBookYearAccount bank3 = accountResource.createAccount(new RestBookYearAccount(null, bookYear1Id, new RestAccountInfo(AccountClass.ASSET, "1942", "Avanza - Klarna+, 12 månader", "B9 Lite mer ränta")));
 
+        final RestBookYearAccount egetKapital1 = accountResource.createAccount(new RestBookYearAccount(null, bookYear1Id, new RestAccountInfo(AccountClass.LIABILITY, "2010", "Eget kapital, delägare 1", "B10")));
+        final RestBookYearAccount egetKapital2 = accountResource.createAccount(new RestBookYearAccount(null, bookYear1Id, new RestAccountInfo(AccountClass.LIABILITY, "2020", "Eget kapital, delägare 2", "B10")));
+        final RestBookYearAccount momsUt = accountResource.createAccount(new RestBookYearAccount(null, bookYear1Id, new RestAccountInfo(AccountClass.LIABILITY, "2610", "Utgående moms, 25 %", "B14")));
+        final RestBookYearAccount momsIn = accountResource.createAccount(new RestBookYearAccount(null, bookYear1Id, new RestAccountInfo(AccountClass.LIABILITY, "2640", "Ingående moms", "B14")));
+
+        final RestBookYearAccount inkomst = accountResource.createAccount(new RestBookYearAccount(null, bookYear1Id, new RestAccountInfo(AccountClass.INCOME, "3000", "Försäljning", "R1 Försäljning och utfört arbete samt övriga momspliktiga intäkter")));
+        final RestBookYearAccount rätor = accountResource.createAccount(new RestBookYearAccount(null, bookYear1Id, new RestAccountInfo(AccountClass.INCOME, "3100", "Momsfria intäkter", "R2")));
+        final RestBookYearAccount varor = accountResource.createAccount(new RestBookYearAccount(null, bookYear1Id, new RestAccountInfo(AccountClass.EXPENSE, "4000", "Varor", "R5")));
+        final RestBookYearAccount tele = accountResource.createAccount(new RestBookYearAccount(null, bookYear1Id, new RestAccountInfo(AccountClass.EXPENSE, "6200", "Tele och post", "R6")));
+
+        final Transaction transaction = Transaction.of(Optional.empty(), BookYearId.from(bookYear1.getId().get()), LocalDate.now(), Collections.emptyList());
         return new ResponseEntity<>("ok", HttpStatus.OK);
     }
 

@@ -37,22 +37,16 @@ public class BookYearResource {
     }
 
     @NotNull
-    @RequestMapping(method = RequestMethod.GET)
-    public List<RestBookYear> getAll() {
-        return bookRestFacade.getAllBookYears().map(RestBookYear::new).collect(Collectors.toList());
-    }
-
-    @NotNull
     @RequestMapping(method = RequestMethod.GET, value = "/{bookId}")
     public List<RestBookYear> get(@PathVariable("bookId") @NotNull final UUID bookId) {
-        return bookRestFacade.getAllBookYears(BookId.from(bookId)).map(RestBookYear::new).collect(Collectors.toList());
+        return bookRestFacade.getBookYears(BookId.from(bookId)).map(RestBookYear::new).collect(Collectors.toList());
     }
 
     @NotNull
     @RequestMapping(method = RequestMethod.GET, value = "/{bookId}/next")
     public ResponseEntity<RestBookYear> getNext(@PathVariable("bookId") @NotNull final UUID bookId) {
         final BookId fromBookId = BookId.from(bookId);
-        final Optional<BookYear> bookYear = bookRestFacade.getAllBookYears(fromBookId).sorted(BookYear.NEW_TO_OLD).findFirst();
+        final Optional<BookYear> bookYear = bookRestFacade.getBookYears(fromBookId).sorted(BookYear.NEW_TO_OLD).findFirst();
         final DatePeriod datePeriod = getNextYearDatePeriod(bookYear);
         return new ResponseEntity<>(new RestBookYear(new BookYear(Optional.empty(), fromBookId, datePeriod)), HttpStatus.OK);
     }

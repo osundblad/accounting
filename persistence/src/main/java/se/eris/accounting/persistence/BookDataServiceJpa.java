@@ -10,6 +10,7 @@ import se.eris.accounting.model.book.BookYear;
 import se.eris.accounting.model.book.BookYearId;
 import se.eris.accounting.model.book.account.BookYearAccount;
 import se.eris.accounting.model.book.account.BookYearAccountId;
+import se.eris.accounting.model.book.transaction.Transaction;
 
 import java.util.stream.Stream;
 
@@ -51,13 +52,7 @@ public class BookDataServiceJpa implements BookDataService {
 
     @Override
     @NotNull
-    public Stream<BookYear> getAllBookYears() {
-        return bookYearDao.findAllBookYears();
-    }
-
-    @Override
-    @NotNull
-    public Stream<BookYear> getAllBookYears(@NotNull final BookId bookId) {
+    public Stream<BookYear> getBookYears(@NotNull final BookId bookId) {
         return bookYearDao.findAllBookYears(bookId);
     }
 
@@ -88,6 +83,13 @@ public class BookDataServiceJpa implements BookDataService {
     @Override
     public void delete(@NotNull final BookYearAccountId bookYearAccountId) {
         bookYearAccountDao.delete(bookYearAccountId);
+    }
+
+    @NotNull
+    @Override
+    public Stream<Transaction> getTransactions(@NotNull final BookYearId bookYearId) {
+        // todo
+        return Stream.empty();
     }
 
 }
