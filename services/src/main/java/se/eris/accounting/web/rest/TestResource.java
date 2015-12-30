@@ -81,10 +81,19 @@ public class TestResource {
         final RestBookYearAccount varor = accountResource.create(new RestBookYearAccount(null, bookYear1Id, new RestAccountInfo(AccountClass.EXPENSE, "4000", "Varor", "R5")));
         final RestBookYearAccount tele = accountResource.create(new RestBookYearAccount(null, bookYear1Id, new RestAccountInfo(AccountClass.EXPENSE, "6200", "Tele och post", "R6")));
 
-        final TransactionLine line1 = createNewTransactionLine(inkomst, "1200");
-        final TransactionLine line2 = createNewTransactionLine(bank1, "-1200");
-        final RestTransaction restTransaction = RestTransaction.of(createNewTransaction(bookYear1, line1, line2));
-        transactionResource.create(restTransaction);
+        transactionResource.create(RestTransaction.of(
+                createNewTransaction(bookYear1,
+                        createNewTransactionLine(egetKapital1, "50100"),
+                        createNewTransactionLine(bank1, "-50100"))));
+        transactionResource.create(RestTransaction.of(
+                createNewTransaction(bookYear1,
+                        createNewTransactionLine(egetKapital2, "49900"),
+                        createNewTransactionLine(bank1, "-49900"))));
+        transactionResource.create(RestTransaction.of(
+                createNewTransaction(bookYear1,
+                        createNewTransactionLine(inkomst, "1200"),
+                        createNewTransactionLine(bank1, "-800"),
+                        createNewTransactionLine(kassa, "-400"))));
 
         return new ResponseEntity<>("ok", HttpStatus.OK);
     }
@@ -101,17 +110,17 @@ public class TestResource {
 
     @NotNull
     @RequestMapping(method = RequestMethod.GET, value = "/delete/{bookName}")
-    public ResponseEntity delete(@PathVariable("bookName") final String bookName) {
+    public ResponseEntity<String> delete(@PathVariable("bookName") final String bookName) {
         final Optional<Book> book = getBookByName(bookName);
         if (book.isPresent()) {
             logger.info("deleting book: '" + bookName + "'");
             deleteAllBookYears(book.get());
             bookResource.delete(book.flatMap(Book::getId).get().asUUID());
             logger.info("  deleted book: '" + bookName + "'");
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>("deleted", HttpStatus.OK);
         } else {
             logger.info("deleting book: '" + bookName + "' not found");
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("'" + bookName + "' not found", HttpStatus.NOT_FOUND);
         }
     }
 
