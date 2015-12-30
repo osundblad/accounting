@@ -44,6 +44,8 @@ public interface BookDataService {
     @NotNull
     Transaction create(@NotNull Transaction transaction);
 
-    void delete(@NotNull TransactionId transactionId);
+    @NotNull
+    Transaction get(@NotNull TransactionId transactionId);
 
+    void delete(@NotNull TransactionId transactionId);
 }

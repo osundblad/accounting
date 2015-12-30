@@ -101,6 +101,12 @@ public class BookDataServiceJpa implements BookDataService {
         return transactionDao.create(transaction);
     }
 
+    @NotNull
+    @Override
+    public Transaction get(@NotNull final TransactionId transactionId) {
+        return transactionDao.get(transactionId);
+    }
+
     @Override
     public void delete(@NotNull final TransactionId transactionId) {
         transactionDao.delete(transactionId);

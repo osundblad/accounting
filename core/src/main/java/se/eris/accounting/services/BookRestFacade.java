@@ -78,8 +78,12 @@ public class BookRestFacade {
         return bookDataService.create(transaction);
     }
 
+    @NotNull
+    public Transaction get(@NotNull final TransactionId transactionId) {
+        return bookDataService.get(transactionId);
+    }
+
     public void delete(@NotNull final TransactionId transactionId) {
         bookDataService.delete(transactionId);
     }
-
 }

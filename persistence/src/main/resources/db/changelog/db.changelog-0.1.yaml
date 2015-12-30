@@ -57,7 +57,7 @@ databaseChangeLog:
       author: olle
       changes:
         - createTable:
-            tableName: book_year_account
+            tableName: account
             columns:
               - column:
                   name: id
@@ -70,7 +70,7 @@ databaseChangeLog:
                   type: char(36)
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_bookyearaccount_bookyear
+                    foreignKeyName: fk_account_bookyear
                     references: book_year(id)
               - column:
                   name: account_class
@@ -115,5 +115,33 @@ databaseChangeLog:
               - column:
                   name: transaction_date
                   type: date
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: transaction_line
+            columns:
+              - column:
+                  name: id
+                  type: char(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: transaction_id
+                  type: char(36)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_transactionLine_transaction
+                    references: transaction(id)
+              - column:
+                  name: account_id
+                  type: char(36)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_transactionLine_account
+                    references: account(id)
+              - column:
+                  name: amount
+                  type: char(36)
                   constraints:
                     nullable: false

@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 @Entity
-@Table(name = "bookYearAccount")
+@Table(name = "account")
 public class JpaBookYearAccount {
 
     public static final int CODE_LENGTH = 16;

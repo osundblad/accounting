@@ -27,18 +27,18 @@ public class AccountResource {
 
     @NotNull
     @RequestMapping(method = RequestMethod.GET, value = "/{bookYearId}")
-    public List<RestBookYearAccount> getAccounts(@PathVariable("bookYearId") @NotNull final UUID bookYearId) {
+    public List<RestBookYearAccount> get(@PathVariable("bookYearId") @NotNull final UUID bookYearId) {
         return bookRestFacade.getBookYearAccounts(BookYearId.from(bookYearId)).map(RestBookYearAccount::of).collect(Collectors.toList());
     }
 
     @NotNull
     @RequestMapping(method = RequestMethod.POST)
-    public RestBookYearAccount createAccount(@RequestBody @NotNull final RestBookYearAccount account) {
+    public RestBookYearAccount create(@RequestBody @NotNull final RestBookYearAccount account) {
         return RestBookYearAccount.of(bookRestFacade.create(account.toCore()));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{accountId}")
-    public void deleteAccount(@PathVariable("accountId") @NotNull final UUID bookYearAccountId) {
+    public void delete(@PathVariable("accountId") @NotNull final UUID bookYearAccountId) {
         bookRestFacade.delete(BookYearAccountId.from(bookYearAccountId));
     }
 }

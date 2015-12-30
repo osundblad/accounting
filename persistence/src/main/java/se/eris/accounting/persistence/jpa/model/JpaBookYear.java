@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 @Entity
-@Table(name = "bookYear")
+@Table(name = "book_year")
 public class JpaBookYear {
 
     @NotNull

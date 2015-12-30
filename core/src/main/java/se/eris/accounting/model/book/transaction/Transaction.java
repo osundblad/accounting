@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class Transaction {
 
@@ -60,6 +61,11 @@ public class Transaction {
     @NotNull
     public LocalDate getDate() {
         return date;
+    }
+
+    @NotNull
+    public Stream<TransactionLine> getTransactionLines() {
+        return transactionLines.stream();
     }
 
 }

@@ -35,8 +35,12 @@ public class TransactionDao {
         return repository.save(new JpaTransaction(transaction)).toCore();
     }
 
+    @NotNull
+    public Transaction get(@NotNull final TransactionId transactionId) {
+        return repository.findOne(transactionId.asString()).toCore();
+    }
+
     public void delete(@NotNull final TransactionId transactionId) {
         repository.delete(transactionId.asString());
     }
-
 }

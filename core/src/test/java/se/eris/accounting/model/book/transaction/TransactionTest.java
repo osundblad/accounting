@@ -26,9 +26,9 @@ public class TransactionTest {
 
     @Test
     public void new_validateBalanced() {
-        final TransactionLine line1 = new TransactionLine(TransactionLineId.random(), BookYearAccountId.random(), Amount.of(120));
-        final TransactionLine line2 = new TransactionLine(TransactionLineId.random(), BookYearAccountId.random(), Amount.of(-20));
-        final TransactionLine line3 = new TransactionLine(TransactionLineId.random(), BookYearAccountId.random(), Amount.of(-100));
+        final TransactionLine line1 = TransactionLine.of(Optional.of(TransactionLineId.random()), BookYearAccountId.random(), Amount.of(120));
+        final TransactionLine line2 = TransactionLine.of(Optional.of(TransactionLineId.random()), BookYearAccountId.random(), Amount.of(-20));
+        final TransactionLine line3 = TransactionLine.of(Optional.of(TransactionLineId.random()), BookYearAccountId.random(), Amount.of(-100));
         final Collection<TransactionLine> lines = Arrays.asList(line1, line2, line3);
 
         Transaction.of(Optional.empty(), BOOK_YEAR_ID, LocalDate.now(), lines);
@@ -36,9 +36,9 @@ public class TransactionTest {
 
     @Test
     public void new_validateUnbalanced() {
-        final TransactionLine line1 = new TransactionLine(null, BookYearAccountId.random(), Amount.of("120.01"));
-        final TransactionLine line2 = new TransactionLine(null, BookYearAccountId.random(), Amount.of(-20));
-        final TransactionLine line3 = new TransactionLine(null, BookYearAccountId.random(), Amount.of(-100));
+        final TransactionLine line1 = TransactionLine.of(Optional.empty(), BookYearAccountId.random(), Amount.of("120.01"));
+        final TransactionLine line2 = TransactionLine.of(Optional.empty(), BookYearAccountId.random(), Amount.of(-20));
+        final TransactionLine line3 = TransactionLine.of(Optional.empty(), BookYearAccountId.random(), Amount.of(-100));
         final Collection<TransactionLine> lines = Arrays.asList(line1, line2, line3);
 
         exception.expect(NonZeroSumTransactionException.class);

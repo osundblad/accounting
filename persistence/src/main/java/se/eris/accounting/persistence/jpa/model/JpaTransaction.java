@@ -5,15 +5,13 @@ import se.eris.accounting.model.book.transaction.Transaction;
 import se.eris.accounting.model.book.transaction.TransactionId;
 import se.eris.accounting.model.book.transaction.TransactionLine;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
+import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name = "transaction")
@@ -32,6 +30,9 @@ public class JpaTransaction {
     @Column(name = "transaction_date", nullable = false)
     private LocalDate date;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "transaction")
+    private Collection<JpaTransactionLine> transactionLines;
+
     @SuppressWarnings("UnusedDeclaration") // needed by Jpa framework
     public JpaTransaction() {
     }
@@ -41,6 +42,12 @@ public class JpaTransaction {
         id = transaction.getId().orElse(TransactionId.random()).asString();
         bookYearId = transaction.getBookYearId().asString();
         date = transaction.getDate();
+        transactionLines = getJpaTransactionLines(transaction.getTransactionLines());
+    }
+
+    @NotNull
+    private Collection<JpaTransactionLine> getJpaTransactionLines(@NotNull final Stream<TransactionLine> transactionLines) {
+        return transactionLines.map(tl -> new JpaTransactionLine(tl, this)).collect(Collectors.toList());
     }
 
     @NotNull
@@ -49,9 +56,8 @@ public class JpaTransaction {
     }
 
     @NotNull
-    private List<TransactionLine> getTransactionLines() {
-        // todo
-        return Collections.<TransactionLine>emptyList();
+    private Collection<TransactionLine> getTransactionLines() {
+        return transactionLines.stream().map(JpaTransactionLine::toCore).collect(Collectors.toList());
     }
 
     @SuppressWarnings({"SimplifiableIfStatement", "ControlFlowStatementWithoutBraces", "NonFinalFieldReferenceInEquals"})

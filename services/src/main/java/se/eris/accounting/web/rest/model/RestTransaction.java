@@ -11,32 +11,54 @@ import se.eris.accounting.model.book.transaction.TransactionId;
 import se.eris.accounting.model.book.transaction.TransactionLine;
 
 import java.time.LocalDate;
-import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class RestTransaction {
-
-    @JsonProperty
-    @Nullable
-    private final UUID id;
-    @JsonProperty
-    @NotNull
-    private final UUID bookYearId;
 
     @SuppressWarnings("FeatureEnvy")
     public static RestTransaction of(@NotNull final Transaction transaction) {
         return new RestTransaction(
                 transaction.getId().map(TransactionId::asUUID).orElse(null),
-                transaction.getBookYearId().asUUID());
+                transaction.getBookYearId().asUUID(),
+                transaction.getTransactionLines().map(RestTransactionLine::of).collect(Collectors.toList())
+        );
     }
+
+    @JsonProperty
+    @Nullable
+    private final UUID id;
+
+    @JsonProperty
+    @NotNull
+    private final UUID bookYearId;
+
+    @JsonProperty
+    @NotNull
+    private final List<RestTransactionLine> transactionLines;
 
     @JsonCreator
     public RestTransaction(
             @JsonProperty("id") @Nullable final UUID id,
-            @JsonProperty("bookYearId") @NotNull final UUID bookYearId) {
+            @JsonProperty("bookYearId") @NotNull final UUID bookYearId,
+            @JsonProperty("transactionLines") @NotNull final List<RestTransactionLine> transactionLines) {
         this.id = id;
         this.bookYearId = bookYearId;
+        this.transactionLines = transactionLines;
+    }
+
+    @NotNull
+    public Transaction toCore() {
+        return Transaction.of(getId(), BookYearId.from(bookYearId), LocalDate.now(), getTransactionLines().collect(Collectors.toList()));
+    }
+
+    @JsonIgnore
+    @NotNull
+    private Stream<TransactionLine> getTransactionLines() {
+        return transactionLines.stream().map(RestTransactionLine::toCore);
     }
 
     @JsonIgnore
@@ -45,9 +67,13 @@ public class RestTransaction {
         return Optional.ofNullable(id).map(TransactionId::from);
     }
 
-    @NotNull
-    public Transaction toCore() {
-        return Transaction.of(Optional.ofNullable(id).map(TransactionId::from), BookYearId.from(bookYearId), LocalDate.now(), Collections.<TransactionLine>emptyList());
+    @Override
+    public String toString() {
+        return "RestTransaction{" +
+                "id=" + id +
+                ", bookYearId=" + bookYearId +
+                ", transactionLines=" + transactionLines +
+                '}';
     }
 
 }
