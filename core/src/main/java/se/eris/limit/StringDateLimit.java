@@ -7,16 +7,26 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class DateLimit implements StringLimit {
+public class StringDateLimit implements StringLimit {
 
     @NotNull
-    public DateLimit iso() {
+    public StringDateLimit iso() {
         return of(DateTimeFormatter.ISO_DATE);
     }
 
     @NotNull
-    public static DateLimit of(@NotNull final DateTimeFormatter dateFormat) {
-        return new DateLimit(dateFormat, OpenDatePeriod.ALWAYS);
+    public StringDateLimit iso(@NotNull final OpenDatePeriod datePeriod) {
+        return of(DateTimeFormatter.ISO_DATE, datePeriod);
+    }
+
+    @NotNull
+    public static StringDateLimit of(@NotNull final DateTimeFormatter dateFormat) {
+        return new StringDateLimit(dateFormat, OpenDatePeriod.ALWAYS);
+    }
+
+    @NotNull
+    public static StringDateLimit of(@NotNull final DateTimeFormatter dateFormat, @NotNull final OpenDatePeriod datePeriod) {
+        return new StringDateLimit(dateFormat, datePeriod);
     }
 
     @NotNull
@@ -25,7 +35,7 @@ public class DateLimit implements StringLimit {
     @NotNull
     private final OpenDatePeriod datePeriod;
 
-    private DateLimit(@NotNull final DateTimeFormatter dateFormat, @NotNull final OpenDatePeriod datePeriod) {
+    private StringDateLimit(@NotNull final DateTimeFormatter dateFormat, @NotNull final OpenDatePeriod datePeriod) {
         this.dateFormat = dateFormat;
         this.datePeriod = datePeriod;
     }
