@@ -17,8 +17,8 @@ public class LimitedInteger extends AbstractLimited<Integer> {
         return super.of(i);
     }
 
-    private LimitedInteger(@NotNull final List<? extends Limit<Integer>> limits) {
-        super(limits);
+    private LimitedInteger(@NotNull final List<? extends Limit<Integer>> limits, @NotNull final ValidationBehavior validationBehavior) {
+        super(limits, validationBehavior);
     }
 
     public static class Builder extends AbstractLimited.Builder<Integer> {
@@ -37,7 +37,7 @@ public class LimitedInteger extends AbstractLimited<Integer> {
 
         @NotNull
         public LimitedInteger build() {
-            return new LimitedInteger(limits);
+            return new LimitedInteger(limits, validationBehavior);
         }
     }
 

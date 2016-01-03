@@ -18,8 +18,8 @@ public class LimitedBigDecimal extends AbstractLimited<BigDecimal> {
         return super.of(i);
     }
 
-    private LimitedBigDecimal(@NotNull final List<? extends Limit<BigDecimal>> limits) {
-        super(limits);
+    private LimitedBigDecimal(@NotNull final List<? extends Limit<BigDecimal>> limits, @NotNull final ValidationBehavior validationBehavior) {
+        super(limits, validationBehavior);
     }
 
     public static class Builder extends AbstractLimited.Builder<BigDecimal> {
@@ -32,7 +32,7 @@ public class LimitedBigDecimal extends AbstractLimited<BigDecimal> {
 
         @NotNull
         public LimitedBigDecimal build() {
-            return new LimitedBigDecimal(limits);
+            return new LimitedBigDecimal(limits, validationBehavior);
         }
     }
 

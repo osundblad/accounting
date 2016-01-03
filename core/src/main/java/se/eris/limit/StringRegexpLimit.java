@@ -23,11 +23,13 @@ public class StringRegexpLimit implements StringLimit {
         this.pattern = pattern;
     }
 
+    @NotNull
     @Override
-    public void validate(@NotNull final String s) {
+    public ValidationMessages validate(@NotNull final String s) {
         if (!pattern.matcher(s).matches()) {
-            throw new IllegalArgumentException("'" + s + "' does not match " + pattern);
+            return ValidationMessages.of("'" + s + "' does not match " + pattern);
         }
+        return ValidationMessages.empty();
     }
 
 }

@@ -4,6 +4,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 public class StringLengthLimitTest {
 
     @Rule
@@ -39,14 +42,12 @@ public class StringLengthLimitTest {
 
     @Test
     public void validate_toShort() {
-        exception.expect(IllegalArgumentException.class);
-        StringLengthLimit.of(2, 4).validate("1");
+        assertThat(StringLengthLimit.of(2, 4).validate("1").hasMessages(), is(true));
     }
 
     @Test
     public void validate_toLong() {
-        exception.expect(IllegalArgumentException.class);
-        StringLengthLimit.of(2, 4).validate("12345");
+        assertThat(StringLengthLimit.of(2, 4).validate("12345").hasMessages(), is(true));
     }
 
 }

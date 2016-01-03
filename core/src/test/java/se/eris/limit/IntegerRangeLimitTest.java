@@ -1,13 +1,11 @@
 package se.eris.limit;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class IntegerRangeLimitTest {
-
-    @Rule
-    public final ExpectedException exception = ExpectedException.none();
 
     @Test
     public void validate_inRange() {
@@ -17,14 +15,12 @@ public class IntegerRangeLimitTest {
 
     @Test
     public void validate_toLow() {
-        exception.expect(IllegalArgumentException.class);
-        IntegerRangeLimit.of(2, 7).validate(1);
+        assertThat(IntegerRangeLimit.of(2, 7).validate(1).hasMessages(), is(true));
     }
 
     @Test
     public void validate_toHigh() {
-        exception.expect(IllegalArgumentException.class);
-        IntegerRangeLimit.zeroTo(7).validate(8);
+        assertThat(IntegerRangeLimit.zeroTo(7).validate(8).hasMessages(), is(true));
     }
 
 }

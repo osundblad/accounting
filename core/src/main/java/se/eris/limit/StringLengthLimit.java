@@ -30,15 +30,17 @@ public class StringLengthLimit implements StringLimit {
         this.max = max;
     }
 
+    @NotNull
     @Override
-    public void validate(@NotNull final String s) {
+    public ValidationMessages validate(@NotNull final String s) {
         final int length = s.length();
         if (length < min) {
-            throw new IllegalArgumentException("Length violation: " + quote(shorten(s)) + " is shorter (" + length + ") than the minimum length of " + min + ".");
+            return ValidationMessages.of("Length violation: " + quote(shorten(s)) + " is shorter (" + length + ") than the minimum length of " + min + ".");
         }
         if (length > max) {
-            throw new IllegalArgumentException("Length violation: " + quote(shorten(s)) + " is longer (" + length + ") than the maximum length of " + max + ".");
+            return ValidationMessages.of("Length violation: " + quote(shorten(s)) + " is longer (" + length + ") than the maximum length of " + max + ".");
         }
+        return ValidationMessages.empty();
     }
 
     @NotNull

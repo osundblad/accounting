@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 public interface Limit<T> {
 
-    void validate(@NotNull T item);
+    @NotNull
+    ValidationMessages validate(@NotNull T item);
 
 }

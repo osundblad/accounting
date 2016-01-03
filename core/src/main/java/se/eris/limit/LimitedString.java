@@ -18,8 +18,8 @@ public class LimitedString extends AbstractLimited<String> {
         return super.of(s);
     }
 
-    private LimitedString(@NotNull final List<? extends Limit<String>> limits) {
-        super(limits);
+    private LimitedString(@NotNull final List<? extends Limit<String>> limits, @NotNull final ValidationBehavior validationBehavior) {
+        super(limits, validationBehavior);
     }
 
     public static class Builder extends AbstractLimited.Builder<String> {
@@ -50,7 +50,7 @@ public class LimitedString extends AbstractLimited<String> {
 
         @NotNull
         public LimitedString build() {
-            return new LimitedString(limits);
+            return new LimitedString(limits, validationBehavior);
         }
 
     }

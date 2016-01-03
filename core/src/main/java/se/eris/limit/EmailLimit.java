@@ -27,11 +27,13 @@ public class EmailLimit implements StringLimit {
         this.emailValidator = emailValidator;
     }
 
+    @NotNull
     @Override
-    public void validate(@NotNull final String emailAddress) {
+    public ValidationMessages validate(@NotNull final String emailAddress) {
         if (!emailValidator.isValid(emailAddress)) {
-            throw new IllegalArgumentException("'" + emailAddress + "' is not a does not valid email address");
+            return ValidationMessages.of("'" + emailAddress + "' is not a does not valid email address");
         }
+        return ValidationMessages.empty();
     }
 
 }
