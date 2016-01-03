@@ -12,6 +12,8 @@ import static org.junit.Assert.assertTrue;
 
 public class AmountTest {
 
+    private static final BigDecimal PERCENT_0£25 = BigDecimal.valueOf(0.25);
+
     @Rule
     public final ExpectedException exception = ExpectedException.none();
 
@@ -55,22 +57,36 @@ public class AmountTest {
 
     @Test
     public void percent_roundHalfUp() {
-        //noinspection MagicNumber
-        assertThat(Amount.of("10").percent(BigDecimal.valueOf(0.25)), is(Amount.of("0.03")));
+        assertThat(Amount.of("10").percent(PERCENT_0£25), is(Amount.of("0.03")));
     }
 
     @Test
     public void split() {
         final AmountPair split1000 = Amount.of("1000").split(BigDecimal.valueOf(25));
+
         assertThat(split1000.getFirst(), is(Amount.of("250")));
         assertThat(split1000.getSecond(), is(Amount.of("750")));
     }
 
     @Test
     public void split_sumIsOriginalAmount() {
-        final AmountPair split10 = Amount.of("10").split(BigDecimal.valueOf(0.25));
+        final AmountPair split10 = Amount.of("10").split(PERCENT_0£25);
+
         assertThat(split10.getFirst(), is(Amount.of("0.03")));
         assertThat(split10.getSecond(), is(Amount.of("9.97")));
+    }
+
+    @Test
+    public void split_lessThanZeroPercent() {
+        final AmountPair split1000 = Amount.of("1000").split(BigDecimal.valueOf(-25));
+        assertThat(split1000.getFirst(), is(Amount.of("-250")));
+        assertThat(split1000.getSecond(), is(Amount.of("1250")));
+    }
+
+    @Test
+    public void amount_decimals_is2() {
+        assertThat(Amount.of("1").raw().scale(), is(Amount.DECIMALS));
+        assertThat(Amount.of("1").percent(PERCENT_0£25).raw().scale(), is(Amount.DECIMALS));
     }
 
     @Test

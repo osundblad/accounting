@@ -10,6 +10,7 @@ import java.math.RoundingMode;
 public final class Amount extends BasicWrapper<BigDecimal> {
 
     public static final int DECIMALS = 2;
+    private static final BigDecimal BIG_DECIAML_100 = BigDecimal.valueOf(100);
 
     private static final LimitedBigDecimal LIMIT = LimitedBigDecimal.init().decimals(DECIMALS).build();
 
@@ -47,18 +48,14 @@ public final class Amount extends BasicWrapper<BigDecimal> {
 
     @NotNull
     public AmountPair split(@NotNull final BigDecimal percent) {
-        if ((percent.signum() != -1) && (percent.subtract(BigDecimal.valueOf(100)).signum() != 1)) {
-            final Amount first = percent(percent);
-            final Amount second = subtract(first);
-            return AmountPair.of(first, second);
-        } else {
-            throw new AssertionError();
-        }
+        final Amount first = percent(percent);
+        final Amount second = subtract(first);
+        return AmountPair.of(first, second);
     }
 
     @NotNull
     public Amount percent(@NotNull final BigDecimal percent) {
-        return Amount.of(raw().multiply(percent).divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP).setScale(DECIMALS, RoundingMode.HALF_UP));
+        return Amount.of(raw().multiply(percent).divide(BIG_DECIAML_100, RoundingMode.HALF_UP).setScale(DECIMALS, RoundingMode.HALF_UP));
     }
 
     public boolean isZero() {
