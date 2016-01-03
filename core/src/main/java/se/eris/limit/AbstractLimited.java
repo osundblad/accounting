@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public abstract class AbstractLimited<T> {
 
@@ -11,9 +12,9 @@ public abstract class AbstractLimited<T> {
     private final ValidationBehavior validationBehavior;
 
     @NotNull
-    private final List<? extends Limit<T>> limits;
+    private final List<Function<T, ValidationMessages>> limits;
 
-    protected AbstractLimited(@NotNull final List<? extends Limit<T>> limits, @NotNull final ValidationBehavior validationBehavior) {
+    protected AbstractLimited(@NotNull final List<Function<T, ValidationMessages>> limits, @NotNull final ValidationBehavior validationBehavior) {
         this.limits = limits;
         this.validationBehavior = validationBehavior;
     }
@@ -21,8 +22,8 @@ public abstract class AbstractLimited<T> {
     @NotNull
     public T of(@NotNull final T t) {
         final ValidationBehavior behavior = validationBehavior.instance();
-        for (final Limit<T> limit : limits) {
-            behavior.atValidation(limit.validate(t));
+        for (final Function<T, ValidationMessages> limit : limits) {
+            behavior.atValidation(limit.apply(t));
         }
         behavior.afterValidation();
         return t;
@@ -31,13 +32,19 @@ public abstract class AbstractLimited<T> {
     public abstract static class Builder<T> {
 
         @NotNull
-        protected final List<Limit<T>> limits = new ArrayList<>();
+        protected final List<Function<T, ValidationMessages>> limits = new ArrayList<>();
 
         @NotNull
         protected ValidationBehavior validationBehavior = new ValidationBehaviorThrowImmediately();
 
         @NotNull
         public final Builder<T> limit(@NotNull final Limit<T> limit) {
+            limits.add(limit::validate);
+            return this;
+        }
+
+        @NotNull
+        public final Builder<T> limit(@NotNull final Function<T, ValidationMessages> limit) {
             limits.add(limit);
             return this;
         }

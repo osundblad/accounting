@@ -3,6 +3,7 @@ package se.eris.limit;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.function.Function;
 
 public class LimitedInteger extends AbstractLimited<Integer> {
 
@@ -17,7 +18,7 @@ public class LimitedInteger extends AbstractLimited<Integer> {
         return super.of(i);
     }
 
-    private LimitedInteger(@NotNull final List<? extends Limit<Integer>> limits, @NotNull final ValidationBehavior validationBehavior) {
+    private LimitedInteger(@NotNull final List<Function<Integer, ValidationMessages>> limits, @NotNull final ValidationBehavior validationBehavior) {
         super(limits, validationBehavior);
     }
 
