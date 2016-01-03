@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AbstractLimited<T> {
+public abstract class AbstractLimited<T> {
 
     @NotNull
     private final ValidationBehavior validationBehavior;
@@ -24,11 +24,11 @@ public class AbstractLimited<T> {
         for (final Limit<T> limit : limits) {
             behavior.atValidation(limit.validate(t));
         }
-        behavior.after();
+        behavior.afterValidation();
         return t;
     }
 
-    public static class Builder<T> {
+    public abstract static class Builder<T> {
 
         @NotNull
         protected final List<Limit<T>> limits = new ArrayList<>();

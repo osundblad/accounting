@@ -4,7 +4,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -16,18 +15,13 @@ public class ValidationMessages {
     }
 
     @NotNull
-    public static ValidationMessages of(@NotNull final ValidationMessage... messages) {
-        return new ValidationMessages(Arrays.asList(messages));
-    }
-
-    @NotNull
     public static ValidationMessages of(final List<ValidationMessage> messages) {
         return new ValidationMessages(messages);
     }
 
     @NotNull
-    public static ValidationMessages of(final Collection<ValidationMessage> messages) {
-        return new ValidationMessages(messages);
+    public static ValidationMessages of(@NotNull final ValidationMessage... messages) {
+        return of(Arrays.asList(messages));
     }
 
     @NotNull
@@ -39,7 +33,7 @@ public class ValidationMessages {
     private final List<ValidationMessage> messages;
 
 
-    private ValidationMessages(@NotNull final Collection<ValidationMessage> messages) {
+    private ValidationMessages(@NotNull final List<ValidationMessage> messages) {
         this.messages = new ArrayList<>(messages);
     }
 

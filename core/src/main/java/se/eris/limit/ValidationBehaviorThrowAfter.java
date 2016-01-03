@@ -20,12 +20,12 @@ public class ValidationBehaviorThrowAfter implements ValidationBehavior {
     @Override
     public void atValidation(@NotNull final ValidationMessages messages) {
         if (messages.hasMessages()) {
-            messages.getMessages().collect(Collectors.toList());
+            validationMessages.addAll(messages.getMessages().collect(Collectors.toList()));
         }
     }
 
     @Override
-    public void after() {
+    public void afterValidation() {
         if (!validationMessages.isEmpty()) {
             throw new ValidationException(ValidationMessages.of(validationMessages));
         }

@@ -18,7 +18,7 @@ public class ValidationBehaviorThrowImmediately implements ValidationBehavior {
     }
 
     @Override
-    public void after() {
+    public void afterValidation() {
     }
 
 }

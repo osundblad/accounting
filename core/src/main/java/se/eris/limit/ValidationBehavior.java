@@ -9,6 +9,6 @@ public interface ValidationBehavior {
 
     void atValidation(@NotNull ValidationMessages messages);
 
-    void after();
+    void afterValidation();
 
 }
