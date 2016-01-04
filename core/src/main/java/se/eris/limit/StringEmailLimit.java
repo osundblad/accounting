@@ -3,27 +3,27 @@ package se.eris.limit;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.jetbrains.annotations.NotNull;
 
-public class EmailLimit implements StringLimit {
+public class StringEmailLimit implements StringLimit {
 
     @NotNull
-    public static EmailLimit advanced(final boolean allowLocal, final boolean allowTld) {
-        return new EmailLimit(EmailValidator.getInstance(allowLocal, allowTld));
+    public static StringEmailLimit advanced(final boolean allowLocal, final boolean allowTld) {
+        return new StringEmailLimit(EmailValidator.getInstance(allowLocal, allowTld));
     }
 
     @NotNull
-    public static EmailLimit advanced(final boolean allowLocal) {
-        return new EmailLimit(EmailValidator.getInstance(allowLocal));
+    public static StringEmailLimit advanced(final boolean allowLocal) {
+        return new StringEmailLimit(EmailValidator.getInstance(allowLocal));
     }
 
     @NotNull
-    public static EmailLimit simple() {
-        return new EmailLimit(EmailValidator.getInstance());
+    public static StringEmailLimit simple() {
+        return new StringEmailLimit(EmailValidator.getInstance());
     }
 
     @NotNull
     private final EmailValidator emailValidator;
 
-    private EmailLimit(@NotNull final EmailValidator emailValidator) {
+    private StringEmailLimit(@NotNull final EmailValidator emailValidator) {
         this.emailValidator = emailValidator;
     }
 

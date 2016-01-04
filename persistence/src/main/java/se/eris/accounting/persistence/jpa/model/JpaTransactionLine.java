@@ -35,7 +35,6 @@ public class JpaTransactionLine {
     public JpaTransactionLine() {
     }
 
-    @SuppressWarnings("FeatureEnvy")
     public JpaTransactionLine(@NotNull final TransactionLine transactionLine, @NotNull final JpaTransaction jpaTransaction) {
         id = transactionLine.getId().orElse(TransactionLineId.random()).asString();
         transaction = jpaTransaction;
