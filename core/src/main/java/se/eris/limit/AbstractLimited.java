@@ -16,6 +16,11 @@ public abstract class AbstractLimited<T> {
 
     protected AbstractLimited(@NotNull final List<Function<T, ValidationMessages>> limits, @NotNull final ValidationBehavior validationBehavior) {
         this.limits = limits;
+        //  * interface -> function (this.limits = limits.stream().map(limit -> (Function<T, ValidationMessages>) t -> limit.validate(t)).collect(Collectors.toList());)
+        //  * sql.Date -> LocalDate (try UUID -> String)
+        //  * ResponseEntity<T>
+        //  * final Rest classes @JsonCreator&/@JsonProperty
+        //  * Optional.map (transaction.getId().map(TransactionId::asUUID).orElse(null) and Optional.ofNullable(id).map(TransactionId::from))
         this.validationBehavior = validationBehavior;
     }
 

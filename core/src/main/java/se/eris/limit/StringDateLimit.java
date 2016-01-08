@@ -11,12 +11,12 @@ public class StringDateLimit implements StringLimit {
 
     @NotNull
     public StringDateLimit iso() {
-        return of(DateTimeFormatter.ISO_DATE);
+        return of(DateTimeFormatter.ISO_LOCAL_DATE);
     }
 
     @NotNull
     public StringDateLimit iso(@NotNull final OpenDatePeriod datePeriod) {
-        return of(DateTimeFormatter.ISO_DATE, datePeriod);
+        return of(DateTimeFormatter.ISO_LOCAL_DATE, datePeriod);
     }
 
     @NotNull
