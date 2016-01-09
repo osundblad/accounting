@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.chrono.ChronoLocalDate;
 import java.util.Optional;
 
-public class OpenDatePeriod extends SimplePair<Optional<LocalDate>> {
+public class OpenDatePeriod extends PairWrapper<Optional<LocalDate>> {
 
     @NotNull
     public static OpenDatePeriod of(@NotNull final Optional<LocalDate> startDate, @NotNull final Optional<LocalDate> endDate) {

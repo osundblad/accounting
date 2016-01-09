@@ -2,14 +2,14 @@ package se.eris.type;
 
 import org.jetbrains.annotations.NotNull;
 
-public abstract class SimplePair<T> {
+public abstract class PairWrapper<T> {
 
     @NotNull
     private final T first;
     @NotNull
     private final T second;
 
-    protected SimplePair(@NotNull final T first, @NotNull final T second) {
+    protected PairWrapper(@NotNull final T first, @NotNull final T second) {
         this.first = first;
         this.second = second;
     }
@@ -30,7 +30,7 @@ public abstract class SimplePair<T> {
         if (this == o) return true;
         if ((o == null) || (getClass() != o.getClass())) return false;
 
-        final SimplePair<?> that = (SimplePair<?>) o;
+        final PairWrapper<?> that = (PairWrapper<?>) o;
 
         return first.equals(that.first) && second.equals(that.second);
     }
