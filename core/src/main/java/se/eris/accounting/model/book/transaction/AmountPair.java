@@ -5,6 +5,7 @@ import se.eris.type.PairWrapper;
 
 public class AmountPair extends PairWrapper<Amount> {
 
+    @NotNull
     public static AmountPair of(@NotNull final Amount first, @NotNull final Amount second) {
         return new AmountPair(first, second);
     }
