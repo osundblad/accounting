@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "tsc": "tsc",
-    "tsc:w": "tsc -w",
-    "lite": "lite-server",
+    "tsc:w": "tsc -w --outDir ../target",
+    "lite": "lite-server --baseDir ../target",
     "start": "concurrent \"npm run tsc:w\" \"npm run lite\" "
   },
   "license": "ISC",
