@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
 import se.eris.accounting.model.book.BookId;
 import se.eris.accounting.model.book.BookYear;
 import se.eris.accounting.model.book.BookYearId;
-import se.eris.accounting.model.book.DatePeriod;
+import se.eris.type.OpenDatePeriod;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -58,7 +58,7 @@ public class RestBookYear {
 
     @NotNull
     public BookYear toCore() {
-        return new BookYear(Optional.ofNullable(id).map(BookYearId::from), BookId.from(bookId), DatePeriod.between(LocalDate.parse(startDate), LocalDate.parse(endDate)));
+        return new BookYear(Optional.ofNullable(id).map(BookYearId::from), BookId.from(bookId), OpenDatePeriod.between(LocalDate.parse(startDate), LocalDate.parse(endDate)));
     }
 
     @Override

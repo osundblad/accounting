@@ -5,7 +5,7 @@ import org.junit.Test;
 import se.eris.accounting.model.book.BookId;
 import se.eris.accounting.model.book.BookYear;
 import se.eris.accounting.model.book.BookYearId;
-import se.eris.accounting.model.book.DatePeriod;
+import se.eris.type.OpenDatePeriod;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -32,7 +32,7 @@ public class JpaBookYearTest {
     @NotNull
     private BookYear createBookYear(@NotNull final Optional<BookYearId> id) {
         final LocalDate now = LocalDate.now();
-        return new BookYear(id, BookId.random(), DatePeriod.between(now, now.plusDays(2)));
+        return new BookYear(id, BookId.random(), OpenDatePeriod.between(now, now.plusDays(2)));
     }
 
 }

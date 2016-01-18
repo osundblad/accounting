@@ -3,7 +3,7 @@ package se.eris.accounting.persistence.jpa.model;
 import se.eris.accounting.model.book.BookId;
 import se.eris.accounting.model.book.BookYear;
 import se.eris.accounting.model.book.BookYearId;
-import se.eris.accounting.model.book.DatePeriod;
+import se.eris.type.OpenDatePeriod;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -49,7 +49,7 @@ public class JpaBookYear {
 
     @NotNull
     public BookYear toCore() {
-        return new BookYear(Optional.of(BookYearId.from(id)), BookId.from(bookId), DatePeriod.between(fromDate, toDate));
+        return new BookYear(Optional.of(BookYearId.from(id)), BookId.from(bookId), OpenDatePeriod.between(fromDate, toDate));
     }
 
     @SuppressWarnings({"RedundantIfStatement", "ControlFlowStatementWithoutBraces", "NonFinalFieldReferenceInEquals"})
