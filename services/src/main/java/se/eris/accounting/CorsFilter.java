@@ -15,8 +15,8 @@ import java.io.IOException;
 public class CorsFilter implements Filter {
 
     public void doFilter(@NotNull final ServletRequest req, @NotNull final ServletResponse res, @NotNull final FilterChain chain) throws IOException, ServletException {
-        HttpServletResponse response = (HttpServletResponse) res;
-        HttpServletRequest request = (HttpServletRequest) req;
+        final HttpServletResponse response = (HttpServletResponse) res;
+        final HttpServletRequest request = (HttpServletRequest) req;
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
