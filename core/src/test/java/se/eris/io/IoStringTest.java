@@ -56,6 +56,15 @@ public class IoStringTest {
     }
 
     @Test
+    public void toBoolean() {
+        assertThat(IoString.toBoolean("true").get(), is(true));
+        assertThat(IoString.toBoolean("TruE").get(), is(true));
+
+        assertThat(IoString.toBoolean("false").get(), is(false));
+        assertThat(IoString.toBoolean(null).get(), is(false));
+    }
+
+    @Test
     public void toUUID() {
         final UUID uuid = UUID.randomUUID();
         assertThat(IoString.toUUID(uuid.toString()).get(), is(uuid));
@@ -70,4 +79,5 @@ public class IoStringTest {
 
         assertFalse(IoString.toLocalDate("abc").isPresent());
     }
+
 }

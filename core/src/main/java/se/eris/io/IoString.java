@@ -51,6 +51,11 @@ public final class IoString {
     }
 
     @NotNull
+    public static Optional<Boolean> toBoolean(@Nullable final String s) {
+        return Optional.of(Boolean.parseBoolean(s));
+    }
+
+    @NotNull
     public static Optional<UUID> toUUID(@Nullable final String s) {
         if (s == null) {
             return Optional.empty();
