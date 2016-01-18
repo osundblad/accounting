@@ -1,16 +1,14 @@
-import {Component, OnInit} from 'angular2/core';
-import label = ts.ScriptElementKind.label;
-
-import {Book} from './book';
-import {BookService} from './book.service';
-import {BookDetailComponent} from './book-detail.component';
+import {Component, OnInit} from "angular2/core";
+import {Book} from "./book";
+import {BookService} from "./book.service";
+import {BookDetailComponent} from "./book-detail.component";
 
 @Component({
     selector: 'my-app',
     template: `
     <h1>{{title}}</h1>
     <h2>Books</h2>
-    <ul class="heroes">
+    <ul class="books">
         <li *ngFor="#book of books"
         [class.selected]="book === selectedBook"
         (click)="onSelect(book)">
@@ -24,13 +22,13 @@ import {BookDetailComponent} from './book-detail.component';
     background-color: #CFD8DC !important;
     color: white;
   }
-  .heroes {
+  .books {
     margin: 0 0 2em 0;
     list-style-type: none;
     padding: 0;
     width: 10em;
   }
-  .heroes li {
+  .books li {
     cursor: pointer;
     position: relative;
     left: 0;
@@ -40,19 +38,19 @@ import {BookDetailComponent} from './book-detail.component';
     height: 1.6em;
     border-radius: 4px;
   }
-  .heroes li.selected:hover {
+  .books li.selected:hover {
     color: white;
   }
-  .heroes li:hover {
+  .books li:hover {
     color: #607D8B;
     background-color: #EEE;
     left: .1em;
   }
-  .heroes .text {
+  .books .text {
     position: relative;
     top: -3px;
   }
-  .heroes .badge {
+  .books .badge {
     display: inline-block;
     font-size: small;
     color: white;
