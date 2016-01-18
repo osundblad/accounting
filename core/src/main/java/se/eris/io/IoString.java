@@ -8,6 +8,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Optional;
 import java.util.UUID;
 
+@SuppressWarnings("WeakerAccess")
 public final class IoString {
 
     private IoString() {

@@ -42,6 +42,20 @@ public class IoStringTest {
     }
 
     @Test
+    public void toShort() {
+        assertThat(IoString.toShort("0").get(), is((short) 0));
+        assertThat(IoString.toShort("-0").get(), is((short) 0));
+        assertThat(IoString.toShort("-17").get(), is((short) -17));
+        assertThat(IoString.toShort("016").get(), is((short) 16));
+
+        assertFalse(IoString.toShort("1234567").isPresent());
+        assertFalse(IoString.toShort("").isPresent());
+        assertFalse(IoString.toShort("0xF").isPresent());
+        assertFalse(IoString.toShort("a").isPresent());
+        assertFalse(IoString.toShort(null).isPresent());
+    }
+
+    @Test
     public void toUUID() {
         final UUID uuid = UUID.randomUUID();
         assertThat(IoString.toUUID(uuid.toString()).get(), is(uuid));
