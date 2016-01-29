@@ -1,6 +1,6 @@
-import {Book} from './book';
+import {Book} from "./book";
 
-export var BOOKS:Book[] = [
+export var STUB_BOOKS:Book[] = [
     {"id": 1, "name": 'Eris IT AB'},
     {"id": 11, "name": "Mr. Nice"},
     {"id": 12, "name": "Narco"},

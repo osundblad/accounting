@@ -8,6 +8,10 @@ import java.time.format.DateTimeParseException;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Todo:
+ *  - How to handle "" (empty String)
+ */
 @SuppressWarnings("WeakerAccess")
 public final class IoString {
 
@@ -22,7 +26,7 @@ public final class IoString {
         try {
             return Optional.of(Double.parseDouble(s));
         } catch (final NumberFormatException e) {
-            return Optional.empty();
+            throw new IllegalArgumentException(s + " is not a Double", e);
         }
     }
 
@@ -34,7 +38,7 @@ public final class IoString {
         try {
             return Optional.of(Integer.parseInt(s));
         } catch (final NumberFormatException e) {
-            return Optional.empty();
+            throw new IllegalArgumentException(s + " is not an Integer", e);
         }
     }
 
@@ -46,7 +50,7 @@ public final class IoString {
         try {
             return Optional.of(Short.parseShort(s));
         } catch (final NumberFormatException e) {
-            return Optional.empty();
+            throw new IllegalArgumentException(s + " is not a Short", e);
         }
     }
 
@@ -66,7 +70,7 @@ public final class IoString {
         try {
             return Optional.of(UUID.fromString(s));
         } catch (final IllegalArgumentException e) {
-            return Optional.empty();
+            throw new IllegalArgumentException(s + " is not a UUID", e);
         }
     }
 
@@ -78,7 +82,7 @@ public final class IoString {
         try {
             return Optional.of(LocalDate.parse(s));
         } catch (final DateTimeParseException e) {
-            return Optional.empty();
+            throw new IllegalArgumentException(s + " is not a LocalDate", e);
         }
     }
 

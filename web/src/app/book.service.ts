@@ -1,19 +1,31 @@
-import {Injectable} from 'angular2/core';
-
+import {Injectable} from "angular2/core";
+import {Http} from "angular2/http";
 import {Book} from "./book";
-import {BOOKS} from './mock-books';
+import {STUB_BOOKS} from "./mock-books";
 
 @Injectable()
 export class BookService {
 
+    http: Http;
+    books:Book[] = [];
+
+    constructor(http: Http) {
+        this.http = http;
+    }
+
     getBooks() {
-        return Promise.resolve(BOOKS);
+        this.http.get('api/book/')
+            // Call map on the response observable to get the parsed people object
+            .map(res => res.json())
+            // Subscribe to the observable to get the parsed books object and attach it to the
+            // component
+            .subscribe(books => this.books = books);
     }
 
     // See the "Take it slow" appendix
-    getHeroesSlowly() {
+    getBooksStub() {
         return new Promise<Book[]>(resolve =>
-            setTimeout(()=>resolve(BOOKS), 2000) // 2 seconds
+            setTimeout(()=>resolve(STUB_BOOKS), 2000) // 2 seconds
         );
     }
 
