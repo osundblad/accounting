@@ -15,6 +15,11 @@
     <packaging>pom</packaging>
     <version>0.1-SNAPSHOT</version>
 
+    <description>
+        This is the parent module, everything here is inherited by the other modules
+        so put only dependencies that are used globally here. No source code.
+    </description>
+
     <modules>
         <module>core</module>
         <module>persistence</module>
@@ -22,11 +27,6 @@
         <module>web</module>
         <module>dist</module>
     </modules>
-
-    <description>
-        This is the parent module, everything here is inherited by the other modules
-        so put only dependencies that are used globally here. No source code.
-    </description>
 
     <properties>
         <spring.boot.version>1.3.2.RELEASE</spring.boot.version>
@@ -61,7 +61,7 @@
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>13.0</version>
+            <version>15.0</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
