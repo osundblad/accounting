@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
+import java.util.UUID;
 
 @Entity
 @Table(name = "book")
@@ -22,7 +23,7 @@ public class JpaBook {
     @NotNull
     @Id
     @Column(nullable = false, length = 36)
-    private String id;
+    private UUID id;
 
     @NotNull
     @Column(nullable = false, length = NAME_MAX_LENGTH)
@@ -39,7 +40,7 @@ public class JpaBook {
 
     @SuppressWarnings("FeatureEnvy")
     public JpaBook(@NotNull final Book book) {
-        id = book.getId().orElse(BookId.random()).asString();
+        id = book.getId().orElse(BookId.random()).raw();
         name = book.getName().asString();
         description = book.getDescription().asString();
     }
@@ -70,4 +71,5 @@ public class JpaBook {
         result = (31 * result) + description.hashCode();
         return result;
     }
+
 }

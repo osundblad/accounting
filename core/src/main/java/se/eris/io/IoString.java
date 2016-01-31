@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 /**
- * Todo:
+ * Idea/Todo:
  *  - How to handle "" (empty String)
  */
 @SuppressWarnings("WeakerAccess")

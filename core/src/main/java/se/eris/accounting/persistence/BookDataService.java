@@ -20,6 +20,9 @@ public interface BookDataService {
     @NotNull
     Book create(@NotNull Book book);
 
+    @NotNull
+    Book update(@NotNull Book book);
+
     void delete(@NotNull BookId bookId);
 
     @NotNull

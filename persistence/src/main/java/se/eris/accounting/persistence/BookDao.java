@@ -34,6 +34,14 @@ public class BookDao {
         return bookRepository.save(new JpaBook(book)).toCore();
     }
 
+    @NotNull
+    public Book update(@NotNull final Book book) {
+        if (!book.getId().isPresent()) {
+            throw new NotPersistedException(book + " has not been persisted (use create)." );
+        }
+        return bookRepository.save(new JpaBook(book)).toCore();
+    }
+
     public void delete(@NotNull final BookId bookId) {
         bookRepository.delete(bookId.asString());
     }

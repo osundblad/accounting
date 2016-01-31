@@ -7,18 +7,21 @@ import javax.persistence.Converter;
 import java.sql.Date;
 import java.time.LocalDate;
 
-@SuppressWarnings("unused") // used bu JPA to convert LocalDate to sql.Date
+/**
+ * Used by JPA to convert a LocalDate to a sql:Date.
+ */
+@SuppressWarnings({"unused", "WeakerAccess"})
 @Converter(autoApply = true)
 public class LocalDateConverter implements AttributeConverter<LocalDate, Date> {
 
-    @Nullable
     @Override
+    @Nullable
     public Date convertToDatabaseColumn(@Nullable final LocalDate localDate) {
     	return ((localDate == null) ? null : Date.valueOf(localDate));
     }
 
-    @Nullable
     @Override
+    @Nullable
     public LocalDate convertToEntityAttribute(@Nullable final Date sqlDate) {
     	return ((sqlDate == null) ? null : sqlDate.toLocalDate());
     }

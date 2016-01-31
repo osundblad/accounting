@@ -15,6 +15,7 @@ import se.eris.accounting.model.book.transaction.TransactionId;
 
 import java.util.stream.Stream;
 
+@SuppressWarnings("unused")
 @Service
 @Transactional
 public class BookDataServiceJpa implements BookDataService {
@@ -46,6 +47,12 @@ public class BookDataServiceJpa implements BookDataService {
     @NotNull
     public Book create(@NotNull final Book book) {
         return bookDao.create(book);
+    }
+
+    @Override
+    @NotNull
+    public Book update(@NotNull final Book book) {
+        return bookDao.update(book);
     }
 
     @Override
