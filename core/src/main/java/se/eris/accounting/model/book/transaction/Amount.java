@@ -1,8 +1,8 @@
 package se.eris.accounting.model.book.transaction;
 
 import org.jetbrains.annotations.NotNull;
-import se.eris.limit.LimitedBigDecimal;
-import se.eris.type.BasicWrapper;
+import se.eris.util.limit.LimitedBigDecimal;
+import se.eris.util.type.BasicWrapper;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

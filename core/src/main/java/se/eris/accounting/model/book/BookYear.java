@@ -1,7 +1,7 @@
 package se.eris.accounting.model.book;
 
 import org.jetbrains.annotations.NotNull;
-import se.eris.type.OpenDatePeriod;
+import se.eris.util.type.OpenDatePeriod;
 
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -16,8 +16,7 @@ public final class BookYear {
     private final Optional<BookYearId> id;
     @NotNull
     private final BookId bookId;
-    @NotNull
-    private final OpenDatePeriod datePeriod;
+    private final @NotNull OpenDatePeriod datePeriod;
 
     public BookYear(@NotNull final Optional<BookYearId> id, @NotNull final BookId bookId, @NotNull final OpenDatePeriod datePeriod) {
         this.id = id;

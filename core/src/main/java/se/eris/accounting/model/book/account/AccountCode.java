@@ -1,8 +1,8 @@
 package se.eris.accounting.model.book.account;
 
 import org.jetbrains.annotations.NotNull;
-import se.eris.limit.LimitedString;
-import se.eris.type.StringWrapper;
+import se.eris.util.limit.LimitedString;
+import se.eris.util.type.StringWrapper;
 
 public class AccountCode extends StringWrapper {
 

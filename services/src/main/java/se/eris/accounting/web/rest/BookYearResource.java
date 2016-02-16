@@ -13,7 +13,7 @@ import se.eris.accounting.model.book.BookYear;
 import se.eris.accounting.model.book.BookYearId;
 import se.eris.accounting.services.BookRestFacade;
 import se.eris.accounting.web.rest.model.RestBookYear;
-import se.eris.type.OpenDatePeriod;
+import se.eris.util.type.OpenDatePeriod;
 
 import java.time.LocalDate;
 import java.time.Month;

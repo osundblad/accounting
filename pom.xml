@@ -59,6 +59,11 @@
         </dependency>
 
         <dependency>
+            <groupId>se.eris</groupId>
+            <artifactId>util</artifactId>
+            <version>0.2</version>
+        </dependency>
+        <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>15.0</version>
