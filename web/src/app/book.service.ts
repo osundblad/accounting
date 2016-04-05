@@ -19,7 +19,20 @@ export class BookService {
             .map(res => res.json())
             // Subscribe to the observable to get the parsed books object and attach it to the
             // component
-            .subscribe(books => this.books = books);
+            .subscribe(
+                books => this.setBooks(books),
+                err => this.logError(err),
+                () => console.log('Request Complete')
+            );
+    }
+
+    setBooks(books) {
+        console.warn('Successfully fetched: ', books);
+        this.books = books;
+    }
+
+    logError(err) {
+        console.error('There was an error: ', err);
     }
 
     // See the "Take it slow" appendix
