@@ -6,9 +6,11 @@ import se.eris.util.type.StringWrapper;
 
 public class BookDescription extends StringWrapper {
 
+    @SuppressWarnings("WeakerAccess")
     public static final int MAX_LENGTH = 1000;
 
-    private static final @NotNull LimitedString LIMITED_STRING = LimitedString.init()
+    @NotNull
+    private static final LimitedString LIMITED_STRING = LimitedString.init()
             .length(MAX_LENGTH).build();
 
     @NotNull

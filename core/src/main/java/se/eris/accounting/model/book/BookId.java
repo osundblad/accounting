@@ -8,8 +8,8 @@ import java.util.UUID;
 public class BookId extends UUIDWrapper {
 
     @NotNull
-    public static BookId from(@NotNull final String name) {
-        return from(UUID.fromString(name));
+    public static BookId from(@NotNull final String uuid) {
+        return from(UUID.fromString(uuid));
     }
 
     @NotNull
