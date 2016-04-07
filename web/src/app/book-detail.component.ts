@@ -27,7 +27,7 @@ export class BookDetailComponent implements OnInit {
                 error => this.errorMessage = <any>error);
     }
 
-    goBack() {
+    static goBack() {
         window.history.back();
     }
 

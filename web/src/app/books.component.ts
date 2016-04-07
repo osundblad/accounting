@@ -3,7 +3,6 @@ import {Router} from "angular2/router";
 
 import {Book} from "./book";
 import {BookService} from "./book.service";
-import {BookDetailComponent} from "./book-detail.component";
 
 @Component({
     selector: 'my-books',
