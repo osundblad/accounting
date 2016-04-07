@@ -9,12 +9,12 @@ import {BookDetailComponent} from "./book-detail.component";
     selector: 'my-books',
     templateUrl: 'app/books.component.html',
     styleUrls: ['app/books.component.css'],
-    directives: [BookDetailComponent]
 })
 export class BooksComponent implements OnInit {
 
     books:Book[];
     selectedBook:Book;
+    private errorMessage;
 
     constructor(
         private _router: Router,
@@ -26,7 +26,10 @@ export class BooksComponent implements OnInit {
     }
 
     getBooks() {
-        this._bookService.getBooks().then(books => this.books = books);
+        this._bookService.getBooks()
+            .subscribe(
+                heroes => this.books = heroes,
+                error =>  this.errorMessage = <any>error);
     }
 
     onSelect(book:Book) {

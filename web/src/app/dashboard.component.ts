@@ -12,15 +12,17 @@ import {BookService} from './book.service';
 export class DashboardComponent implements OnInit {
 
     books:Book[] = [];
+    private errorMessage;
 
-    constructor(
-        private _router:Router,
-        private _bookService:BookService) {
+    constructor(private _router:Router,
+                private _bookService:BookService) {
     }
 
     ngOnInit() {
         this._bookService.getBooks()
-            .then(books => this.books = books.slice(1, 5));
+            .subscribe(
+                heroes => this.books = heroes.slice(0, 4),
+                error => this.errorMessage = <any>error);
     }
 
     gotoDetail(book:Book) {

@@ -1,23 +1,32 @@
 import {Injectable} from "angular2/core";
+import {Http, Response} from 'angular2/http';
+import {Observable} from "rxjs/Observable";
+
 import {Book} from "./book";
-import {STUB_BOOKS} from "./mock-books";
 
 @Injectable()
 export class BookService {
 
+    constructor(private _http:Http) {
+    }
+
+    getBook(id:string) {
+        return this._http.get('http://localhost:8080/api/book')
+            .map(res => <Book> res.json().filter(book => book.id === id)[0])
+            .catch(this.handleError);
+    }
+
     getBooks() {
-        return Promise.resolve(STUB_BOOKS);
+        return this._http.get('http://localhost:8080/api/book')
+            .map(res => <Book[]> res.json())
+            .catch(this.handleError);
     }
 
-    getBooksSlowly() {
-        return new Promise<Book[]>(resolve =>
-            setTimeout(()=>resolve(STUB_BOOKS), 2000) // 2 seconds
-        );
+    private handleError(error:Response) {
+        // in a real world app, we may send the error to some remote logging infrastructure
+        // instead of just logging it to the console
+        console.error(error);
+        return Observable.throw(error.json().error || 'Server error');
     }
-
-    getBook(id: number) {
-        return Promise.resolve(STUB_BOOKS).then(
-            books => books.filter(book => book.id === id)[0]
-        );
-    }
+    
 }

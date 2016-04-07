@@ -13,16 +13,18 @@ import {BookService} from './book.service';
 export class BookDetailComponent implements OnInit {
     @Input()
     public book:Book;
+    private errorMessage;
 
-    constructor(
-        private _bookService: BookService,
-        private _routeParams: RouteParams) {
+    constructor(private _bookService:BookService,
+                private _routeParams:RouteParams) {
     }
 
     ngOnInit() {
-        let id = +this._routeParams.get('id');
+        let id:string = this._routeParams.get('id');
         this._bookService.getBook(id)
-            .then(book => this.book = book);
+            .subscribe(
+                book => this.book = book,
+                error => this.errorMessage = <any>error);
     }
 
     goBack() {
