@@ -15,9 +15,8 @@ export class BooksComponent implements OnInit {
     selectedBook:Book;
     private errorMessage;
 
-    constructor(
-        private _router: Router,
-        private _bookService:BookService) {
+    constructor(private _router:Router,
+                private _bookService:BookService) {
     }
 
     ngOnInit() {
@@ -28,7 +27,21 @@ export class BooksComponent implements OnInit {
         this._bookService.getBooks()
             .subscribe(
                 heroes => this.books = heroes,
-                error =>  this.errorMessage = <any>error);
+                error => this.errorMessage = <any>error);
+    }
+
+    addBook2() {
+        this.addBook('hej')
+    }
+
+    addBook(name:string) {
+        if (!name) {
+            return;
+        }
+        this._bookService.createBook(name)
+            .subscribe(
+                hero => this.books.push(hero),
+                error => this.errorMessage = <any>error);
     }
 
     onSelect(book:Book) {
@@ -36,7 +49,7 @@ export class BooksComponent implements OnInit {
     }
 
     gotoDetail() {
-        this._router.navigate(['BookDetail', { id: this.selectedBook.id }]);
+        this._router.navigate(['BookDetail', {id: this.selectedBook.id}]);
     }
 
 }

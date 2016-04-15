@@ -5,10 +5,7 @@ import se.eris.accounting.model.book.BookDescription;
 import se.eris.accounting.model.book.BookId;
 import se.eris.accounting.model.book.BookName;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
 import java.util.UUID;
@@ -23,7 +20,7 @@ public class JpaBook {
     @NotNull
     @Id
     @Column(nullable = false, length = 36)
-    private UUID id;
+    private String id;
 
     @NotNull
     @Column(nullable = false, length = NAME_MAX_LENGTH)
@@ -40,7 +37,7 @@ public class JpaBook {
 
     @SuppressWarnings("FeatureEnvy")
     public JpaBook(@NotNull final Book book) {
-        id = book.getId().orElse(BookId.random()).raw();
+        id = book.getId().orElse(BookId.random()).raw().toString();
         name = book.getName().asString();
         description = book.getDescription().asString();
     }

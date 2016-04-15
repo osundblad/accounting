@@ -37,7 +37,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: book_id
-                  type: char(36)
+                  type: uuid
                   constraints:
                     nullable: false
                     foreignKeyName: fk_bookyear_book
@@ -67,7 +67,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: book_year_id
-                  type: char(36)
+                  type: uuid
                   constraints:
                     nullable: false
                     foreignKeyName: fk_account_bookyear
@@ -107,7 +107,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: book_year_id
-                  type: char(36)
+                  type: uuid
                   constraints:
                     nullable: false
                     foreignKeyName: fk_transaction_bookyear
@@ -128,20 +128,20 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: transaction_id
-                  type: char(36)
+                  type: uuid
                   constraints:
                     nullable: false
                     foreignKeyName: fk_transactionLine_transaction
                     references: transaction(id)
               - column:
                   name: account_id
-                  type: char(36)
+                  type: uuid
                   constraints:
                     nullable: false
                     foreignKeyName: fk_transactionLine_account
                     references: account(id)
               - column:
                   name: amount
-                  type: char(36)
+                  type: uuid
                   constraints:
                     nullable: false

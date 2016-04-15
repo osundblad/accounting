@@ -1,5 +1,5 @@
 import {Injectable} from "angular2/core";
-import {Http, Response} from 'angular2/http';
+import {Http, Response, RequestOptions, Headers} from 'angular2/http';
 import {Observable} from "rxjs/Observable";
 
 import {Book} from "./book";
@@ -11,14 +11,26 @@ export class BookService {
     }
 
     getBook(id:string) {
-        return this._http.get('http://localhost:8080/api/book')
+        return this._http.get(this._bookUrl)
             .map(res => <Book> res.json().filter(book => book.id === id)[0])
             .catch(this.handleError);
     }
 
-    getBooks() {
-        return this._http.get('http://localhost:8080/api/book')
+    private _bookUrl = 'http://localhost:8080/api/book';
+
+    getBooks() : Observable<Book[]> {
+        return this._http.get(this._bookUrl)
             .map(res => <Book[]> res.json())
+            .catch(this.handleError);
+    }
+
+    createBook(name: string) : Observable<Book> {
+        let body = JSON.stringify({ id: null, "name": name, "description" : "" });
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+
+        return this._http.post(this._bookUrl, body, options)
+            .map(res =>  <Book> res.json())
             .catch(this.handleError);
     }
 

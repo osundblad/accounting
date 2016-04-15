@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Optional;
+import java.util.UUID;
 
 @Entity
 @Table(name = "book_year")
@@ -24,7 +25,7 @@ public class JpaBookYear {
 
     @NotNull
     @Column(name = "bookId", nullable = false, length = 36)
-    private String bookId;
+    private UUID bookId;
 
     @NotNull
     @Column(name = "fromDate", nullable = false)
@@ -42,7 +43,7 @@ public class JpaBookYear {
     @SuppressWarnings("FeatureEnvy")
     public JpaBookYear(@NotNull final BookYear bookYear) {
         id = bookYear.getId().orElse(BookYearId.random()).asString();
-        bookId = bookYear.getBookId().asString();
+        bookId = bookYear.getBookId().raw();
         fromDate = bookYear.getStartDate();
         toDate = bookYear.getEndDate();
     }

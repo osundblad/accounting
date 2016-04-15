@@ -1,4 +1,13 @@
 <h2>📚 Books</h2>
+
+<div *ngIf="addBook">
+<input #newBook
+       (keyup.enter)="addBook(newBook.value); newBook.value='' "
+       (keyup.escape)="newBook.value='' "
+       (blur)="newBook.value='' ">
+<button (click)="addBook(newBook.value)">Add</button>
+</div>
+
 <ul class="books">
     <li *ngFor="#book of books"
         [class.selected]="book === selectedBook"
