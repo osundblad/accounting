@@ -73,7 +73,8 @@ public class BookResource {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{bookId}")
-    public void delete(@PathVariable("bookId") @NotNull final UUID bookId) {
+    public ResponseEntity delete(@PathVariable("bookId") @NotNull final UUID bookId) {
         bookRestFacade.delete(BookId.from(bookId));
+        return ResponseEntity.ok().build();
     }
 }

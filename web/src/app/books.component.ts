@@ -13,6 +13,7 @@ export class BooksComponent implements OnInit {
 
     books:Book[];
     selectedBook:Book;
+    isAddBook:Boolean = false;
     private errorMessage;
 
     constructor(private _router:Router,
@@ -23,15 +24,15 @@ export class BooksComponent implements OnInit {
         this.getBooks();
     }
 
+    showAddBook(show) {
+        this.isAddBook = show;
+    }
+
     getBooks() {
         this._bookService.getBooks()
             .subscribe(
-                heroes => this.books = heroes,
+                books => this.books = books,
                 error => this.errorMessage = <any>error);
-    }
-
-    addBook2() {
-        this.addBook('hej')
     }
 
     addBook(name:string) {
@@ -40,11 +41,13 @@ export class BooksComponent implements OnInit {
         }
         this._bookService.createBook(name)
             .subscribe(
-                hero => this.books.push(hero),
+                book => this.books.push(book),
                 error => this.errorMessage = <any>error);
+        this.showAddBook(false);
     }
 
     onSelect(book:Book) {
+        this.showAddBook(false);
         this.selectedBook = book;
     }
 

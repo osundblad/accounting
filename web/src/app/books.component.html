@@ -1,12 +1,12 @@
-<h2>📚 Books</h2>
-
-<div *ngIf="addBook">
+<h2>📚 Books
+<span *ngIf="!isAddBook"><button (click)="showAddBook(true)">+</button></span>
+<span *ngIf="isAddBook">
 <input #newBook
-       (keyup.enter)="addBook(newBook.value); newBook.value='' "
-       (keyup.escape)="newBook.value='' "
-       (blur)="newBook.value='' ">
-<button (click)="addBook(newBook.value)">Add</button>
-</div>
+       (keyup.enter)="addBook(newBook.value); newBook.value=''; showAddBook(false)"
+       (keyup.escape)="newBook.value=''; showAddBook(false)"
+       (blur)="newBook.value=''; showAddBook(false)">
+</span>
+</h2>
 
 <ul class="books">
     <li *ngFor="#book of books"
