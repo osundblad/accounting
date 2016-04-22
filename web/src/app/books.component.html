@@ -7,7 +7,9 @@
        (blur)="newBook.value=''; showAddBook(false)">
 </span>
 </h2>
-
+<div *ngIf="isAddBook">
+    <book-form></book-form>
+</div>
 <ul class="books">
     <li *ngFor="#book of books"
         [class.selected]="book === selectedBook"

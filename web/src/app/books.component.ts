@@ -3,11 +3,15 @@ import {Router} from "angular2/router";
 
 import {Book} from "./book";
 import {BookService} from "./book.service";
+import {BookFormComponent} from "./book-form.component";
 
 @Component({
     selector: 'my-books',
     templateUrl: 'app/books.component.html',
     styleUrls: ['app/books.component.css'],
+    directives: [
+        BookFormComponent
+    ],
 })
 export class BooksComponent implements OnInit {
 
@@ -41,9 +45,14 @@ export class BooksComponent implements OnInit {
         }
         this._bookService.createBook(name)
             .subscribe(
-                book => this.books.push(book),
+                book => this.createdBook(book),
                 error => this.errorMessage = <any>error);
         this.showAddBook(false);
+    }
+
+    private createdBook(book:Book) {
+        this.books.push(book);
+        this.selectedBook = book;
     }
 
     onSelect(book:Book) {

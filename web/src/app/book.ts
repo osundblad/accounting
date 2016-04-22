@@ -1,5 +1,8 @@
-export interface Book {
-    id: string;
-    name: string;
-    description: string;
+export class Book {
+
+    constructor(public id:string,
+                public name:string,
+                public description:string) {
+    }
+    
 }

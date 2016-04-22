@@ -7,6 +7,7 @@ import {BookService}     from './book.service';
 import {DashboardComponent} from './dashboard.component';
 import {BooksComponent} from './books.component';
 import {BookDetailComponent} from "./book-detail.component";
+import {BookFormComponent} from './book-form.component'
 
 @Component({
     selector: 'my-app',
