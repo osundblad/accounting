@@ -1,11 +1,13 @@
-<div class="container">
-    <form>
+<div>
+    <form *ngIf="active" (ngSubmit)="onSubmit()" #bookForm="ngForm">
         <div class="form-group">
             <label for="name">Name</label>
-            <input id="name" type="text" class="form-control" required
+            <input type="text" id="name" class="form-control" required
                    [(ngModel)]="model.name"
-                   ngControl="name"   #spy >
-            <br>TODO: remove this: {{spy.className}}
+                   ngControl="name"  #name="ngForm" >
+            <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                Name is required
+            </div>
         </div>
         <div class="form-group">
             <label for="description">Description</label>
@@ -14,6 +16,7 @@
                    ngControl="description" >
         </div>
 
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="button" class="btn btn-default" (click)="newBook()">New Book</button>
+        <button type="submit" class="btn btn-default" [disabled]="!bookForm.form.valid">Submit</button>
     </form>
 </div>

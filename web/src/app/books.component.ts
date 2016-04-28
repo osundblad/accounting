@@ -25,18 +25,18 @@ export class BooksComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getBooks();
+        this.initBooks();
     }
 
-    showAddBook(show) {
-        this.isAddBook = show;
-    }
-
-    getBooks() {
+    initBooks() {
         this._bookService.getBooks()
             .subscribe(
                 books => this.books = books,
                 error => this.errorMessage = <any>error);
+    }
+
+    showAddBook(show) {
+        this.isAddBook = show;
     }
 
     addBook(name:string) {

@@ -12,12 +12,18 @@ import {BookFormComponent} from './book-form.component'
 @Component({
     selector: 'my-app',
     template: `
+        <div class="container" id="header">
         <h1>{{title}}</h1>
         <nav>
-            <a [routerLink]="['Dashboard']">Dashboard</a>
-            <a [routerLink]="['Books']">Books</a>
+            <ul class="nav nav-tabs">
+            <li><a [routerLink]="['Dashboard']">Dashboard</a></li>
+            <li><a [routerLink]="['Books']">Books</a></li>
+            </ul>
         </nav>
+        </div>
+        <div class="container" id="content">
         <router-outlet></router-outlet>
+        </div>
     `,
     styleUrls: ['app/app.component.css'],
     directives: [

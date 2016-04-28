@@ -1,32 +1,15 @@
-body {
-    margin: 2em;
+html {
+    overflow-y: scroll;
 }
 
-body, input[text], button {
-    color: #888;
-    font-family: Cambria, Georgia, sans-serif;
+.nav-tabs, li, a {
+    color: black;
 }
 
-button {
-    font-family: Arial, sans-serif;
-    background-color: #eee;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
+.header {
+    width: 90%;
 }
 
-button:hover {
-    background-color: #cfd8dc;
-}
-
-button:disabled {
-    background-color: #eee;
-    color: #aaa;
-    cursor: auto;
-}
-
-/* everywhere else */
-* {
-    font-family: Arial, Helvetica, sans-serif;
+.content {
+    width: 90%;
 }

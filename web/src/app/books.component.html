@@ -7,8 +7,16 @@
        (blur)="newBook.value=''; showAddBook(false)">
 </span>
 </h2>
-<div *ngIf="isAddBook">
-    <book-form></book-form>
+<div class="row">
+<div class="col-md-4">
+<div class="list-group">
+    <div *ngFor="#book of books" class="list-group-item"
+        [class.active]="book === selectedBook"
+        (click)="onSelect(book)">
+        <span class="badge">#years</span>
+        <h4 class="list-group-item-heading">{{book.name}}</h4>
+        <p class="list-group-item-text">{{book.description}}</p>
+    </div>
 </div>
 <ul class="books">
     <li *ngFor="#book of books"
@@ -18,12 +26,20 @@
     </li>
 </ul>
 
-<div *ngIf="selectedBook">
-    <h2>{{selectedBook.name}} overview</h2>
-    <div>
-        <h4>Description</h4>
-        <div class="text">{{selectedBook.description}}</div>
-    </div>
+</div>
+    <div class="col-md-8">
+        <div *ngIf="isAddBook">
+            <book-form></book-form>
+        </div>
+        <div *ngIf="selectedBook">
+            <h2>{{selectedBook.name}} overview</h2>
+            <div>
+                <h4>Description</h4>
+                <div class="text">{{selectedBook.description}}</div>
+            </div>
 
-    <button (click)="gotoDetail()">Open</button>
+            <button (click)="gotoDetail()">Open</button>
+        </div>
+
+    </div>
 </div>
