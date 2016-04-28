@@ -14,7 +14,7 @@
     <li *ngFor="#book of books"
         [class.selected]="book === selectedBook"
         (click)="onSelect(book)">
-        <span class="badge">🔖</span> {{book.name}}
+        <span class="badge">🔖</span> {{book.name}} <span class="trash">🗑</span>
     </li>
 </ul>
 
