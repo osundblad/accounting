@@ -4,15 +4,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import java.math.BigDecimal;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public class AmountTest {
 
-    private static final BigDecimal PERCENT_0£25 = BigDecimal.valueOf(0.25);
+    private static final Amount PERCENT_0£25 = Amount.of("0.25");
 
     @Rule
     public final ExpectedException exception = ExpectedException.none();
@@ -52,35 +50,12 @@ public class AmountTest {
 
     @Test
     public void percent() {
-        assertThat(Amount.of("1000").percent(BigDecimal.valueOf(5)), is(Amount.of("50")));
+        assertThat(Amount.of("1000").percent(Amount.of(5)), is(Amount.of("50")));
     }
 
     @Test
     public void percent_roundHalfUp() {
         assertThat(Amount.of("10").percent(PERCENT_0£25), is(Amount.of("0.03")));
-    }
-
-    @Test
-    public void split() {
-        final AmountPair split1000 = Amount.of("1000").split(BigDecimal.valueOf(25));
-
-        assertThat(split1000.getFirst(), is(Amount.of("250")));
-        assertThat(split1000.getSecond(), is(Amount.of("750")));
-    }
-
-    @Test
-    public void split_sumIsOriginalAmount() {
-        final AmountPair split10 = Amount.of("10").split(PERCENT_0£25);
-
-        assertThat(split10.getFirst(), is(Amount.of("0.03")));
-        assertThat(split10.getSecond(), is(Amount.of("9.97")));
-    }
-
-    @Test
-    public void split_lessThanZeroPercent() {
-        final AmountPair split1000 = Amount.of("1000").split(BigDecimal.valueOf(-25));
-        assertThat(split1000.getFirst(), is(Amount.of("-250")));
-        assertThat(split1000.getSecond(), is(Amount.of("1250")));
     }
 
     @Test

@@ -15,11 +15,6 @@
     <packaging>pom</packaging>
     <version>0.1-SNAPSHOT</version>
 
-    <description>
-        This is the parent module, everything here is inherited by the other modules
-        so put only dependencies that are used globally here. No source code.
-    </description>
-
     <modules>
         <module>core</module>
         <module>persistence</module>
@@ -44,6 +39,11 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
         <!--<dependency>-->
@@ -54,16 +54,11 @@
         <!--<groupId>org.springframework.boot</groupId>-->
         <!--<artifactId>spring-boot-starter-actuator</artifactId>-->
         <!--</dependency>-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
 
         <dependency>
             <groupId>se.eris</groupId>
             <artifactId>util</artifactId>
-            <version>0.2</version>
+            <version>0.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>

@@ -37,8 +37,17 @@ public final class Amount extends BasicWrapper<BigDecimal> {
     }
 
     @NotNull
-    public Amount add(@NotNull final Amount amount) {
+    private Amount internalAdd(@NotNull final Amount amount) {
         return new Amount(this.raw().add(amount.raw()));
+    }
+
+    @NotNull
+    public Amount add(@NotNull final Amount... amounts) {
+        Amount sum = this;
+        for (final Amount amount : amounts) {
+            sum = sum.internalAdd(amount);
+        }
+        return sum;
     }
 
     @NotNull
@@ -47,15 +56,20 @@ public final class Amount extends BasicWrapper<BigDecimal> {
     }
 
     @NotNull
-    public AmountPair split(@NotNull final BigDecimal percent) {
-        final Amount first = percent(percent);
-        final Amount second = subtract(first);
-        return AmountPair.of(first, second);
+    public Amount multiply(@NotNull final Amount amount) {
+        return new Amount(this.raw().multiply(amount.raw()).setScale(DECIMALS, BigDecimal.ROUND_HALF_UP));
     }
 
     @NotNull
-    public Amount percent(@NotNull final BigDecimal percent) {
-        return Amount.of(raw().multiply(percent).divide(BIG_DECIAML_100, RoundingMode.HALF_UP).setScale(DECIMALS, RoundingMode.HALF_UP));
+    public Amount divide(@NotNull final Amount amount) {
+        //noinspection BigDecimalMethodWithoutRoundingCalled
+        return new Amount(this.raw().divide(amount.raw()).setScale(DECIMALS, BigDecimal.ROUND_HALF_UP));
+    }
+
+    @NotNull
+    public Amount percent(@NotNull final Amount percent) {
+        //noinspection BigDecimalMethodWithoutRoundingCalled
+        return Amount.of(raw().multiply(percent.raw()).divide(BIG_DECIAML_100).setScale(DECIMALS, RoundingMode.HALF_UP));
     }
 
     public boolean isZero() {
@@ -66,5 +80,4 @@ public final class Amount extends BasicWrapper<BigDecimal> {
     public String asString() {
         return raw().toPlainString();
     }
-
 }
