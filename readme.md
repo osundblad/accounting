@@ -1,3 +1,7 @@
+#My Learn Angular2 project
+
+I happy to receive improvments and tips on what could be improved, but this is just a try it out project so it might disappear at any time.
+
 
 ##Commands
 
