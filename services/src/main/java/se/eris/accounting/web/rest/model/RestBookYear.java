@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
 import se.eris.accounting.model.book.BookId;
 import se.eris.accounting.model.book.BookYear;
 import se.eris.accounting.model.book.BookYearId;
-import se.eris.util.type.OpenDatePeriod;
+import se.eris.jtype.type.OpenDatePeriod;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

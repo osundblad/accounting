@@ -3,8 +3,8 @@ package se.eris.accounting.model.book;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import se.eris.util.StringTestUtil;
-import se.eris.util.limit.ValidationException;
+import se.eris.jtype.StringTestUtil;
+import se.eris.jtype.limit.ValidationException;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;

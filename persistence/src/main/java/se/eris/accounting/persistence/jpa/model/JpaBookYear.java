@@ -3,7 +3,7 @@ package se.eris.accounting.persistence.jpa.model;
 import se.eris.accounting.model.book.BookId;
 import se.eris.accounting.model.book.BookYear;
 import se.eris.accounting.model.book.BookYearId;
-import se.eris.util.type.OpenDatePeriod;
+import se.eris.jtype.type.OpenDatePeriod;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

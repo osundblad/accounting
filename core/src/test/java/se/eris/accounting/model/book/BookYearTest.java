@@ -1,7 +1,7 @@
 package se.eris.accounting.model.book;
 
 import org.junit.Test;
-import se.eris.util.type.OpenDatePeriod;
+import se.eris.jtype.type.OpenDatePeriod;
 
 import java.time.LocalDate;
 import java.util.Arrays;

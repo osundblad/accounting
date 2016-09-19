@@ -1,7 +1,7 @@
 package se.eris.accounting.model.book.account;
 
 import org.jetbrains.annotations.NotNull;
-import se.eris.util.type.UUIDWrapper;
+import se.eris.jtype.type.UUIDWrapper;
 
 import java.util.UUID;
 

@@ -3,7 +3,7 @@ package se.eris.accounting.model.book.account;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import se.eris.util.StringTestUtil;
+import se.eris.jtype.StringTestUtil;
 
 public class AccountNameTest {
 
