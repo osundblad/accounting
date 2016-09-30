@@ -78,7 +78,7 @@
             <plugin>
                 <groupId>se.eris</groupId>
                 <artifactId>notnull-instrumenter-maven-plugin</artifactId>
-                <version>0.3-SNAPSHOT</version>
+                <version>0.4.2</version>
                 <executions>
                     <execution>
                         <id>instrument</id>
@@ -89,9 +89,9 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <implicit>true</implicit>
                     <annotations>
-                        <param>org.jetbrains.annotations.NotNull</param>
-                        <param>javax.validation.constraints.NotNull</param>
+                        <param>org.jetbrains.annotations.Nullable</param>
                     </annotations>
                 </configuration>
             </plugin>
