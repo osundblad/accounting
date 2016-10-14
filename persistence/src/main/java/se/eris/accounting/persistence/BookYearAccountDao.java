@@ -18,24 +18,22 @@ public class BookYearAccountDao {
     private final JpaBookYearAccountRepository repository;
 
     @Autowired
-    public BookYearAccountDao(@NotNull final JpaBookYearAccountRepository repository) {
+    public BookYearAccountDao(final JpaBookYearAccountRepository repository) {
         this.repository = repository;
     }
 
-    @NotNull
-    public Stream<BookYearAccount> findBookYearAccounts(@NotNull final BookYearId bookYearId) {
+    public Stream<BookYearAccount> findBookYearAccounts(final BookYearId bookYearId) {
         return repository.readAllByBookYearId(bookYearId.asString()).map(JpaBookYearAccount::toCore);
     }
 
-    @NotNull
-    public BookYearAccount create(@NotNull final BookYearAccount account) {
+    public BookYearAccount create(final BookYearAccount account) {
         if (account.getId().isPresent()) {
             throw new AlreadyPersistedException(account + " has already been persisted (use update)." );
         }
         return repository.save(new JpaBookYearAccount(account)).toCore();
     }
 
-    public void delete(@NotNull final BookYearAccountId bookYearAccountId) {
+    public void delete(final BookYearAccountId bookYearAccountId) {
         repository.delete(bookYearAccountId.asString());
     }
 

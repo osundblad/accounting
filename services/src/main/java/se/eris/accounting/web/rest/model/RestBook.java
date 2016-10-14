@@ -40,8 +40,7 @@ public class RestBook {
     }
 
     @JsonIgnore
-    @NotNull
-    public Optional<BookId> getBookId() {
+    public @NotNull Optional<BookId> getBookId() {
         return Optional.ofNullable(id).map(BookId::from);
     }
 

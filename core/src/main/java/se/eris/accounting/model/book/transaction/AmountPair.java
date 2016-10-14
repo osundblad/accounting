@@ -3,7 +3,7 @@ package se.eris.accounting.model.book.transaction;
 import org.jetbrains.annotations.NotNull;
 import se.eris.jtype.type.PairWrapper;
 
-public class AmountPair extends PairWrapper<Amount> {
+public final class AmountPair extends PairWrapper<Amount> {
 
     @NotNull
     public static AmountPair of(@NotNull final Amount first, @NotNull final Amount second) {

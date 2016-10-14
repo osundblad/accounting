@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import se.eris.jtype.limit.LimitedString;
 import se.eris.jtype.type.StringWrapper;
 
-public class BookDescription extends StringWrapper {
+public final class BookDescription extends StringWrapper {
 
     @SuppressWarnings("WeakerAccess")
     public static final int MAX_LENGTH = 1000;

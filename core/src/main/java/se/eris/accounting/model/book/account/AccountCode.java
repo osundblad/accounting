@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import se.eris.jtype.limit.LimitedString;
 import se.eris.jtype.type.StringWrapper;
 
-public class AccountCode extends StringWrapper {
+public final class AccountCode extends StringWrapper {
 
     public static final int MAX_LENGTH = 12;
     public static final String MUST_MATCH = "[0-9a-zA-Z]+";

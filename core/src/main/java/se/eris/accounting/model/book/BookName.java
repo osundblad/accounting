@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import se.eris.jtype.limit.LimitedString;
 import se.eris.jtype.type.StringWrapper;
 
-public class BookName extends StringWrapper {
+public final class BookName extends StringWrapper {
 
     public static final int MAX_LENGTH = 40;
 

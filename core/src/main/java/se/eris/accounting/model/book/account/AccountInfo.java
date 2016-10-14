@@ -2,9 +2,9 @@ package se.eris.accounting.model.book.account;
 
 import org.jetbrains.annotations.NotNull;
 
-public class AccountInfo {
+public final class AccountInfo {
 
-    public static AccountInfo of(@NotNull final AccountClass accountClass, @NotNull final AccountCode code, @NotNull final AccountName name, @NotNull final AccountDescription description) {
+    public static AccountInfo of(final AccountClass accountClass, final AccountCode code, final AccountName name, final AccountDescription description) {
         return new AccountInfo(accountClass, code, name, description);
     }
 
@@ -20,7 +20,7 @@ public class AccountInfo {
     @NotNull
     private final AccountDescription description;
 
-    private AccountInfo(@NotNull final AccountClass accountClass, @NotNull final AccountCode code, @NotNull final AccountName name, @NotNull final AccountDescription description) {
+    private AccountInfo(final AccountClass accountClass, final AccountCode code, final AccountName name, final AccountDescription description) {
         this.accountClass = accountClass;
         this.code = code;
         this.name = name;

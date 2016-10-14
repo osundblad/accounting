@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public class Transaction {
+public final class Transaction {
 
     @NotNull
     public static Transaction of(@NotNull final Optional<TransactionId> id, @NotNull final BookYearId bookYearId, @NotNull final LocalDate date, @NotNull final Collection<TransactionLine> transactionLines) {

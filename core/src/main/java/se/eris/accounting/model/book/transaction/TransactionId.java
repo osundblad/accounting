@@ -5,7 +5,7 @@ import se.eris.jtype.type.UUIDWrapper;
 
 import java.util.UUID;
 
-public class TransactionId extends UUIDWrapper {
+public final class TransactionId extends UUIDWrapper {
 
     @NotNull
     public static TransactionId from(@NotNull final String name) {

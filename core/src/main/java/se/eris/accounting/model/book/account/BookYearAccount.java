@@ -5,7 +5,7 @@ import se.eris.accounting.model.book.BookYearId;
 
 import java.util.Optional;
 
-public class BookYearAccount {
+public final class BookYearAccount {
 
     @NotNull
     public static BookYearAccount of(@NotNull final Optional<BookYearAccountId> id, @NotNull final BookYearId bookYearId, @NotNull final AccountInfo accountInfo) {

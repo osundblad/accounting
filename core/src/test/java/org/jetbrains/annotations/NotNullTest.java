@@ -13,23 +13,22 @@ public class NotNullTest {
     @Test
     public void notNullArgument_shouldInsertNullCheck() {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("@NotNull");
+        exception.expectMessage("NotNull");
         notNullArgument(null);
     }
 
     @SuppressWarnings("EmptyMethod")
-    private void notNullArgument(@NotNull final String s) {
+    private void notNullArgument(final String s) {
     }
 
     @Test
     public void notNullReturnValue_shouldInsertNullCheck() {
         exception.expect(IllegalStateException.class);
-        exception.expectMessage("@NotNull");
+        exception.expectMessage("NotNull");
         notNullReturnValue();
     }
 
     @SuppressWarnings({"UnusedReturnValue", "SameReturnValue"})
-    @NotNull
     private String notNullReturnValue() {
         return null;
     }

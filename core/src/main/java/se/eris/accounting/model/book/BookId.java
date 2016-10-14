@@ -5,7 +5,7 @@ import se.eris.jtype.type.UUIDWrapper;
 
 import java.util.UUID;
 
-public class BookId extends UUIDWrapper {
+public final class BookId extends UUIDWrapper {
 
     @NotNull
     public static BookId from(@NotNull final String uuid) {

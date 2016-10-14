@@ -5,7 +5,7 @@ import se.eris.accounting.model.book.account.BookYearAccountId;
 
 import java.util.Optional;
 
-public class TransactionLine {
+public final class TransactionLine {
 
     @NotNull
     public static TransactionLine of(@NotNull final Optional<TransactionLineId> id, @NotNull final BookYearAccountId bookYearAccountId, @NotNull final Amount amount) {
