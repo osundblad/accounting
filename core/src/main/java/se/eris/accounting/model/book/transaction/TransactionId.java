@@ -7,18 +7,15 @@ import java.util.UUID;
 
 public class TransactionId extends UUIDWrapper {
 
-    @NotNull
-    public static TransactionId from(@NotNull final String name) {
+        public static TransactionId from(@NotNull final String name) {
         return from(UUID.fromString(name));
     }
 
-    @NotNull
-    public static TransactionId from(@NotNull final UUID uuid) {
+        public static TransactionId from(@NotNull final UUID uuid) {
         return new TransactionId(uuid);
     }
 
-    @NotNull
-    public static TransactionId random() {
+        public static TransactionId random() {
         return from(UUID.randomUUID());
     }
 

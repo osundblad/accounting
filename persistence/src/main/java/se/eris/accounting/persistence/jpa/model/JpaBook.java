@@ -5,10 +5,12 @@ import se.eris.accounting.model.book.BookDescription;
 import se.eris.accounting.model.book.BookId;
 import se.eris.accounting.model.book.BookName;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
-import java.util.UUID;
 
 @Entity
 @Table(name = "book")
@@ -17,17 +19,14 @@ public class JpaBook {
     public static final int NAME_MAX_LENGTH = 200;
     public static final int DESCRIPTION_MAX_LENGTH = 2000;
 
-    @NotNull
-    @Id
+        @Id
     @Column(nullable = false, length = 36)
     private String id;
 
-    @NotNull
-    @Column(nullable = false, length = NAME_MAX_LENGTH)
+        @Column(nullable = false, length = NAME_MAX_LENGTH)
     private String name;
 
-    @NotNull
-    @Column(nullable = false, length = DESCRIPTION_MAX_LENGTH)
+        @Column(nullable = false, length = DESCRIPTION_MAX_LENGTH)
     private String description;
 
 
@@ -42,8 +41,7 @@ public class JpaBook {
         description = book.getDescription().asString();
     }
 
-    @NotNull
-    public Book toCore() {
+        public Book toCore() {
         return new Book(Optional.of(BookId.from(id)), BookName.of(name), BookDescription.of(description));
     }
 

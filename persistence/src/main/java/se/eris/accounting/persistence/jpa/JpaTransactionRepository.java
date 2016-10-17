@@ -10,7 +10,6 @@ import java.util.stream.Stream;
 @Transactional
 public interface JpaTransactionRepository extends JpaRepository<JpaTransaction, String> {
 
-    @NotNull
-    Stream<JpaTransaction> readAllByBookYearId(@NotNull String bookYearId);
+        Stream<JpaTransaction> readAllByBookYearId(@NotNull String bookYearId);
 
 }

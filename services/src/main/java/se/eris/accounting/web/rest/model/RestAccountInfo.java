@@ -7,17 +7,13 @@ import se.eris.accounting.model.book.account.*;
 
 public class RestAccountInfo {
 
-    @NotNull
-    @JsonProperty
+        @JsonProperty
     private final AccountClass accountClass;
-    @NotNull
-    @JsonProperty
+        @JsonProperty
     private final String code;
-    @NotNull
-    @JsonProperty
+        @JsonProperty
     private final String name;
-    @NotNull
-    @JsonProperty
+        @JsonProperty
     private final String description;
 
     @JsonCreator
@@ -40,8 +36,7 @@ public class RestAccountInfo {
                 accountInfo.getDescription().asString());
     }
 
-    @NotNull
-    public AccountInfo toCore() {
+        public AccountInfo toCore() {
         return AccountInfo.of(accountClass, AccountCode.from(code), AccountName.from(name), AccountDescription.from(description));
     }
 

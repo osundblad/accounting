@@ -17,17 +17,14 @@ import java.util.stream.Stream;
 @Table(name = "transaction")
 public class JpaTransaction {
 
-    @NotNull
-    @Id
+        @Id
     @Column(nullable = false, length = 36)
     private String id;
 
-    @NotNull
-    @Column(name = "bookYearId", nullable = false, length = 36)
+        @Column(name = "bookYearId", nullable = false, length = 36)
     private String bookYearId;
 
-    @NotNull
-    @Column(name = "transaction_date", nullable = false)
+        @Column(name = "transaction_date", nullable = false)
     private LocalDate date;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "transaction")
@@ -45,18 +42,15 @@ public class JpaTransaction {
         transactionLines = getJpaTransactionLines(transaction.getTransactionLines());
     }
 
-    @NotNull
-    private Collection<JpaTransactionLine> getJpaTransactionLines(@NotNull final Stream<TransactionLine> transactionLines) {
+        private Collection<JpaTransactionLine> getJpaTransactionLines(@NotNull final Stream<TransactionLine> transactionLines) {
         return transactionLines.map(tl -> new JpaTransactionLine(tl, this)).collect(Collectors.toList());
     }
 
-    @NotNull
-    public Transaction toCore() {
+        public Transaction toCore() {
         return Transaction.of(Optional.of(TransactionId.from(id)), BookYearId.from(bookYearId), date, getTransactionLines());
     }
 
-    @NotNull
-    private Collection<TransactionLine> getTransactionLines() {
+        private Collection<TransactionLine> getTransactionLines() {
         return transactionLines.stream().map(JpaTransactionLine::toCore).collect(Collectors.toList());
     }
 

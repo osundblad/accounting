@@ -10,7 +10,6 @@ import java.util.List;
 @Transactional
 public interface JpaBookYearRepository extends JpaRepository<JpaBookYear, String> {
 
-    @NotNull
-    List<JpaBookYear> findByBookId(@NotNull final String bookId);
+        List<JpaBookYear> findByBookId(@NotNull final String bookId);
 
 }

@@ -29,12 +29,10 @@ public class RestTransactionLine {
     private final UUID id;
 
     @JsonProperty
-    @NotNull
-    private final UUID accountId;
+        private final UUID accountId;
 
     @JsonProperty
-    @NotNull
-    private final String amount;
+        private final String amount;
 
     @JsonCreator
     public RestTransactionLine(
@@ -47,13 +45,11 @@ public class RestTransactionLine {
     }
 
     @JsonIgnore
-    @NotNull
-    private Optional<TransactionLineId> getId() {
+        private Optional<TransactionLineId> getId() {
         return Optional.ofNullable(id).map(TransactionLineId::from);
     }
 
-    @NotNull
-    public TransactionLine toCore() {
+        public TransactionLine toCore() {
         return TransactionLine.of(getId(), BookYearAccountId.from(accountId), Amount.of(amount));
     }
 

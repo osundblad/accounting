@@ -7,19 +7,15 @@ import java.util.Optional;
 
 public class BookYearAccount {
 
-    @NotNull
-    public static BookYearAccount of(@NotNull final Optional<BookYearAccountId> id, @NotNull final BookYearId bookYearId, @NotNull final AccountInfo accountInfo) {
+        public static BookYearAccount of(@NotNull final Optional<BookYearAccountId> id, @NotNull final BookYearId bookYearId, @NotNull final AccountInfo accountInfo) {
         return new BookYearAccount(id, bookYearId, accountInfo);
     }
 
-    @NotNull
-    private final Optional<BookYearAccountId> id;
+        private final Optional<BookYearAccountId> id;
 
-    @NotNull
-    private final BookYearId bookYearId;
+        private final BookYearId bookYearId;
 
-    @NotNull
-    private final AccountInfo accountInfo;
+        private final AccountInfo accountInfo;
 
     private BookYearAccount(@NotNull final Optional<BookYearAccountId> id, @NotNull final BookYearId bookYearId, @NotNull final AccountInfo accountInfo) {
         this.id = id;
@@ -27,18 +23,15 @@ public class BookYearAccount {
         this.accountInfo = accountInfo;
     }
 
-    @NotNull
-    public Optional<BookYearAccountId> getId() {
+        public Optional<BookYearAccountId> getId() {
         return id;
     }
 
-    @NotNull
-    public BookYearId getBookYearId() {
+        public BookYearId getBookYearId() {
         return bookYearId;
     }
 
-    @NotNull
-    public AccountInfo getAccountInfo() {
+        public AccountInfo getAccountInfo() {
         return accountInfo;
     }
 

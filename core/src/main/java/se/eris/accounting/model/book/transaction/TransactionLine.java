@@ -7,19 +7,15 @@ import java.util.Optional;
 
 public class TransactionLine {
 
-    @NotNull
-    public static TransactionLine of(@NotNull final Optional<TransactionLineId> id, @NotNull final BookYearAccountId bookYearAccountId, @NotNull final Amount amount) {
+        public static TransactionLine of(@NotNull final Optional<TransactionLineId> id, @NotNull final BookYearAccountId bookYearAccountId, @NotNull final Amount amount) {
         return new TransactionLine(id, bookYearAccountId, amount);
     }
 
-    @NotNull
-    private final Optional<TransactionLineId> id;
+        private final Optional<TransactionLineId> id;
 
-    @NotNull
-    private final BookYearAccountId bookYearAccountId;
+        private final BookYearAccountId bookYearAccountId;
 
-    @NotNull
-    private final Amount amount;
+        private final Amount amount;
 
     private TransactionLine(@NotNull final Optional<TransactionLineId> id, @NotNull final BookYearAccountId bookYearAccountId, @NotNull final Amount amount) {
         this.id = id;
@@ -27,18 +23,15 @@ public class TransactionLine {
         this.amount = amount;
     }
 
-    @NotNull
-    public Optional<TransactionLineId> getId() {
+        public Optional<TransactionLineId> getId() {
         return id;
     }
 
-    @NotNull
-    public BookYearAccountId getBookYearAccountId() {
+        public BookYearAccountId getBookYearAccountId() {
         return bookYearAccountId;
     }
 
-    @NotNull
-    public Amount getAmount() {
+        public Amount getAmount() {
         return amount;
     }
 

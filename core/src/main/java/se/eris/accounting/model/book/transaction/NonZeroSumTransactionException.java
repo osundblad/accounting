@@ -6,8 +6,7 @@ import se.eris.accounting.util.ErrorCode;
 
 public class NonZeroSumTransactionException extends AccountingException {
 
-    @NotNull
-    private final Transaction transaction;
+        private final Transaction transaction;
 
     public NonZeroSumTransactionException(@NotNull final Transaction transaction) {
         super("Non zero sum transaction", ErrorCode.TRANSACTION);

@@ -14,26 +14,22 @@ import java.util.stream.Stream;
 @Service
 public class BookYearDao {
 
-    @NotNull
-    private final JpaBookYearRepository bookYearRepository;
+        private final JpaBookYearRepository bookYearRepository;
 
     @Autowired
     public BookYearDao(@NotNull final JpaBookYearRepository bookYearRepository) {
         this.bookYearRepository = bookYearRepository;
     }
 
-    @NotNull
-    public Stream<BookYear> findAllBookYears() {
+        public Stream<BookYear> findAllBookYears() {
         return bookYearRepository.findAll().stream().map(JpaBookYear::toCore);
     }
 
-    @NotNull
-    public Stream<BookYear> findAllBookYears(@NotNull final BookId bookId) {
+        public Stream<BookYear> findAllBookYears(@NotNull final BookId bookId) {
         return bookYearRepository.findByBookId(bookId.asString()).stream().map(JpaBookYear::toCore);
     }
 
-    @NotNull
-    public BookYear create(@NotNull final BookYear bookYear) {
+        public BookYear create(@NotNull final BookYear bookYear) {
         if (bookYear.getId().isPresent()) {
             throw new AlreadyPersistedException(bookYear + " has already been persisted (use update)." );
         }

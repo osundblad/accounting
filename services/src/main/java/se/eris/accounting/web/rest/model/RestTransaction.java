@@ -33,12 +33,10 @@ public class RestTransaction {
     private final UUID id;
 
     @JsonProperty
-    @NotNull
-    private final UUID bookYearId;
+        private final UUID bookYearId;
 
     @JsonProperty
-    @NotNull
-    private final List<RestTransactionLine> transactionLines;
+        private final List<RestTransactionLine> transactionLines;
 
     @JsonCreator
     public RestTransaction(
@@ -50,20 +48,17 @@ public class RestTransaction {
         this.transactionLines = transactionLines;
     }
 
-    @NotNull
-    public Transaction toCore() {
+        public Transaction toCore() {
         return Transaction.of(getId(), BookYearId.from(bookYearId), LocalDate.now(), getTransactionLines().collect(Collectors.toList()));
     }
 
     @JsonIgnore
-    @NotNull
-    private Stream<TransactionLine> getTransactionLines() {
+        private Stream<TransactionLine> getTransactionLines() {
         return transactionLines.stream().map(RestTransactionLine::toCore);
     }
 
     @JsonIgnore
-    @NotNull
-    public Optional<TransactionId> getId() {
+        public Optional<TransactionId> getId() {
         return Optional.ofNullable(id).map(TransactionId::from);
     }
 

@@ -18,21 +18,17 @@ import java.util.UUID;
 @Table(name = "book_year")
 public class JpaBookYear {
 
-    @NotNull
-    @Id
+        @Id
     @Column(nullable = false, length = 36)
     private String id;
 
-    @NotNull
-    @Column(name = "bookId", nullable = false, length = 36)
+        @Column(name = "bookId", nullable = false, length = 36)
     private UUID bookId;
 
-    @NotNull
-    @Column(name = "fromDate", nullable = false)
+        @Column(name = "fromDate", nullable = false)
     private LocalDate fromDate;
 
-    @NotNull
-    @Column(name = "toDate", nullable = false)
+        @Column(name = "toDate", nullable = false)
     private LocalDate toDate;
 
 
@@ -48,8 +44,7 @@ public class JpaBookYear {
         toDate = bookYear.getEndDate();
     }
 
-    @NotNull
-    public BookYear toCore() {
+        public BookYear toCore() {
         return new BookYear(Optional.of(BookYearId.from(id)), BookId.from(bookId), OpenDatePeriod.between(fromDate, toDate));
     }
 

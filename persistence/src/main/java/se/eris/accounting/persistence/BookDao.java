@@ -13,29 +13,25 @@ import java.util.stream.Stream;
 @Service
 public class BookDao {
 
-    @NotNull
-    private final JpaBookRepository bookRepository;
+        private final JpaBookRepository bookRepository;
 
     @Autowired
     public BookDao(@NotNull final JpaBookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
-    @NotNull
-    public Stream<Book> getAllBooks() {
+        public Stream<Book> getAllBooks() {
         return bookRepository.findAll().stream().map(JpaBook::toCore);
     }
 
-    @NotNull
-    public Book create(@NotNull final Book book) {
+        public Book create(@NotNull final Book book) {
         if (book.getId().isPresent()) {
             throw new AlreadyPersistedException(book + " has already been persisted (use update)." );
         }
         return bookRepository.save(new JpaBook(book)).toCore();
     }
 
-    @NotNull
-    public Book update(@NotNull final Book book) {
+        public Book update(@NotNull final Book book) {
         if (!book.getId().isPresent()) {
             throw new NotPersistedException(book + " has not been persisted (use create)." );
         }

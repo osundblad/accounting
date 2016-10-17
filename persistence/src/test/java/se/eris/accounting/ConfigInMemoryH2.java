@@ -1,7 +1,6 @@
 package se.eris.accounting;
 
 import liquibase.integration.spring.SpringLiquibase;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -43,8 +42,7 @@ public class ConfigInMemoryH2 {
         return dataSource;
     }
 
-    @NotNull
-    private String getDbMode() {
+        private String getDbMode() {
         final String property = env.getProperty("db.mode");
         return (property != null) ? property : "MySQL";
     }
@@ -78,8 +76,7 @@ public class ConfigInMemoryH2 {
         return jpaVendorAdapter;
     }
 
-    @NotNull
-    @Bean(name = "liquibase")
+        @Bean(name = "liquibase")
     @DependsOn("dataSource")
     public SpringLiquibase liquibase() {
         final SpringLiquibase liquibase = new SpringLiquibase();
@@ -89,8 +86,7 @@ public class ConfigInMemoryH2 {
         return liquibase;
     }
 
-    @NotNull
-    private Properties jpaProperties() {
+        private Properties jpaProperties() {
         final Properties properties = new Properties();
         properties.put("hibernate.hbm2ddl.auto", "create-drop");
         return properties;

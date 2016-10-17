@@ -20,14 +20,10 @@ import java.util.stream.Stream;
 @Transactional
 public class BookDataServiceJpa implements BookDataService {
 
-    @NotNull
-    private final BookDao bookDao;
-    @NotNull
-    private final BookYearDao bookYearDao;
-    @NotNull
-    private final BookYearAccountDao bookYearAccountDao;
-    @NotNull
-    private final TransactionDao transactionDao;
+        private final BookDao bookDao;
+        private final BookYearDao bookYearDao;
+        private final BookYearAccountDao bookYearAccountDao;
+        private final TransactionDao transactionDao;
 
     @Autowired
     public BookDataServiceJpa(@NotNull final BookDao bookDao, @NotNull final BookYearDao bookYearDao, @NotNull final BookYearAccountDao bookYearAccountDao, @NotNull final TransactionDao transactionDao) {
@@ -38,20 +34,17 @@ public class BookDataServiceJpa implements BookDataService {
     }
 
     @Override
-    @NotNull
-    public Stream<Book> getAllBooks() {
+        public Stream<Book> getAllBooks() {
         return bookDao.getAllBooks();
     }
 
     @Override
-    @NotNull
-    public Book create(@NotNull final Book book) {
+        public Book create(@NotNull final Book book) {
         return bookDao.create(book);
     }
 
     @Override
-    @NotNull
-    public Book update(@NotNull final Book book) {
+        public Book update(@NotNull final Book book) {
         return bookDao.update(book);
     }
 
@@ -62,14 +55,12 @@ public class BookDataServiceJpa implements BookDataService {
     }
 
     @Override
-    @NotNull
-    public Stream<BookYear> getBookYears(@NotNull final BookId bookId) {
+        public Stream<BookYear> getBookYears(@NotNull final BookId bookId) {
         return bookYearDao.findAllBookYears(bookId);
     }
 
     @Override
-    @NotNull
-    public BookYear create(@NotNull final BookYear bookYear) {
+        public BookYear create(@NotNull final BookYear bookYear) {
         // todo validate year continuity and overlap
         return bookYearDao.create(bookYear);
     }
@@ -79,14 +70,12 @@ public class BookDataServiceJpa implements BookDataService {
         bookYearDao.delete(bookYearId);
     }
 
-    @NotNull
-    @Override
+        @Override
     public Stream<BookYearAccount> findBookYearAccounts(@NotNull final BookYearId bookYearId) {
         return bookYearAccountDao.findBookYearAccounts(bookYearId);
     }
 
-    @NotNull
-    @Override
+        @Override
     public BookYearAccount create(@NotNull final BookYearAccount account) {
         return bookYearAccountDao.create(account);
     }
@@ -96,20 +85,17 @@ public class BookDataServiceJpa implements BookDataService {
         bookYearAccountDao.delete(bookYearAccountId);
     }
 
-    @NotNull
-    @Override
+        @Override
     public Stream<Transaction> getTransactions(@NotNull final BookYearId bookYearId) {
         return transactionDao.findBookYearTransactions(bookYearId);
     }
 
-    @NotNull
-    @Override
+        @Override
     public Transaction create(@NotNull final Transaction transaction) {
         return transactionDao.create(transaction);
     }
 
-    @NotNull
-    @Override
+        @Override
     public Transaction get(@NotNull final TransactionId transactionId) {
         return transactionDao.get(transactionId);
     }

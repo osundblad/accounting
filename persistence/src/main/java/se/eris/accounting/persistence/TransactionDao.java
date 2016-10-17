@@ -14,29 +14,25 @@ import java.util.stream.Stream;
 @Service
 public class TransactionDao {
 
-    @NotNull
-    private final JpaTransactionRepository repository;
+        private final JpaTransactionRepository repository;
 
     @Autowired
     public TransactionDao(@NotNull final JpaTransactionRepository repository) {
         this.repository = repository;
     }
 
-    @NotNull
-    public Stream<Transaction> findBookYearTransactions(@NotNull final BookYearId bookYearId) {
+        public Stream<Transaction> findBookYearTransactions(@NotNull final BookYearId bookYearId) {
         return repository.readAllByBookYearId(bookYearId.asString()).map(JpaTransaction::toCore);
     }
 
-    @NotNull
-    public Transaction create(@NotNull final Transaction transaction) {
+        public Transaction create(@NotNull final Transaction transaction) {
         if (transaction.getId().isPresent()) {
             throw new AlreadyPersistedException(transaction + " has already been persisted (use update)." );
         }
         return repository.save(new JpaTransaction(transaction)).toCore();
     }
 
-    @NotNull
-    public Transaction get(@NotNull final TransactionId transactionId) {
+        public Transaction get(@NotNull final TransactionId transactionId) {
         return repository.findOne(transactionId.asString()).toCore();
     }
 

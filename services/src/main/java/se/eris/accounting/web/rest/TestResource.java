@@ -32,17 +32,13 @@ public class TestResource {
 
     private static final Logger logger = LoggerFactory.getLogger(TestResource.class);
 
-    @NotNull
-    private final BookResource bookResource;
+        private final BookResource bookResource;
 
-    @NotNull
-    private final BookYearResource bookYearResource;
+        private final BookYearResource bookYearResource;
 
-    @NotNull
-    private final AccountResource accountResource;
+        private final AccountResource accountResource;
 
-    @NotNull
-    private final TransactionResource transactionResource;
+        private final TransactionResource transactionResource;
 
     @Autowired
     public TestResource(@NotNull final BookResource bookResource, @NotNull final BookYearResource bookYearResource, @NotNull final AccountResource accountResource, @NotNull final TransactionResource transactionResource) {
@@ -53,8 +49,7 @@ public class TestResource {
     }
 
     @SuppressWarnings("FeatureEnvy")
-    @NotNull
-    @RequestMapping(method = RequestMethod.GET, value = "/run/{bookName}")
+        @RequestMapping(method = RequestMethod.GET, value = "/run/{bookName}")
     public ResponseEntity<String> run(@PathVariable("bookName") final String bookName) {
         logger.info("creating book");
         final RestBook book = bookResource.create(new RestBook(new Book(Optional.empty(), BookName.of(bookName), BookDescription.of("This book was created by the test script.")))).getBody();
@@ -98,18 +93,15 @@ public class TestResource {
         return new ResponseEntity<>("ok", HttpStatus.OK);
     }
 
-    @NotNull
-    private TransactionLine createNewTransactionLine(@NotNull final RestBookYearAccount account, @NotNull final String amount) {
+        private TransactionLine createNewTransactionLine(@NotNull final RestBookYearAccount account, @NotNull final String amount) {
         return TransactionLine.of(Optional.empty(), account.getId().get(), Amount.of(amount));
     }
 
-    @NotNull
-    private Transaction createNewTransaction(@NotNull final RestBookYear year, @NotNull final TransactionLine... transactionLines) {
+        private Transaction createNewTransaction(@NotNull final RestBookYear year, @NotNull final TransactionLine... transactionLines) {
         return Transaction.of(Optional.empty(), BookYearId.from(year.getId().get()), LocalDate.now(), Arrays.asList(transactionLines));
     }
 
-    @NotNull
-    @RequestMapping(method = RequestMethod.GET, value = "/delete/{bookName}")
+        @RequestMapping(method = RequestMethod.GET, value = "/delete/{bookName}")
     public ResponseEntity<String> delete(@PathVariable("bookName") final String bookName) {
         final Optional<Book> book = getBookByName(bookName);
         if (book.isPresent()) {
@@ -147,8 +139,7 @@ public class TestResource {
         }
     }
 
-    @NotNull
-    private Optional<Book> getBookByName(@NotNull final String bookName) {
+        private Optional<Book> getBookByName(@NotNull final String bookName) {
         return bookResource.getAll().stream().map(RestBook::toCore).filter(b -> b.getName().equals(BookName.of(bookName))).findFirst();
     }
 

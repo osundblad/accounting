@@ -29,8 +29,7 @@ public class JpaBookYearTest {
         assertThat(jpaBookYear.toCore().getId().isPresent(), is(true));
     }
 
-    @NotNull
-    private BookYear createBookYear(@NotNull final Optional<BookYearId> id) {
+        private BookYear createBookYear(@NotNull final Optional<BookYearId> id) {
         final LocalDate now = LocalDate.now();
         return new BookYear(id, BookId.random(), OpenDatePeriod.between(now, now.plusDays(2)));
     }

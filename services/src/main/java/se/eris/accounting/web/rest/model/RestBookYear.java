@@ -21,14 +21,11 @@ public class RestBookYear {
     @Nullable
     private final UUID id;
     @JsonProperty
-    @NotNull
-    private final UUID bookId;
+        private final UUID bookId;
     @JsonProperty
-    @NotNull
-    private final String startDate;
+        private final String startDate;
     @JsonProperty
-    @NotNull
-    private final String endDate;
+        private final String endDate;
 
     @JsonCreator
     public RestBookYear(
@@ -51,13 +48,11 @@ public class RestBookYear {
     }
 
     @JsonIgnore
-    @NotNull
-    public Optional<UUID> getId() {
+        public Optional<UUID> getId() {
         return Optional.ofNullable(id);
     }
 
-    @NotNull
-    public BookYear toCore() {
+        public BookYear toCore() {
         return new BookYear(Optional.ofNullable(id).map(BookYearId::from), BookId.from(bookId), OpenDatePeriod.between(LocalDate.parse(startDate), LocalDate.parse(endDate)));
     }
 

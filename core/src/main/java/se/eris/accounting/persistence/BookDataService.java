@@ -14,41 +14,31 @@ import java.util.stream.Stream;
 
 public interface BookDataService {
 
-    @NotNull
-    Stream<Book> getAllBooks();
+        Stream<Book> getAllBooks();
 
-    @NotNull
-    Book create(@NotNull Book book);
+        Book create(@NotNull Book book);
 
-    @NotNull
-    Book update(@NotNull Book book);
+        Book update(@NotNull Book book);
 
     void delete(@NotNull BookId bookId);
 
-    @NotNull
-    Stream<BookYear> getBookYears(@NotNull BookId bookId);
+        Stream<BookYear> getBookYears(@NotNull BookId bookId);
 
-    @NotNull
-    BookYear create(@NotNull BookYear bookYear);
+        BookYear create(@NotNull BookYear bookYear);
 
     void delete(@NotNull BookYearId bookYearId);
 
-    @NotNull
-    Stream<BookYearAccount> findBookYearAccounts(@NotNull BookYearId bookYearId);
+        Stream<BookYearAccount> findBookYearAccounts(@NotNull BookYearId bookYearId);
 
-    @NotNull
-    BookYearAccount create(@NotNull BookYearAccount account);
+        BookYearAccount create(@NotNull BookYearAccount account);
 
     void delete(@NotNull BookYearAccountId bookYearAccountId);
 
-    @NotNull
-    Stream<Transaction> getTransactions(@NotNull BookYearId bookYearId);
+        Stream<Transaction> getTransactions(@NotNull BookYearId bookYearId);
 
-    @NotNull
-    Transaction create(@NotNull Transaction transaction);
+        Transaction create(@NotNull Transaction transaction);
 
-    @NotNull
-    Transaction get(@NotNull TransactionId transactionId);
+        Transaction get(@NotNull TransactionId transactionId);
 
     void delete(@NotNull TransactionId transactionId);
 }

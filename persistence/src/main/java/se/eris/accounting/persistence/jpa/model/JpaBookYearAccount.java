@@ -14,29 +14,23 @@ public class JpaBookYearAccount {
     public static final int CODE_LENGTH = 16;
     public static final int NAME_LENGTH = 200;
 
-    @NotNull
-    @Id
+        @Id
     @Column(nullable = false, length = 36)
     private String id;
 
-    @NotNull
-    @Column(name = "bookYearId", nullable = false, length = 36)
+        @Column(name = "bookYearId", nullable = false, length = 36)
     private String bookYearId;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
+        @Enumerated(EnumType.STRING)
     private AccountClass accountClass;
 
-    @NotNull
-    @Column(name = "code", nullable = false, length = CODE_LENGTH)
+        @Column(name = "code", nullable = false, length = CODE_LENGTH)
     private String code;
 
-    @NotNull
-    @Column(name = "name", nullable = false, length = NAME_LENGTH)
+        @Column(name = "name", nullable = false, length = NAME_LENGTH)
     private String name;
 
-    @NotNull
-    @Column(name = "description", nullable = false, length = 1000)
+        @Column(name = "description", nullable = false, length = 1000)
     private String description;
 
 
@@ -56,8 +50,7 @@ public class JpaBookYearAccount {
         description = accountInfo.getDescription().asString();
     }
 
-    @NotNull
-    public BookYearAccount toCore() {
+        public BookYearAccount toCore() {
         return BookYearAccount.of(Optional.of(BookYearAccountId.from(id)), BookYearId.from(bookYearId), getAccountInfo());
     }
 

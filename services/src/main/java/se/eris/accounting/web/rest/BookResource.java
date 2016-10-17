@@ -26,22 +26,19 @@ public class BookResource {
 
     private static final Logger logger = LoggerFactory.getLogger(BookResource.class);
 
-    @NotNull
-    private final BookRestFacade bookRestFacade;
+        private final BookRestFacade bookRestFacade;
 
     @Autowired
     public BookResource(@NotNull final BookRestFacade bookRestFacade) {
         this.bookRestFacade = bookRestFacade;
     }
 
-    @NotNull
-    @RequestMapping(method = RequestMethod.GET)
+        @RequestMapping(method = RequestMethod.GET)
     public List<RestBook> getAll() {
         return bookRestFacade.getAllBooks().map(RestBook::new).collect(Collectors.toList());
     }
 
-    @NotNull
-    @RequestMapping(method = RequestMethod.GET, value = "/{bookId}")
+        @RequestMapping(method = RequestMethod.GET, value = "/{bookId}")
     public ResponseEntity<RestBook> get(@PathVariable("bookId") final UUID bookId) {
         final Optional<Book> book = bookRestFacade.getAllBooks().filter(b -> b.getId().get().asUUID().equals(bookId)).findFirst();
         if (book.isPresent()) {
@@ -51,21 +48,18 @@ public class BookResource {
         }
     }
 
-    @NotNull
-    @RequestMapping(method = RequestMethod.GET, value = "/template")
+        @RequestMapping(method = RequestMethod.GET, value = "/template")
     public RestBook getTemplate() {
         return new RestBook(new Book(Optional.empty(), BookName.of("template"), BookDescription.empty()));
     }
 
     // todo remove
-    @NotNull
-    @RequestMapping(method = RequestMethod.GET, value = "/create")
+        @RequestMapping(method = RequestMethod.GET, value = "/create")
     public RestBook createRandom(@RequestParam("name") @NotNull final String name, @RequestParam("description") @NotNull final String description) {
         return new RestBook(bookRestFacade.create(new Book(Optional.empty(), BookName.of(name), BookDescription.of(description))));
     }
 
-    @NotNull
-    @RequestMapping(method = RequestMethod.POST)
+        @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<RestBook> create(@RequestBody @NotNull final RestBook restBook) {
         final Book saved = bookRestFacade.create(restBook.toCore());
         logger.debug("created book: " + saved);

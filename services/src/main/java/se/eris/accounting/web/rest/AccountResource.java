@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/api/account", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AccountResource {
 
-    @NotNull
     private final BookRestFacade bookRestFacade;
 
     @Autowired
@@ -25,13 +24,11 @@ public class AccountResource {
         this.bookRestFacade = bookRestFacade;
     }
 
-    @NotNull
     @RequestMapping(method = RequestMethod.GET, value = "/{bookYearId}")
     public List<RestBookYearAccount> get(@PathVariable("bookYearId") @NotNull final UUID bookYearId) {
         return bookRestFacade.getBookYearAccounts(BookYearId.from(bookYearId)).map(RestBookYearAccount::of).collect(Collectors.toList());
     }
 
-    @NotNull
     @RequestMapping(method = RequestMethod.POST)
     public RestBookYearAccount create(@RequestBody @NotNull final RestBookYearAccount account) {
         return RestBookYearAccount.of(bookRestFacade.create(account.toCore()));
@@ -41,4 +38,5 @@ public class AccountResource {
     public void delete(@PathVariable("accountId") @NotNull final UUID bookYearAccountId) {
         bookRestFacade.delete(BookYearAccountId.from(bookYearAccountId));
     }
+
 }

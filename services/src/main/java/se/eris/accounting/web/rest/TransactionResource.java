@@ -21,16 +21,14 @@ import java.util.stream.Stream;
 @RequestMapping(value = "/api/transaction", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TransactionResource {
 
-    @NotNull
-    private final BookRestFacade bookRestFacade;
+        private final BookRestFacade bookRestFacade;
 
     @Autowired
     public TransactionResource(@NotNull final BookRestFacade bookRestFacade) {
         this.bookRestFacade = bookRestFacade;
     }
 
-    @NotNull
-    @RequestMapping(method = RequestMethod.POST)
+        @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<RestTransaction> create(@RequestBody @NotNull final RestTransaction restTransaction) {
         return new ResponseEntity<>(RestTransaction.of(bookRestFacade.create(restTransaction.toCore())), HttpStatus.CREATED);
     }

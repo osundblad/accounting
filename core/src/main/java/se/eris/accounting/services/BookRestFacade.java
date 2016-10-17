@@ -18,16 +18,14 @@ import java.util.stream.Stream;
 @Service
 public class BookRestFacade {
 
-    @NotNull
-    private final BookDataService bookDataService;
+        private final BookDataService bookDataService;
 
     @Autowired
     public BookRestFacade(@NotNull final BookDataService bookDataService) {
         this.bookDataService = bookDataService;
     }
 
-    @NotNull
-    public Book create(@NotNull final Book book) {
+        public Book create(@NotNull final Book book) {
         return bookDataService.create(book);
     }
 
@@ -35,13 +33,11 @@ public class BookRestFacade {
         bookDataService.delete(bookId);
     }
 
-    @NotNull
-    public Stream<Book> getAllBooks() {
+        public Stream<Book> getAllBooks() {
         return bookDataService.getAllBooks();
     }
 
-    @NotNull
-    public BookYear create(@NotNull final BookYear bookYear) {
+        public BookYear create(@NotNull final BookYear bookYear) {
         return bookDataService.create(bookYear);
     }
 
@@ -49,18 +45,15 @@ public class BookRestFacade {
         bookDataService.delete(bookYearId);
     }
 
-    @NotNull
-    public Stream<BookYear> getBookYears(@NotNull final BookId bookId) {
+        public Stream<BookYear> getBookYears(@NotNull final BookId bookId) {
         return bookDataService.getBookYears(bookId);
     }
 
-    @NotNull
-    public Stream<BookYearAccount> getBookYearAccounts(@NotNull final BookYearId bookYearId) {
+        public Stream<BookYearAccount> getBookYearAccounts(@NotNull final BookYearId bookYearId) {
         return bookDataService.findBookYearAccounts(bookYearId);
     }
 
-    @NotNull
-    public BookYearAccount create(@NotNull final BookYearAccount account) {
+        public BookYearAccount create(@NotNull final BookYearAccount account) {
         return bookDataService.create(account);
     }
 
@@ -68,18 +61,15 @@ public class BookRestFacade {
         bookDataService.delete(bookYearAccountId);
     }
 
-    @NotNull
-    public Stream<Transaction> getTransactions(@NotNull final BookYearId bookYearId) {
+        public Stream<Transaction> getTransactions(@NotNull final BookYearId bookYearId) {
         return bookDataService.getTransactions(bookYearId);
     }
 
-    @NotNull
-    public Transaction create(@NotNull final Transaction transaction) {
+        public Transaction create(@NotNull final Transaction transaction) {
         return bookDataService.create(transaction);
     }
 
-    @NotNull
-    public Transaction get(@NotNull final TransactionId transactionId) {
+        public Transaction get(@NotNull final TransactionId transactionId) {
         return bookDataService.get(transactionId);
     }
 

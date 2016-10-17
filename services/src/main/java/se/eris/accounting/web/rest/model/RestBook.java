@@ -19,11 +19,9 @@ public class RestBook {
     @Nullable
     private final UUID id;
     @JsonProperty
-    @NotNull
-    private final String name;
+        private final String name;
     @JsonProperty
-    @NotNull
-    private final String description;
+        private final String description;
 
     @JsonCreator
     public RestBook(@JsonProperty("id") @Nullable final UUID id, @JsonProperty("name") @NotNull final String name, @JsonProperty("description") @NotNull final String description) {
@@ -40,18 +38,15 @@ public class RestBook {
     }
 
     @JsonIgnore
-    @NotNull
-    public Optional<BookId> getBookId() {
+        public Optional<BookId> getBookId() {
         return Optional.ofNullable(id).map(BookId::from);
     }
 
-    @NotNull
-    public Book toCore() {
+        public Book toCore() {
         return new Book(getBookId(), BookName.of(name), BookDescription.of(description));
     }
 
-    @NotNull
-    @Override
+        @Override
     public String toString() {
         return "RestBook{" +
                 "id=" + id +

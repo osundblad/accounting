@@ -11,12 +11,10 @@ public class AccountDescription extends StringWrapper {
     private static final @NotNull LimitedString LIMITED_STRING = LimitedString.init()
             .length(MAX_LENGTH).build();
 
-    @NotNull
     public static AccountDescription empty() {
         return from("");
     }
 
-    @NotNull
     public static AccountDescription from(@NotNull final String description) {
         return new AccountDescription(description);
     }

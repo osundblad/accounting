@@ -3,7 +3,7 @@ package se.eris.accounting.util;
 import org.jetbrains.annotations.NotNull;
 
 public class AccountingException extends RuntimeException {
-    @NotNull
+
     private final ErrorCode errorCode;
 
     public AccountingException(@NotNull final String message, @NotNull final ErrorCode errorCode) {
@@ -16,7 +16,6 @@ public class AccountingException extends RuntimeException {
         this.errorCode = errorCode;
     }
 
-    @NotNull
     public ErrorCode getErrorCode() {
         return errorCode;
     }

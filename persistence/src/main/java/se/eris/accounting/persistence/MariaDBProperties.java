@@ -2,14 +2,11 @@ package se.eris.accounting.persistence;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import javax.validation.constraints.NotNull;
-
 @SuppressWarnings("unused")
 @ConfigurationProperties(prefix="mariadb")
 public class MariaDBProperties {
 
-    @NotNull
-    private Datasource datasource;
+        private Datasource datasource;
 
     public Datasource getDatasource() {
         return datasource;

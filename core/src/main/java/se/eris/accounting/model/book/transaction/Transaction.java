@@ -11,19 +11,14 @@ import java.util.stream.Stream;
 
 public class Transaction {
 
-    @NotNull
-    public static Transaction of(@NotNull final Optional<TransactionId> id, @NotNull final BookYearId bookYearId, @NotNull final LocalDate date, @NotNull final Collection<TransactionLine> transactionLines) {
+        public static Transaction of(@NotNull final Optional<TransactionId> id, @NotNull final BookYearId bookYearId, @NotNull final LocalDate date, @NotNull final Collection<TransactionLine> transactionLines) {
         return new Transaction(id, bookYearId, date, transactionLines);
     }
 
-    @NotNull
-    private final Optional<TransactionId> id;
-    @NotNull
-    private final BookYearId bookYearId;
-    @NotNull
-    private final LocalDate date;
-    @NotNull
-    private final Collection<TransactionLine> transactionLines;
+        private final Optional<TransactionId> id;
+        private final BookYearId bookYearId;
+        private final LocalDate date;
+        private final Collection<TransactionLine> transactionLines;
 
     private Transaction(@NotNull final Optional<TransactionId> id, @NotNull final BookYearId bookYearId, @NotNull final LocalDate date, @NotNull final Collection<TransactionLine> transactionLines) {
         this.id = id;
@@ -43,28 +38,23 @@ public class Transaction {
         }
     }
 
-    @NotNull
-    private Amount sumOfTransactionLines() {
+        private Amount sumOfTransactionLines() {
         return transactionLines.stream().map(TransactionLine::getAmount).reduce(Amount.ZERO, Amount::add);
     }
 
-    @NotNull
-    public Optional<TransactionId> getId() {
+        public Optional<TransactionId> getId() {
         return id;
     }
 
-    @NotNull
-    public BookYearId getBookYearId() {
+        public BookYearId getBookYearId() {
         return bookYearId;
     }
 
-    @NotNull
-    public LocalDate getDate() {
+        public LocalDate getDate() {
         return date;
     }
 
-    @NotNull
-    public Stream<TransactionLine> getTransactionLines() {
+        public Stream<TransactionLine> getTransactionLines() {
         return transactionLines.stream();
     }
 

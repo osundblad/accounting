@@ -13,22 +13,18 @@ import java.util.Optional;
 @Table(name = "transaction_line")
 public class JpaTransactionLine {
 
-    @NotNull
-    @Id
+        @Id
     @Column(nullable = false, length = 36)
     private String id;
 
-    @NotNull
-    @ManyToOne(optional = false)
+        @ManyToOne(optional = false)
     @JoinColumn(name = "transaction_id", referencedColumnName = "id", nullable = false)
     private JpaTransaction transaction;
 
-    @NotNull
-    @Column(name = "accountId", nullable = false, length = 36)
+        @Column(name = "accountId", nullable = false, length = 36)
     private String accountId;
 
-    @NotNull
-    @Column(name = "amount", nullable = false, length = 36)
+        @Column(name = "amount", nullable = false, length = 36)
     private String amount;
 
     @SuppressWarnings("UnusedDeclaration") // needed by Jpa framework
@@ -42,8 +38,7 @@ public class JpaTransactionLine {
         amount = transactionLine.getAmount().asString();
     }
 
-    @NotNull
-    public TransactionLine toCore() {
+        public TransactionLine toCore() {
         return TransactionLine.of(Optional.of(TransactionLineId.from(id)), BookYearAccountId.from(accountId), Amount.of(amount));
     }
 

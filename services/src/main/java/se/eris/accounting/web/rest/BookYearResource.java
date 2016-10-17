@@ -28,22 +28,19 @@ public class BookYearResource {
 
     private static final Logger logger = LoggerFactory.getLogger(BookYearResource.class);
 
-    @NotNull
-    private final BookRestFacade bookRestFacade;
+        private final BookRestFacade bookRestFacade;
 
     @Autowired
     public BookYearResource(@NotNull final BookRestFacade bookRestFacade) {
         this.bookRestFacade = bookRestFacade;
     }
 
-    @NotNull
-    @RequestMapping(method = RequestMethod.GET, value = "/{bookId}")
+        @RequestMapping(method = RequestMethod.GET, value = "/{bookId}")
     public List<RestBookYear> get(@PathVariable("bookId") @NotNull final UUID bookId) {
         return bookRestFacade.getBookYears(BookId.from(bookId)).map(RestBookYear::new).collect(Collectors.toList());
     }
 
-    @NotNull
-    @RequestMapping(method = RequestMethod.GET, value = "/{bookId}/next")
+        @RequestMapping(method = RequestMethod.GET, value = "/{bookId}/next")
     public ResponseEntity<RestBookYear> getNext(@PathVariable("bookId") @NotNull final UUID bookId) {
         final BookId fromBookId = BookId.from(bookId);
         final Optional<BookYear> bookYear = bookRestFacade.getBookYears(fromBookId).sorted(BookYear.NEW_TO_OLD).findFirst();
@@ -51,8 +48,7 @@ public class BookYearResource {
         return new ResponseEntity<>(new RestBookYear(new BookYear(Optional.empty(), fromBookId, datePeriod)), HttpStatus.OK);
     }
 
-    @NotNull
-    private OpenDatePeriod getNextYearDatePeriod(@NotNull final Optional<BookYear> bookYear) {
+        private OpenDatePeriod getNextYearDatePeriod(@NotNull final Optional<BookYear> bookYear) {
         final OpenDatePeriod datePeriod;
         if (bookYear.isPresent()) {
             final LocalDate previousEndDate = bookYear.get().getEndDate();
@@ -64,8 +60,7 @@ public class BookYearResource {
         return datePeriod;
     }
 
-    @NotNull
-    @RequestMapping(method = RequestMethod.POST)
+        @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<RestBookYear> create(@RequestBody @NotNull final RestBookYear restBookYear) {
         final BookYear saved = bookRestFacade.create(restBookYear.toCore());
         logger.debug("created book year: " + saved);

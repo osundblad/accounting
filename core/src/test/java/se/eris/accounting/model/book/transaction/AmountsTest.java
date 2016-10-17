@@ -1,6 +1,5 @@
 package se.eris.accounting.model.book.transaction;
 
-import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -8,7 +7,6 @@ import static org.junit.Assert.assertThat;
 
 public class AmountsTest {
 
-    @NotNull
     private static final Amount PERCENT_0£25 = Amount.of("0.25");
 
     @Test

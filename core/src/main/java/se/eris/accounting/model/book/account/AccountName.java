@@ -10,7 +10,6 @@ public final class AccountName extends StringWrapper {
 
     private static final @NotNull LimitedString LIMITED_STRING = LimitedString.init().length(1, MAX_LENGTH).build();
 
-    @NotNull
     public static AccountName from(@NotNull final String name) {
         return new AccountName(name);
     }

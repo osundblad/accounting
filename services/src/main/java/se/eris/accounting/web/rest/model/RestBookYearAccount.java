@@ -17,11 +17,9 @@ public class RestBookYearAccount {
     @Nullable
     @JsonProperty
     private final UUID id;
-    @NotNull
-    @JsonProperty
+        @JsonProperty
     private final UUID bookYearId;
-    @NotNull
-    @JsonProperty
+        @JsonProperty
     private final RestAccountInfo accountInfo;
 
     @SuppressWarnings("FeatureEnvy")
@@ -42,14 +40,12 @@ public class RestBookYearAccount {
         this.accountInfo = accountInfo;
     }
 
-    @NotNull
-    public BookYearAccount toCore() {
+        public BookYearAccount toCore() {
         return BookYearAccount.of(getId(), BookYearId.from(bookYearId), accountInfo.toCore());
     }
 
     @JsonIgnore
-    @NotNull
-    public Optional<BookYearAccountId> getId() {
+        public Optional<BookYearAccountId> getId() {
         return Optional.ofNullable(id).map(BookYearAccountId::from);
     }
 

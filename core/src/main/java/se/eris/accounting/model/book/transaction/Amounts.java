@@ -4,7 +4,6 @@ import org.jetbrains.annotations.NotNull;
 
 public final class Amounts {
 
-    @NotNull
     public static Amount sum(@NotNull final Amount... amounts) {
         Amount sum = Amount.ZERO;
         for (final Amount amount : amounts) {
@@ -13,7 +12,6 @@ public final class Amounts {
         return sum;
     }
 
-    @NotNull
     public static AmountPair split(@NotNull final Amount amount, @NotNull final Amount percent) {
         final Amount first = amount.percent(percent);
         final Amount second = amount.subtract(first);
