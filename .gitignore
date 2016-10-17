@@ -1,9 +1,5 @@
-# Created by .ignore support plugin (hsz.mobi)
 ### Java template
 *.class
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
 
 # Package Files #
 *.jar
@@ -19,3 +15,15 @@ hs_err_pid*
 
 ### DB
 transaction-logs
+
+### Maven
+*/target/*
+
+### Frontend
+npm-debug.log
+phantomjsdriver.log
+web/src/node_modules/*
+web/src/typings/*
+
+### This application (SpringBoot)
+application.properties
