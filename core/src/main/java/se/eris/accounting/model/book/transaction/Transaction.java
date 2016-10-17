@@ -1,6 +1,5 @@
 package se.eris.accounting.model.book.transaction;
 
-import org.jetbrains.annotations.NotNull;
 import se.eris.accounting.model.book.BookYearId;
 
 import java.time.LocalDate;
@@ -11,7 +10,7 @@ import java.util.stream.Stream;
 
 public class Transaction {
 
-        public static Transaction of(@NotNull final Optional<TransactionId> id, @NotNull final BookYearId bookYearId, @NotNull final LocalDate date, @NotNull final Collection<TransactionLine> transactionLines) {
+        public static Transaction of(final Optional<TransactionId> id, final BookYearId bookYearId, final LocalDate date, final Collection<TransactionLine> transactionLines) {
         return new Transaction(id, bookYearId, date, transactionLines);
     }
 
@@ -20,7 +19,7 @@ public class Transaction {
         private final LocalDate date;
         private final Collection<TransactionLine> transactionLines;
 
-    private Transaction(@NotNull final Optional<TransactionId> id, @NotNull final BookYearId bookYearId, @NotNull final LocalDate date, @NotNull final Collection<TransactionLine> transactionLines) {
+    private Transaction(final Optional<TransactionId> id, final BookYearId bookYearId, final LocalDate date, final Collection<TransactionLine> transactionLines) {
         this.id = id;
         this.bookYearId = bookYearId;
         this.date = date;

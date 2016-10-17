@@ -1,6 +1,5 @@
 package se.eris.accounting.web.rest;
 
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +40,7 @@ public class TestResource {
         private final TransactionResource transactionResource;
 
     @Autowired
-    public TestResource(@NotNull final BookResource bookResource, @NotNull final BookYearResource bookYearResource, @NotNull final AccountResource accountResource, @NotNull final TransactionResource transactionResource) {
+    public TestResource(final BookResource bookResource, final BookYearResource bookYearResource, final AccountResource accountResource, final TransactionResource transactionResource) {
         this.bookResource = bookResource;
         this.bookYearResource = bookYearResource;
         this.accountResource = accountResource;
@@ -93,11 +92,11 @@ public class TestResource {
         return new ResponseEntity<>("ok", HttpStatus.OK);
     }
 
-        private TransactionLine createNewTransactionLine(@NotNull final RestBookYearAccount account, @NotNull final String amount) {
+        private TransactionLine createNewTransactionLine(final RestBookYearAccount account, final String amount) {
         return TransactionLine.of(Optional.empty(), account.getId().get(), Amount.of(amount));
     }
 
-        private Transaction createNewTransaction(@NotNull final RestBookYear year, @NotNull final TransactionLine... transactionLines) {
+        private Transaction createNewTransaction(final RestBookYear year, final TransactionLine... transactionLines) {
         return Transaction.of(Optional.empty(), BookYearId.from(year.getId().get()), LocalDate.now(), Arrays.asList(transactionLines));
     }
 
@@ -116,7 +115,7 @@ public class TestResource {
         }
     }
 
-    private void deleteAllBookYears(@NotNull final Book book) {
+    private void deleteAllBookYears(final Book book) {
         for (final RestBookYear year : bookYearResource.get(book.getId().get().asUUID())) {
             logger.info("  deleting year: '" + year.toString() + "'");
             deleteAllTransactions(year);
@@ -125,21 +124,21 @@ public class TestResource {
         }
     }
 
-    private void deleteAllTransactions(@NotNull final RestBookYear year) {
+    private void deleteAllTransactions(final RestBookYear year) {
         for (final RestTransaction transaction : transactionResource.getForYear(year.getId().get()).getBody()) {
             logger.info("  deleting transaction: '" + transaction.toString() + "'");
             transactionResource.delete(transaction.getId().get().asUUID());
         }
     }
 
-    private void deleteAllAccounts(@NotNull final RestBookYear year) {
+    private void deleteAllAccounts(final RestBookYear year) {
         for (final RestBookYearAccount account : accountResource.get(year.getId().get())) {
             logger.info("  deleting account: '" + account.toString() + "'");
             accountResource.delete(account.getId().get().asUUID());
         }
     }
 
-        private Optional<Book> getBookByName(@NotNull final String bookName) {
+        private Optional<Book> getBookByName(final String bookName) {
         return bookResource.getAll().stream().map(RestBook::toCore).filter(b -> b.getName().equals(BookName.of(bookName))).findFirst();
     }
 

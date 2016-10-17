@@ -3,7 +3,6 @@ package se.eris.accounting.web.rest.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import se.eris.accounting.model.book.Book;
 import se.eris.accounting.model.book.BookDescription;
@@ -24,14 +23,14 @@ public class RestBook {
         private final String description;
 
     @JsonCreator
-    public RestBook(@JsonProperty("id") @Nullable final UUID id, @JsonProperty("name") @NotNull final String name, @JsonProperty("description") @NotNull final String description) {
+    public RestBook(@JsonProperty("id") @Nullable final UUID id, @JsonProperty("name") final String name, @JsonProperty("description") final String description) {
         this.id = id;
         this.name = name;
         this.description = description;
     }
 
     @SuppressWarnings("FeatureEnvy")
-    public RestBook(@NotNull final Book book) {
+    public RestBook(final Book book) {
         id = book.getId().map(BookId::asUUID).orElse(null);
         name = book.getName().asString();
         description = book.getDescription().asString();

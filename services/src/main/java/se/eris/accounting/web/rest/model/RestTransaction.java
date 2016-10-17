@@ -3,7 +3,6 @@ package se.eris.accounting.web.rest.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import se.eris.accounting.model.book.BookYearId;
 import se.eris.accounting.model.book.transaction.Transaction;
@@ -20,7 +19,7 @@ import java.util.stream.Stream;
 public class RestTransaction {
 
     @SuppressWarnings("FeatureEnvy")
-    public static RestTransaction of(@NotNull final Transaction transaction) {
+    public static RestTransaction of(final Transaction transaction) {
         return new RestTransaction(
                 transaction.getId().map(TransactionId::asUUID).orElse(null),
                 transaction.getBookYearId().asUUID(),
@@ -41,8 +40,8 @@ public class RestTransaction {
     @JsonCreator
     public RestTransaction(
             @JsonProperty("id") @Nullable final UUID id,
-            @JsonProperty("bookYearId") @NotNull final UUID bookYearId,
-            @JsonProperty("transactionLines") @NotNull final List<RestTransactionLine> transactionLines) {
+            @JsonProperty("bookYearId") final UUID bookYearId,
+            @JsonProperty("transactionLines") final List<RestTransactionLine> transactionLines) {
         this.id = id;
         this.bookYearId = bookYearId;
         this.transactionLines = transactionLines;

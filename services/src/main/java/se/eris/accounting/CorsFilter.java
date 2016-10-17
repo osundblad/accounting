@@ -1,6 +1,5 @@
 package se.eris.accounting;
 
-import org.jetbrains.annotations.NotNull;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -14,7 +13,7 @@ import java.io.IOException;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsFilter implements Filter {
 
-    public void doFilter(@NotNull final ServletRequest req, @NotNull final ServletResponse res, @NotNull final FilterChain chain) throws IOException, ServletException {
+    public void doFilter(final ServletRequest req, final ServletResponse res, final FilterChain chain) throws IOException, ServletException {
         final HttpServletResponse response = (HttpServletResponse) res;
         final HttpServletRequest request = (HttpServletRequest) req;
         response.setHeader("Access-Control-Allow-Origin", "*");
@@ -26,7 +25,7 @@ public class CorsFilter implements Filter {
         }
     }
 
-    public void init(@NotNull final FilterConfig filterConfig) {
+    public void init(final FilterConfig filterConfig) {
     }
 
     public void destroy() {

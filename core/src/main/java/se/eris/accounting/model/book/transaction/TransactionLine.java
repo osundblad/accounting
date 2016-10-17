@@ -1,13 +1,12 @@
 package se.eris.accounting.model.book.transaction;
 
-import org.jetbrains.annotations.NotNull;
 import se.eris.accounting.model.book.account.BookYearAccountId;
 
 import java.util.Optional;
 
 public class TransactionLine {
 
-        public static TransactionLine of(@NotNull final Optional<TransactionLineId> id, @NotNull final BookYearAccountId bookYearAccountId, @NotNull final Amount amount) {
+        public static TransactionLine of(final Optional<TransactionLineId> id, final BookYearAccountId bookYearAccountId, final Amount amount) {
         return new TransactionLine(id, bookYearAccountId, amount);
     }
 
@@ -17,7 +16,7 @@ public class TransactionLine {
 
         private final Amount amount;
 
-    private TransactionLine(@NotNull final Optional<TransactionLineId> id, @NotNull final BookYearAccountId bookYearAccountId, @NotNull final Amount amount) {
+    private TransactionLine(final Optional<TransactionLineId> id, final BookYearAccountId bookYearAccountId, final Amount amount) {
         this.id = id;
         this.bookYearAccountId = bookYearAccountId;
         this.amount = amount;

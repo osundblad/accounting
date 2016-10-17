@@ -2,7 +2,6 @@ package se.eris.accounting.web.rest.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.jetbrains.annotations.NotNull;
 import se.eris.accounting.model.book.account.*;
 
 public class RestAccountInfo {
@@ -18,10 +17,10 @@ public class RestAccountInfo {
 
     @JsonCreator
     public RestAccountInfo(
-            @JsonProperty("accountClass") @NotNull final AccountClass accountClass,
-            @JsonProperty("code") @NotNull final String code,
-            @JsonProperty("name") @NotNull final String name,
-            @JsonProperty("description") @NotNull final String description) {
+            @JsonProperty("accountClass") final AccountClass accountClass,
+            @JsonProperty("code") final String code,
+            @JsonProperty("name") final String name,
+            @JsonProperty("description") final String description) {
         this.accountClass = accountClass;
         this.code = code;
         this.name = name;
@@ -29,7 +28,7 @@ public class RestAccountInfo {
     }
 
     @SuppressWarnings("FeatureEnvy")
-    public RestAccountInfo(@NotNull final AccountInfo accountInfo) {
+    public RestAccountInfo(final AccountInfo accountInfo) {
         this(accountInfo.getAccountClass(),
                 accountInfo.getCode().asString(),
                 accountInfo.getName().asString(),

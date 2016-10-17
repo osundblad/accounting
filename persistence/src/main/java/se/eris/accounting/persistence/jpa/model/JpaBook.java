@@ -9,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 @Entity
@@ -35,7 +34,7 @@ public class JpaBook {
     }
 
     @SuppressWarnings("FeatureEnvy")
-    public JpaBook(@NotNull final Book book) {
+    public JpaBook(final Book book) {
         id = book.getId().orElse(BookId.random()).raw().toString();
         name = book.getName().asString();
         description = book.getDescription().asString();

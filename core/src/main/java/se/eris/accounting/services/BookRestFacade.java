@@ -1,6 +1,5 @@
 package se.eris.accounting.services;
 
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.eris.accounting.model.book.Book;
@@ -21,15 +20,15 @@ public class BookRestFacade {
         private final BookDataService bookDataService;
 
     @Autowired
-    public BookRestFacade(@NotNull final BookDataService bookDataService) {
+    public BookRestFacade(final BookDataService bookDataService) {
         this.bookDataService = bookDataService;
     }
 
-        public Book create(@NotNull final Book book) {
+        public Book create(final Book book) {
         return bookDataService.create(book);
     }
 
-    public void delete(@NotNull final BookId bookId) {
+    public void delete(final BookId bookId) {
         bookDataService.delete(bookId);
     }
 
@@ -37,43 +36,43 @@ public class BookRestFacade {
         return bookDataService.getAllBooks();
     }
 
-        public BookYear create(@NotNull final BookYear bookYear) {
+        public BookYear create(final BookYear bookYear) {
         return bookDataService.create(bookYear);
     }
 
-    public void delete(@NotNull final BookYearId bookYearId) {
+    public void delete(final BookYearId bookYearId) {
         bookDataService.delete(bookYearId);
     }
 
-        public Stream<BookYear> getBookYears(@NotNull final BookId bookId) {
+        public Stream<BookYear> getBookYears(final BookId bookId) {
         return bookDataService.getBookYears(bookId);
     }
 
-        public Stream<BookYearAccount> getBookYearAccounts(@NotNull final BookYearId bookYearId) {
+        public Stream<BookYearAccount> getBookYearAccounts(final BookYearId bookYearId) {
         return bookDataService.findBookYearAccounts(bookYearId);
     }
 
-        public BookYearAccount create(@NotNull final BookYearAccount account) {
+        public BookYearAccount create(final BookYearAccount account) {
         return bookDataService.create(account);
     }
 
-    public void delete(@NotNull final BookYearAccountId bookYearAccountId) {
+    public void delete(final BookYearAccountId bookYearAccountId) {
         bookDataService.delete(bookYearAccountId);
     }
 
-        public Stream<Transaction> getTransactions(@NotNull final BookYearId bookYearId) {
+        public Stream<Transaction> getTransactions(final BookYearId bookYearId) {
         return bookDataService.getTransactions(bookYearId);
     }
 
-        public Transaction create(@NotNull final Transaction transaction) {
+        public Transaction create(final Transaction transaction) {
         return bookDataService.create(transaction);
     }
 
-        public Transaction get(@NotNull final TransactionId transactionId) {
+        public Transaction get(final TransactionId transactionId) {
         return bookDataService.get(transactionId);
     }
 
-    public void delete(@NotNull final TransactionId transactionId) {
+    public void delete(final TransactionId transactionId) {
         bookDataService.delete(transactionId);
     }
 }

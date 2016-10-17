@@ -6,7 +6,6 @@ import se.eris.accounting.model.book.transaction.TransactionId;
 import se.eris.accounting.model.book.transaction.TransactionLine;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Optional;
@@ -35,14 +34,14 @@ public class JpaTransaction {
     }
 
     @SuppressWarnings("FeatureEnvy")
-    public JpaTransaction(@NotNull final Transaction transaction) {
+    public JpaTransaction(final Transaction transaction) {
         id = transaction.getId().orElse(TransactionId.random()).asString();
         bookYearId = transaction.getBookYearId().asString();
         date = transaction.getDate();
         transactionLines = getJpaTransactionLines(transaction.getTransactionLines());
     }
 
-        private Collection<JpaTransactionLine> getJpaTransactionLines(@NotNull final Stream<TransactionLine> transactionLines) {
+        private Collection<JpaTransactionLine> getJpaTransactionLines(final Stream<TransactionLine> transactionLines) {
         return transactionLines.map(tl -> new JpaTransactionLine(tl, this)).collect(Collectors.toList());
     }
 

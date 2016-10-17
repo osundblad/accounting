@@ -6,7 +6,6 @@ import se.eris.accounting.model.book.transaction.TransactionLine;
 import se.eris.accounting.model.book.transaction.TransactionLineId;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 @Entity
@@ -31,7 +30,7 @@ public class JpaTransactionLine {
     public JpaTransactionLine() {
     }
 
-    public JpaTransactionLine(@NotNull final TransactionLine transactionLine, @NotNull final JpaTransaction jpaTransaction) {
+    public JpaTransactionLine(final TransactionLine transactionLine, final JpaTransaction jpaTransaction) {
         id = transactionLine.getId().orElse(TransactionLineId.random()).asString();
         transaction = jpaTransaction;
         accountId = transactionLine.getBookYearAccountId().asString();

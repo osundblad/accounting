@@ -3,7 +3,6 @@ package se.eris.accounting.web.rest.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import se.eris.accounting.model.book.BookId;
 import se.eris.accounting.model.book.BookYear;
@@ -30,9 +29,9 @@ public class RestBookYear {
     @JsonCreator
     public RestBookYear(
             @JsonProperty("id") @Nullable final UUID id,
-            @JsonProperty("bookId") @NotNull final UUID bookId,
-            @JsonProperty("startDate") @NotNull final String startDate,
-            @JsonProperty("endDate") @NotNull final String endDate) {
+            @JsonProperty("bookId") final UUID bookId,
+            @JsonProperty("startDate") final String startDate,
+            @JsonProperty("endDate") final String endDate) {
         this.id = id;
         this.bookId = bookId;
         this.startDate = startDate;
@@ -40,7 +39,7 @@ public class RestBookYear {
     }
 
     @SuppressWarnings("FeatureEnvy")
-    public RestBookYear(@NotNull final BookYear bookYear) {
+    public RestBookYear(final BookYear bookYear) {
         id = bookYear.getId().map(BookYearId::asUUID).orElse(null);
         bookId = bookYear.getBookId().asUUID();
         startDate = bookYear.getStartDate().format(DateTimeFormatter.ISO_DATE);

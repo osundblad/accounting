@@ -1,6 +1,5 @@
 package se.eris.accounting.web.rest;
 
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ public class BookResource {
         private final BookRestFacade bookRestFacade;
 
     @Autowired
-    public BookResource(@NotNull final BookRestFacade bookRestFacade) {
+    public BookResource(final BookRestFacade bookRestFacade) {
         this.bookRestFacade = bookRestFacade;
     }
 
@@ -55,19 +54,19 @@ public class BookResource {
 
     // todo remove
         @RequestMapping(method = RequestMethod.GET, value = "/create")
-    public RestBook createRandom(@RequestParam("name") @NotNull final String name, @RequestParam("description") @NotNull final String description) {
+    public RestBook createRandom(@RequestParam("name") final String name, @RequestParam("description") final String description) {
         return new RestBook(bookRestFacade.create(new Book(Optional.empty(), BookName.of(name), BookDescription.of(description))));
     }
 
         @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<RestBook> create(@RequestBody @NotNull final RestBook restBook) {
+    public ResponseEntity<RestBook> create(@RequestBody final RestBook restBook) {
         final Book saved = bookRestFacade.create(restBook.toCore());
         logger.debug("created book: " + saved);
         return new ResponseEntity<>(new RestBook(saved), HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{bookId}")
-    public ResponseEntity delete(@PathVariable("bookId") @NotNull final UUID bookId) {
+    public ResponseEntity delete(@PathVariable("bookId") final UUID bookId) {
         bookRestFacade.delete(BookId.from(bookId));
         return ResponseEntity.ok().build();
     }

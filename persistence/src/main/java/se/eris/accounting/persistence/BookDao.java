@@ -1,6 +1,5 @@
 package se.eris.accounting.persistence;
 
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.eris.accounting.model.book.Book;
@@ -16,7 +15,7 @@ public class BookDao {
         private final JpaBookRepository bookRepository;
 
     @Autowired
-    public BookDao(@NotNull final JpaBookRepository bookRepository) {
+    public BookDao(final JpaBookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
@@ -24,21 +23,21 @@ public class BookDao {
         return bookRepository.findAll().stream().map(JpaBook::toCore);
     }
 
-        public Book create(@NotNull final Book book) {
+        public Book create(final Book book) {
         if (book.getId().isPresent()) {
             throw new AlreadyPersistedException(book + " has already been persisted (use update)." );
         }
         return bookRepository.save(new JpaBook(book)).toCore();
     }
 
-        public Book update(@NotNull final Book book) {
+        public Book update(final Book book) {
         if (!book.getId().isPresent()) {
             throw new NotPersistedException(book + " has not been persisted (use create)." );
         }
         return bookRepository.save(new JpaBook(book)).toCore();
     }
 
-    public void delete(@NotNull final BookId bookId) {
+    public void delete(final BookId bookId) {
         bookRepository.delete(bookId.asString());
     }
 

@@ -1,6 +1,5 @@
 package se.eris.accounting.model.book.account;
 
-import org.jetbrains.annotations.NotNull;
 import se.eris.jtype.limit.LimitedString;
 import se.eris.jtype.type.StringWrapper;
 
@@ -13,11 +12,11 @@ public class AccountCode extends StringWrapper {
             .length(1, MAX_LENGTH)
             .matches(MUST_MATCH).build();
 
-    public static AccountCode from(@NotNull final String code) {
+    public static AccountCode from(final String code) {
         return new AccountCode(code);
     }
 
-    private AccountCode(@NotNull final String code) {
+    private AccountCode(final String code) {
         super(LIMITED_STRING.of(code));
     }
 

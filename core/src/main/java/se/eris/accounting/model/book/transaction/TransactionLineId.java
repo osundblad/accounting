@@ -1,17 +1,16 @@
 package se.eris.accounting.model.book.transaction;
 
-import org.jetbrains.annotations.NotNull;
 import se.eris.jtype.type.UUIDWrapper;
 
 import java.util.UUID;
 
 public class TransactionLineId extends UUIDWrapper {
 
-        public static TransactionLineId from(@NotNull final String name) {
+        public static TransactionLineId from(final String name) {
         return from(UUID.fromString(name));
     }
 
-        public static TransactionLineId from(@NotNull final UUID uuid) {
+        public static TransactionLineId from(final UUID uuid) {
         return new TransactionLineId(uuid);
     }
 
@@ -19,7 +18,7 @@ public class TransactionLineId extends UUIDWrapper {
         return from(UUID.randomUUID());
     }
 
-    private TransactionLineId(@NotNull final UUID uuid) {
+    private TransactionLineId(final UUID uuid) {
         super(uuid);
     }
 

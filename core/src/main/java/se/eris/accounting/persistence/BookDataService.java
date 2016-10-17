@@ -1,6 +1,5 @@
 package se.eris.accounting.persistence;
 
-import org.jetbrains.annotations.NotNull;
 import se.eris.accounting.model.book.Book;
 import se.eris.accounting.model.book.BookId;
 import se.eris.accounting.model.book.BookYear;
@@ -16,29 +15,29 @@ public interface BookDataService {
 
         Stream<Book> getAllBooks();
 
-        Book create(@NotNull Book book);
+        Book create(Book book);
 
-        Book update(@NotNull Book book);
+        Book update(Book book);
 
-    void delete(@NotNull BookId bookId);
+    void delete(BookId bookId);
 
-        Stream<BookYear> getBookYears(@NotNull BookId bookId);
+        Stream<BookYear> getBookYears(BookId bookId);
 
-        BookYear create(@NotNull BookYear bookYear);
+        BookYear create(BookYear bookYear);
 
-    void delete(@NotNull BookYearId bookYearId);
+    void delete(BookYearId bookYearId);
 
-        Stream<BookYearAccount> findBookYearAccounts(@NotNull BookYearId bookYearId);
+        Stream<BookYearAccount> findBookYearAccounts(BookYearId bookYearId);
 
-        BookYearAccount create(@NotNull BookYearAccount account);
+        BookYearAccount create(BookYearAccount account);
 
-    void delete(@NotNull BookYearAccountId bookYearAccountId);
+    void delete(BookYearAccountId bookYearAccountId);
 
-        Stream<Transaction> getTransactions(@NotNull BookYearId bookYearId);
+        Stream<Transaction> getTransactions(BookYearId bookYearId);
 
-        Transaction create(@NotNull Transaction transaction);
+        Transaction create(Transaction transaction);
 
-        Transaction get(@NotNull TransactionId transactionId);
+        Transaction get(TransactionId transactionId);
 
-    void delete(@NotNull TransactionId transactionId);
+    void delete(TransactionId transactionId);
 }

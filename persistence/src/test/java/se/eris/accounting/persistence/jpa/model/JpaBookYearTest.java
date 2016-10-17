@@ -1,6 +1,5 @@
 package se.eris.accounting.persistence.jpa.model;
 
-import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 import se.eris.accounting.model.book.BookId;
 import se.eris.accounting.model.book.BookYear;
@@ -29,7 +28,7 @@ public class JpaBookYearTest {
         assertThat(jpaBookYear.toCore().getId().isPresent(), is(true));
     }
 
-        private BookYear createBookYear(@NotNull final Optional<BookYearId> id) {
+        private BookYear createBookYear(final Optional<BookYearId> id) {
         final LocalDate now = LocalDate.now();
         return new BookYear(id, BookId.random(), OpenDatePeriod.between(now, now.plusDays(2)));
     }

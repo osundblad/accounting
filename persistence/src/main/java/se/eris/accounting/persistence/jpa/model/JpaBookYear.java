@@ -9,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
@@ -37,7 +36,7 @@ public class JpaBookYear {
     }
 
     @SuppressWarnings("FeatureEnvy")
-    public JpaBookYear(@NotNull final BookYear bookYear) {
+    public JpaBookYear(final BookYear bookYear) {
         id = bookYear.getId().orElse(BookYearId.random()).asString();
         bookId = bookYear.getBookId().raw();
         fromDate = bookYear.getStartDate();

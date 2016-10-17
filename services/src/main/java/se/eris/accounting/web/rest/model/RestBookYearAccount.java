@@ -3,7 +3,6 @@ package se.eris.accounting.web.rest.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import se.eris.accounting.model.book.BookYearId;
 import se.eris.accounting.model.book.account.BookYearAccount;
@@ -23,7 +22,7 @@ public class RestBookYearAccount {
     private final RestAccountInfo accountInfo;
 
     @SuppressWarnings("FeatureEnvy")
-    public static RestBookYearAccount of(@NotNull final BookYearAccount account) {
+    public static RestBookYearAccount of(final BookYearAccount account) {
         return new RestBookYearAccount(
                 account.getId().map(BookYearAccountId::asUUID).orElse(null),
                 account.getBookYearId().asUUID(),
@@ -33,8 +32,8 @@ public class RestBookYearAccount {
     @JsonCreator
     public RestBookYearAccount(
             @JsonProperty("id") @Nullable final UUID id,
-            @JsonProperty("bookYearId") @NotNull final UUID bookYearId,
-            @JsonProperty("accountInfo") @NotNull final RestAccountInfo accountInfo) {
+            @JsonProperty("bookYearId") final UUID bookYearId,
+            @JsonProperty("accountInfo") final RestAccountInfo accountInfo) {
         this.id = id;
         this.bookYearId = bookYearId;
         this.accountInfo = accountInfo;

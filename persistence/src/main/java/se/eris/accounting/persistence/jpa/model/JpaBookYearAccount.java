@@ -4,7 +4,6 @@ import se.eris.accounting.model.book.BookYearId;
 import se.eris.accounting.model.book.account.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 @Entity
@@ -39,7 +38,7 @@ public class JpaBookYearAccount {
     }
 
     @SuppressWarnings("FeatureEnvy")
-    public JpaBookYearAccount(@NotNull final BookYearAccount account) {
+    public JpaBookYearAccount(final BookYearAccount account) {
         id = account.getId().orElse(BookYearAccountId.random()).asString();
         bookYearId = account.getBookYearId().asString();
 

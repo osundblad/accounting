@@ -1,6 +1,5 @@
 package se.eris.accounting.model.book.transaction;
 
-import org.jetbrains.annotations.NotNull;
 import se.eris.jtype.limit.LimitedBigDecimal;
 import se.eris.jtype.type.BasicWrapper;
 
@@ -16,7 +15,7 @@ public final class Amount extends BasicWrapper<BigDecimal> {
 
     public static final Amount ZERO = new Amount(BigDecimal.ZERO);
 
-    private static Amount of(@NotNull final BigDecimal bigDecimal) {
+    private static Amount of(final BigDecimal bigDecimal) {
         return new Amount(bigDecimal);
     }
 
@@ -24,19 +23,19 @@ public final class Amount extends BasicWrapper<BigDecimal> {
         return new Amount(new BigDecimal(amount));
     }
 
-    public static Amount of(@NotNull final String amount) {
+    public static Amount of(final String amount) {
         return new Amount(new BigDecimal(amount));
     }
 
-    private Amount(@NotNull final BigDecimal amount) {
+    private Amount(final BigDecimal amount) {
         super(LIMIT.of(amount).setScale(DECIMALS, BigDecimal.ROUND_UNNECESSARY));
     }
 
-    private Amount internalAdd(@NotNull final Amount amount) {
+    private Amount internalAdd(final Amount amount) {
         return new Amount(this.raw().add(amount.raw()));
     }
 
-    public Amount add(@NotNull final Amount... amounts) {
+    public Amount add(final Amount... amounts) {
         Amount sum = this;
         for (final Amount amount : amounts) {
             sum = sum.internalAdd(amount);
@@ -44,20 +43,20 @@ public final class Amount extends BasicWrapper<BigDecimal> {
         return sum;
     }
 
-    public Amount subtract(@NotNull final Amount amount) {
+    public Amount subtract(final Amount amount) {
         return new Amount(this.raw().subtract(amount.raw()));
     }
 
-    public Amount multiply(@NotNull final Amount amount) {
+    public Amount multiply(final Amount amount) {
         return new Amount(this.raw().multiply(amount.raw()).setScale(DECIMALS, BigDecimal.ROUND_HALF_UP));
     }
 
-    public Amount divide(@NotNull final Amount amount) {
+    public Amount divide(final Amount amount) {
         //noinspection BigDecimalMethodWithoutRoundingCalled
         return new Amount(this.raw().divide(amount.raw()).setScale(DECIMALS, BigDecimal.ROUND_HALF_UP));
     }
 
-    public Amount percent(@NotNull final Amount percent) {
+    public Amount percent(final Amount percent) {
         //noinspection BigDecimalMethodWithoutRoundingCalled
         return Amount.of(raw().multiply(percent.raw()).divide(BIG_DECIAML_100).setScale(DECIMALS, RoundingMode.HALF_UP));
     }
